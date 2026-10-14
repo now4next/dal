@@ -2,32 +2,110 @@
   {
     "date": "2026-10",
     "published": "2026-10-08",
-    "title": { "en": "The Art of Self-Deception (나를 속이는 나)", "ko": "나를 속이는 나" },
-    "subtitle": { "en": "", "ko": "The Art of Self-Deception" },
-    "author": { "en": "Kang Rim (姜林)", "ko": "강림(姜林)" },
+    "title": {
+      "en": "The Art of Self-Deception (나를 속이는 나)",
+      "ko": "나를 속이는 나"
+    },
+    "subtitle": {
+      "en": "In Korean",
+      "ko": "The Art of Self-Deception"
+    },
+    "author": {
+      "en": "Kang Rim (姜林)",
+      "ko": "강림(姜林)"
+    },
     "publisher": "BOOKK",
     "pages": 194,
     "isbn": "9791112314987",
-    "genre": { "en": "Psychology · Self-development", "ko": "심리 · 자기계발" },
-    "cover": "/books/art-of-self-deception.jpg",
-    "url": "https://bookk.co.kr/bookStore/6ac5e2c0b15f4dcf80ed82ad",
+    "genre": {
+      "en": "Psychology · Self-development",
+      "ko": "심리 · 자기계발"
+    },
+    "cover": {
+      "src": "/books/art-of-self-deception.jpg",
+      "width": 583,
+      "height": 827
+    },
+    "store": {
+      "label": "BOOKK",
+      "url": "https://bookk.co.kr/bookStore/6ac5e2c0b15f4dcf80ed82ad"
+    },
     "desc": {
       "en": "Maps self-deception, from unconscious forgetting and rationalization to deception in relationships, organizations and propaganda, as \"45 steps of deception\", and focuses on the first nine: how we edit memories, choose beliefs, avoid feelings and inflate the self. Five parts (Map, Mirror, Reflection, Management, Freedom), twenty chapters and five short interlude stories.",
       "ko": "무의식적인 망각과 합리화에서 관계 속 기만, 조직과 사회의 선전까지 이어지는 속임을 '기만의 45계단'이라는 지도로 펼치고, 기억을 편집하고 믿음을 고르고 감정을 피하고 자아를 부풀리는 첫 아홉 계단에 주목합니다. 지도·거울·성찰·경영·자유의 다섯 부, 스무 개의 장과 다섯 편의 막간 소설로 구성됩니다."
     }
   },
   {
+    "date": "2026-02",
+    "published": "2026-02-26",
+    "title": {
+      "en": "Lines Life Taught Me",
+      "ko": "Lines Life Taught Me"
+    },
+    "subtitle": {
+      "en": "Essential Insights Decoded from Experience",
+      "ko": "Essential Insights Decoded from Experience · 「살아본 뒤에야 비로소 읽히는 문장들」 영문판"
+    },
+    "author": {
+      "en": "Forest Kang",
+      "ko": "Forest Kang (강림)"
+    },
+    "publisher": "Independently published",
+    "pages": 477,
+    "isbn": "9798249648312",
+    "formats": {
+      "en": "Hardcover · Paperback · Kindle",
+      "ko": "하드커버 · 페이퍼백 · 킨들"
+    },
+    "genre": {
+      "en": "Self-help · Personal transformation (English)",
+      "ko": "자기계발 · 영문"
+    },
+    "cover": {
+      "src": "/books/lines-life-taught-me.jpg",
+      "width": 583,
+      "height": 869
+    },
+    "store": {
+      "label": "Amazon",
+      "url": "https://www.amazon.com/dp/B0GQMJ7J9C"
+    },
+    "desc": {
+      "en": "The English edition of 살아본 뒤에야 비로소 읽히는 문장들. It gathers 99 universal truths, familiar proverbs, maxims and laws of life, and examines each through economics, psychology, physics and history across nine themes. Designed to be opened at a random page each day.",
+      "ko": "「살아본 뒤에야 비로소 읽히는 문장들」의 영문판입니다. 누구나 아는 속담·격언·삶의 법칙 99가지를 경제학·심리학·물리학·역사의 관점으로 9개 주제에 걸쳐 풀었고, 매일 아무 페이지나 펼쳐 읽도록 구성했습니다."
+    }
+  },
+  {
     "date": "2026-01",
     "published": "2026-01-29",
-    "title": { "en": "살아본 뒤에야 비로소 읽히는 문장들 (Sentences You Can Only Read After Living Them)", "ko": "살아본 뒤에야 비로소 읽히는 문장들" },
-    "subtitle": { "en": "", "ko": "" },
-    "author": { "en": "Kang Rim", "ko": "강림선생" },
+    "title": {
+      "en": "살아본 뒤에야 비로소 읽히는 문장들",
+      "ko": "살아본 뒤에야 비로소 읽히는 문장들"
+    },
+    "subtitle": {
+      "en": "Korean edition of Lines Life Taught Me",
+      "ko": ""
+    },
+    "author": {
+      "en": "Kang Rim",
+      "ko": "강림선생"
+    },
     "publisher": "BOOKK",
     "pages": 764,
     "isbn": "9791112135698",
-    "genre": { "en": "Humanities · Self-development", "ko": "인문/교양 · 자기계발" },
-    "cover": "/books/sentences-after-living.jpg",
-    "url": "https://bookk.co.kr/bookStore/6979fec13b73f87a2560b83c",
+    "genre": {
+      "en": "Humanities · Self-development",
+      "ko": "인문/교양 · 자기계발"
+    },
+    "cover": {
+      "src": "/books/sentences-after-living.jpg",
+      "width": 583,
+      "height": 827
+    },
+    "store": {
+      "label": "BOOKK",
+      "url": "https://bookk.co.kr/bookStore/6979fec13b73f87a2560b83c"
+    },
     "desc": {
       "en": "99 familiar proverbs and maxims re-read through economics, physics, psychology, history and other fields, in nine parts from the laws of economics and exchange to fate and acceptance. The hundredth page is left blank for readers to write their own lesson.",
       "ko": "익숙한 속담과 격언 99가지를 경제학·물리학·심리학·역사 등 여러 학문의 관점으로 다시 읽습니다. 경제와 거래의 법칙부터 운명과 수용의 법칙까지 9부로 구성되며, 마지막 100번째 페이지는 독자가 자신의 지혜를 적도록 비워 두었습니다."

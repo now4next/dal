@@ -414,7 +414,7 @@
       "ko": "저서"
     },
     "title": {
-      "en": "New book: Sentences You Can Only Read After Living Them",
+      "en": "New book: 살아본 뒤에야 비로소 읽히는 문장들",
       "ko": "신간 「살아본 뒤에야 비로소 읽히는 문장들」"
     },
     "summary": {
@@ -423,11 +423,11 @@
     },
     "body": {
       "en": [
-        "Lab Director Byung Jun Kang, writing under the pen name Kang Rim (강림선생), published a book of everyday wisdom with BOOKK.",
+        "Lab Director Byung Jun Kang, writing under the pen name Kang Rim (강림선생), published a book of everyday wisdom in Korean with BOOKK. An English edition, Lines Life Taught Me: Essential Insights Decoded from Experience, followed on Amazon in February 2026 under the name Forest Kang.",
         "The book connects familiar proverbs to perspectives from economics, physics and psychology without technical jargon. It offers 99 pieces of wisdom and leaves the hundredth page blank for readers to write their own. It is organized in nine parts, including economics and exchange, cause and nature, time and change, human nature and psychology, and wisdom and insight."
       ],
       "ko": [
-        "강병준 연구책임자가 필명 강림선생으로 삶의 지혜를 다룬 책을 부크크(BOOKK)에서 출간했습니다.",
+        "강병준 연구책임자가 필명 강림선생으로 삶의 지혜를 다룬 책을 부크크(BOOKK)에서 출간했습니다. 2026년 2월에는 영문판 「Lines Life Taught Me: Essential Insights Decoded from Experience」(Forest Kang)가 아마존에서 출간되었습니다.",
         "익숙한 속담과 격언을 경제학·물리학·심리학 관점과 연결해, 어려운 용어 없이 99가지 지혜로 풀었습니다. 마지막 100번째 페이지는 독자가 자신의 깨달음을 직접 적도록 비워 두었습니다. 경제와 거래, 인과와 자연, 시간과 변화, 인간 본성과 심리, 지혜와 통찰 등 9부로 구성됩니다."
       ]
     },
@@ -443,7 +443,7 @@
       "width": 583,
       "height": 827,
       "alt": {
-        "en": "Cover of Sentences You Can Only Read After Living Them",
+        "en": "Cover of 살아본 뒤에야 비로소 읽히는 문장들",
         "ko": "「살아본 뒤에야 비로소 읽히는 문장들」 표지"
       },
       "link": "https://bookk.co.kr/bookStore/6979fec13b73f87a2560b83c"
