@@ -18,6 +18,11 @@ const others = [...news].filter((n) => n.slug !== slug).sort(byDate).slice(0, 3)
         <div class="meta-row"><span class="meta-line"><time datetime={post.date}>{fmtDate(post.date, lang)}</time></span><span class="tag">{tr(post.tag, lang)}</span></div>
         <h1>{tr(post.title, lang)}</h1>
         <p class="summary">{tr(post.summary, lang)}</p>
+        {post.image && (
+          <a class="article-figure" href={post.image.link} target="_blank" rel="noopener">
+            <img src={post.image.src} alt={tr(post.image.alt, lang)} width={post.image.width} height={post.image.height} loading="lazy" decoding="async" />
+          </a>
+        )}
         <div class="body">
           {trList(post.body, lang).map((para) => <p>{para}</p>)}
         </div>

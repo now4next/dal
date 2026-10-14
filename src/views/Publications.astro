@@ -83,10 +83,24 @@ const count = (t: string) => papers.filter((p) => p.type === t).length;
       </div>
       <div class="books">
         {[...books].sort(byDate).map((b) => (
-          <div class="book">
-            <div class="cv" aria-hidden="true"></div>
-            <div><b>{tr(b.title, lang)}</b><span>{fmtDate(b.date, lang)} · {b.publisher}</span><p>{tr(b.desc, lang)}</p></div>
-          </div>
+          <article class="card book">
+            <a class="cover" href={b.url} target="_blank" rel="noopener" aria-label={`${tr(b.title, lang)} — BOOKK`}>
+              <img src={b.cover} alt={ko ? `「${tr(b.title, lang)}」 표지` : `Cover of ${tr(b.title, lang)}`} width="583" height="827" loading="lazy" decoding="async" />
+            </a>
+            <div class="book-body">
+              <h3>{tr(b.title, lang)}</h3>
+              {tr(b.subtitle, lang) && <p class="sub">{tr(b.subtitle, lang)}</p>}
+              <p class="by">{tr(b.author, lang)} · {b.publisher}</p>
+              <p class="desc">{tr(b.desc, lang)}</p>
+              <dl class="meta">
+                <dt>{ko ? '출판일' : 'Published'}</dt><dd>{b.published.replaceAll('-', '.')}</dd>
+                <dt>{ko ? '분야' : 'Genre'}</dt><dd>{tr(b.genre, lang)}</dd>
+                <dt>{ko ? '쪽수' : 'Pages'}</dt><dd>{b.pages}</dd>
+                <dt>ISBN</dt><dd class="num">{b.isbn}</dd>
+              </dl>
+              <a class="btn sec" href={b.url} target="_blank" rel="noopener">{ko ? 'BOOKK에서 보기' : 'View on BOOKK'} <Icon name="arrow-up-right" size={18} stroke={2} /></a>
+            </div>
+          </article>
         ))}
       </div>
     </div>
