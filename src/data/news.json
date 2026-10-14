@@ -1,7 +1,75 @@
 [
   {
+    "slug": "ai-governance-project-control",
+    "date": "2026-10-13",
+    "category": "research",
+    "tag": { "en": "Column", "ko": "칼럼" },
+    "title": { "en": "Column: in AI projects, control matters more than capability", "ko": "칼럼: AI 프로젝트의 성패는 통제 체계에 달렸다" },
+    "summary": { "en": "Organizations need governance for AI output, not just better tools. Four checks to pass before adopting AI.", "ko": "더 좋은 AI 도구보다 AI 결과물을 통제하는 체계가 필요합니다. AI 도입 전에 통과해야 할 네 가지 기준." },
+    "body": {
+      "en": [
+        "In a column for Money Today, Lab Director Byung Jun Kang, head of the SNU EPM AI4PM initiative, argues that companies focus on the performance of AI tools while lacking systems to control AI output and keep projects on target.",
+        "Because AI output looks convincing, people skip cross-checks. In megaprojects with large budgets and workforces, hallucinations can turn into financial losses and legal claims. AI shortens the work but does not take responsibility for the result.",
+        "He proposes four checks before AI is adopted: legal risk, by identifying high-risk systems ahead of EU-style AI regulation; company-wide standards, such as an AI management system under ISO/IEC 42001; ongoing monitoring of bias and security vulnerabilities, following frameworks like the NIST AI RMF; and verified results through limited pilots, as PMI recommends.",
+        "Work can be delegated to AI. Accountability for decisions cannot."
+      ],
+      "ko": [
+        "강병준 연구책임자(서울대 EPM AI4PM 사업단장)는 머니투데이 기고에서, 기업들이 AI 도구의 성능에만 집중하고 AI 결과물을 통제하며 프로젝트 목표를 관리하는 체계는 갖추지 못하고 있다고 지적했습니다.",
+        "AI 결과물은 그럴듯해 보이기 때문에 실무자가 교차 검증을 건너뛰기 쉽습니다. 대규모 자본과 인력이 얽힌 메가프로젝트에서는 AI의 환각이 재무 손실과 법적 분쟁으로 이어질 수 있습니다. AI는 작업 시간을 줄여 주지만 결과에 대한 책임은 지지 않습니다.",
+        "그는 AI 도입 전에 통과해야 할 네 가지 기준을 제시했습니다. EU 등 글로벌 AI 규제에 대비해 고위험 시스템을 식별하는 법적 안전망, ISO/IEC 42001 기반 AI 경영시스템 같은 전사 표준, NIST AI RMF 같은 프레임워크에 따른 편향성·보안 취약성 상시 점검, 그리고 PMI가 권고하는 제한적 파일럿을 통한 실질적 성과 검증입니다.",
+        "작업은 AI에 맡길 수 있어도 의사결정의 책임은 맡길 수 없다는 것이 결론입니다."
+      ]
+    },
+    "source": { "name": { "en": "Money Today", "ko": "머니투데이" }, "url": "https://n.news.naver.com/mnews/article/008/0005425121?sid=101" }
+  },
+  {
+    "slug": "global-assess-ai-review-coaching",
+    "date": "2026-09-10",
+    "category": "product",
+    "tag": { "en": "Product", "ko": "제품" },
+    "title": { "en": "Global Assess adds AI review and GROW-based AI coaching", "ko": "Global Assess, 진단 후 AI 리뷰·GROW 기반 AI 코칭 추가" },
+    "summary": { "en": "An assess–review–coaching process so that assessments lead to behavior change instead of ending as one-off reports.", "ko": "진단이 일회성 리포트로 끝나지 않고 행동 변화로 이어지도록 진단–리뷰–코칭 과정을 만들었습니다." },
+    "body": {
+      "en": [
+        "NFN upgraded its integrated HR platform Global Assess with an AI-based assess–review–coaching process (AI One-Flow), so that competency and leadership assessments lead to actual behavior change rather than ending as one-off reports.",
+        "Global Assess is a SaaS platform that lets a company open an online assessment center without building its own system. Companies without a competency model can use standard items by level and job; companies with their own model get a custom setup. Results come out automatically as quantitative and qualitative reports.",
+        "After an assessment, the AI review gives each person feedback in a one-to-one conversation covering strengths, risks and key development points. The new AI coach, designed on the GROW model (Goal, Reality, Option, Will), uses the assessment data to help each person set and follow development goals."
+      ],
+      "ko": [
+        "NFN이 통합 HR 플랫폼 Global Assess를 고도화해 AI 기반 진단–리뷰–코칭 과정(AI One-Flow)을 내놓았습니다. 역량·리더십 진단이 일회성 리포트로 끝나 실제 행동 변화로 이어지지 않던 한계를 보완한 것입니다.",
+        "Global Assess는 별도 시스템 구축 없이 온라인 진단센터를 열 수 있는 SaaS 플랫폼입니다. 역량모델이 없는 기업에는 계층별·직무별 표준 문항을, 고유 모델이 있는 기업에는 맞춤 셋업을 제공하며, 결과는 정량·정성 리포트로 자동 산출됩니다.",
+        "진단 후 AI 리뷰는 1:1 대화로 개인의 강점, 리스크, 핵심 개발 포인트를 짚어 줍니다. 새로 적용된 AI 코치는 GROW(Goal·Reality·Option·Will) 모델을 바탕으로 진단 데이터를 활용해 개인별 역량 개발 목표 수립과 실천을 돕습니다."
+      ]
+    },
+    "source": { "name": { "en": "Money Today", "ko": "머니투데이" }, "url": "https://n.news.naver.com/mnews/article/008/0005412156?sid=101" }
+  },
+  {
+    "slug": "snu-epm-ax-pm-leadership",
+    "date": "2026-09-03",
+    "category": "activity",
+    "tag": { "en": "Collaboration", "ko": "협력" },
+    "title": { "en": "AX PM leadership program with SNU EPM for an S Group company", "ko": "서울대 EPM과 S그룹사 맞춤형 AX PM 리더십 과정 운영" },
+    "summary": { "en": "A 15-week track that combines SNU faculty lectures with assessment, analytics and coaching on Global Assess.", "ko": "서울대 교수진 강의와 Global Assess 기반 진단·분석·코칭을 결합한 15주 과정입니다." },
+    "body": {
+      "en": [
+        "NFN is running a custom AX (AI transformation) PM leadership program with the Engineering Project Management (EPM) program at Seoul National University's College of Engineering, for next-generation leaders of an S Group company.",
+        "The college and the company signed an industry–academia MOU and opened a 15-week S Group Leadership Program track within EPM's 30th cohort. It covers leadership, AI and new technology, and IT project management.",
+        "Global Assess supports the program with assessment, analytics and action coaching for project leadership, including 360° leadership assessment that compares how leaders see themselves with how others experience them. The program also turns in-house experts' tacit knowledge into structured knowledge that AI can use.",
+        "The closing presentation was scheduled for 30 September, where participants would present AI solutions for financial analysis, management performance analysis, employee VOC handling and compliance risk response. The program is led by Byung Jun Kang, head of the SNU EPM AI4PM initiative."
+      ],
+      "ko": [
+        "NFN이 서울대학교 공과대학 EPM(엔지니어링 프로젝트 매니지먼트) 과정과 협력해 S그룹사 차세대 리더를 위한 맞춤형 AX(AI 전환) PM 리더십 특별과정을 운영합니다.",
+        "서울대 공대와 S그룹사는 산학협력 MOU를 맺고 EPM 30기 과정 안에 15주짜리 'S그룹리더십프로그램(SLP)' 트랙을 열었습니다. 리더십, AI·신기술, IT 프로젝트 관리 역량을 다룹니다.",
+        "Global Assess는 프로젝트 리더십 진단·분석·실행 코칭을 지원합니다. 리더 스스로의 인식과 구성원이 경험하는 리더십을 비교하는 360° 리더십 진단도 포함됩니다. 사내 전문가의 경험적 암묵지를 AI가 활용할 수 있는 형식지로 바꾸는 작업도 함께 진행했습니다.",
+        "9월 30일 수료 발표회에서 수료자들이 재무 분석, 경영 성과 분석, 직원 VOC 대응, 컴플라이언스 위험 대응 AI 솔루션을 발표할 예정이었습니다. 과정 총괄은 강병준 서울대 EPM AI4PM 사업단장이 맡았습니다."
+      ]
+    },
+    "source": { "name": { "en": "Money Today", "ko": "머니투데이" }, "url": "https://n.news.naver.com/mnews/article/008/0005409218?sid=101" }
+  },
+  {
     "slug": "gax-assessment-intelligence",
-    "date": "2026-08-10",
+    "date": "2026-08-12",
+    "category": "research",
     "tag": { "en": "Research", "ko": "연구" },
     "title": { "en": "GAX: connecting assessment data to AI feedback and coaching", "ko": "GAX: 진단 데이터를 AI 피드백·코칭으로 잇는 아키텍처" },
     "summary": { "en": "An AI architecture that grounds feedback and coaching in each person's real assessment results, without training models on client HR data.", "ko": "고객 HR 데이터로 모델을 학습시키지 않고, 개인의 실제 진단 결과에 근거해 피드백과 코칭을 제공하는 AI 아키텍처입니다." },
@@ -18,11 +86,34 @@
         "또한 진단 문항 그룹의 관계를 분석해 실제 역량 계층 트리를 복원하고, 존재하지 않는 상위·하위 관계를 AI가 임의로 추정하지 못하도록 해석 규칙을 적용합니다. 일반 챗봇에서는 작은 오류지만 사람의 역량을 해석하는 진단에서는 치명적인 오류가 될 수 있기 때문입니다. 5점·7점·100점 척도, 임원·팀장 진단처럼 서로 다른 진단 체계도 실제 데이터에 맞춰 재구성합니다.",
         "목표는 진단 결과를 피드백과 GROW 모델 기반 코칭을 거쳐 실행 계획과 변화관리까지 연결하는 것입니다."
       ]
-    }
+    },
+    "source": { "name": { "en": "Money Today", "ko": "머니투데이" }, "url": "https://n.news.naver.com/mnews/article/008/0005399248?sid=101" }
+  },
+  {
+    "slug": "toss-ser-m-case-study",
+    "date": "2026-08-04",
+    "category": "research",
+    "tag": { "en": "Publication", "ko": "논문" },
+    "title": { "en": "Paper: how Toss built an asymmetric competitive advantage", "ko": "논문: SER-M으로 본 토스의 비대칭 경쟁 우위" },
+    "summary": { "en": "A SER-M case study of how a resource-poor fintech reshaped Korea's financial market.", "ko": "자원이 부족한 핀테크 후발주자가 금융 시장을 재편한 과정을 SER-M 모델로 분석했습니다." },
+    "body": {
+      "en": [
+        "Lab Director Byung Jun Kang published a case study in the Journal of Mechanism Management on how the fintech company Toss reshaped Korea's financial market despite having far less capital and infrastructure than incumbent banks.",
+        "The study applies the SER-M (Subject–Environment–Resource–Mechanism) model of Professors Dong-Sung Cho and Hwy-Chang Moon, together with a weight–sequence model (WSM). Toss put customer inconvenience first, used the opening created by complex authentication rules and younger customers' shift to mobile, invested in a data-driven organization, intuitive UX/UI and AI, and built a concrete execution mechanism such as money transfers completed in about three seconds.",
+        "The paper argues that for latecomers with limited resources, where to put the weight and in what order to act decides success. It presents the model as applicable to challengers in other industries such as healthcare, edtech and manufacturing."
+      ],
+      "ko": [
+        "강병준 연구책임자가 메커니즘 연구 학술지에 「금융 약자 토스(TOSS)의 비대칭 경쟁 우위 전략: SER-M 경영 전략 모델 기반의 사례 분석」을 게재했습니다. 자본과 인프라가 크게 열세였던 토스가 전통 금융사를 제치고 시장을 재편한 과정을 분석한 논문입니다.",
+        "연구는 조동성·문휘창 교수의 SER-M(주체–환경–자원–메커니즘) 모델과 WSM(가중치–순서 모델)을 분석틀로 썼습니다. 토스는 고객 불편 해결을 최우선으로 두고, 복잡한 인증 절차와 MZ세대의 모바일 전환이라는 환경적 기회를 포착했으며, 데이터 기반 조직문화·직관적 UX/UI·AI에 자원을 집중하고, 3초 송금 같은 구체적 실행 메커니즘을 만들었습니다.",
+        "논문은 자원이 부족한 후발주자일수록 어디에 가중치를 두고 어떤 순서로 실행하느냐가 성패를 가른다고 보고, 헬스케어·에듀테크·제조업 등 다른 산업의 후발주자에게도 적용할 수 있다고 제시합니다."
+      ]
+    },
+    "source": { "name": { "en": "Money Today", "ko": "머니투데이" }, "url": "https://n.news.naver.com/mnews/article/008/0005395550?sid=101" }
   },
   {
     "slug": "shared-mental-model-scale",
-    "date": "2026-07-28",
+    "date": "2026-07-29",
+    "category": "research",
     "tag": { "en": "Publication", "ko": "논문" },
     "title": { "en": "Shared Mental Model Scale published in the Korean Journal of Industrial and Organizational Psychology", "ko": "공유정신모형(SMM) 척도, 한국심리학회지: 산업 및 조직 게재" },
     "summary": { "en": "A three-factor scale (Awareness, Communication, Execution) validated with 5,137 employees in manufacturing and IT.", "ko": "제조·IT 종사자 5,137명 데이터로 검증한 3요인(자각·소통·실행) 척도입니다." },
@@ -39,27 +130,173 @@
         "제조업과 IT 분야 종사자 5,137명의 데이터로 구조를 통계적으로 검증했고, 세 요인 모두 팀 효과성과 정(+)적 상관을 보였습니다.",
         "이 프레임워크는 Global Assess 플랫폼의 ACE 팀 리더십 진단(자각·소통·실행)의 이론적 기반입니다."
       ]
-    }
+    },
+    "source": { "name": { "en": "Money Today", "ko": "머니투데이" }, "url": "https://n.news.naver.com/mnews/article/008/0005392925?sid=101" }
+  },
+  {
+    "slug": "ai-one-flow-launch",
+    "date": "2026-05-14",
+    "category": "product",
+    "tag": { "en": "Product", "ko": "제품" },
+    "title": { "en": "AI One-Flow: assessment, debriefing and coaching in one process", "ko": "AI One-Flow: 진단·디브리핑·코칭을 하나의 과정으로" },
+    "summary": { "en": "Personalized AI feedback and coaching right after a competency assessment, leading to an individual development plan.", "ko": "역량 진단 직후 AI 맞춤 피드백과 코칭을 제공하고 개인 역량개발계획(IDP)까지 연결합니다." },
+    "body": {
+      "en": [
+        "NFN released AI One-Flow, a one-stop solution that connects competency assessment with follow-up. It works with the L. Competency 360 assessment and runs assessment, results analysis, debriefing and coaching as one process.",
+        "Interpreting results used to require separate workshops or expert feedback. AI One-Flow gives personalized AI feedback right after the assessment: it generates a detailed analysis report, runs an AI debrief, and offers one-to-one development coaching that leads to an individual development plan (IDP).",
+        "HR teams carry less operational load, and employees can start acting on their results immediately."
+      ],
+      "ko": [
+        "NFN이 역량 진단과 사후 관리를 잇는 원스톱 솔루션 AI One-Flow를 출시했습니다. L.역량다면진단과 연계해 진단, 결과 분석, 디브리핑, 코칭을 하나의 과정으로 구현했습니다.",
+        "기존에는 결과 해석과 현업 적용을 위해 별도 워크숍이나 전문가 피드백이 필요했습니다. AI One-Flow는 진단 직후 상세 분석 리포트 자동 생성, AI 디브리핑, 1:1 역량개발 코칭을 제공하고 개인 역량개발계획(IDP)까지 이어 줍니다.",
+        "HR 담당자는 운영 부담을 덜고, 구성원은 진단 직후 바로 변화를 시작할 수 있습니다."
+      ]
+    },
+    "source": { "name": { "en": "Money Today", "ko": "머니투데이" }, "url": "https://n.news.naver.com/mnews/article/008/0005357894?sid=101" }
+  },
+  {
+    "slug": "ipma-bogota-pm-ai-competency",
+    "date": "2026-04-21",
+    "category": "research",
+    "tag": { "en": "Research", "ko": "연구" },
+    "title": { "en": "IPMA Research Conference: from experience-based to predictive project management", "ko": "IPMA 연구 콘퍼런스 발표: 경험의 PM에서 예측의 PM으로" },
+    "summary": { "en": "Adding PM AI competency and structured KPIs raised project outcome prediction accuracy from 73.7% to 86.3%.", "ko": "PM의 AI 역량과 구조화된 KPI를 넣자 프로젝트 성과 예측 정확도가 73.7%에서 86.3%로 올랐습니다." },
+    "body": {
+      "en": [
+        "Lab Director Byung Jun Kang presented research on systematizing project managers' AI competency at the 14th IPMA Research Conference, held at EAN University in Bogotá, Colombia, on project management in a disruptive era.",
+        "The study defines PM AI competency in three areas: data literacy, AI collaboration and tool use, and AI ethics and governance. The measurement tool showed Cronbach's α of 0.91, CFI of 0.95 and RMSEA of 0.051. For KPI design it proposes measurable levels, weights that reflect contribution to performance, and a causal sequence of leading, intermediate and outcome indicators.",
+        "Adding AI competency to an existing competency model raised explanatory power (R²) from 0.41 to 0.58. A prediction model with AI competency and structured KPIs reached 86.3% accuracy with XGBoost (F1 0.857, AUC-ROC 0.912), against 73.7% (F1 0.703, AUC-ROC 0.781) for the model with existing variables only.",
+        "Text mining of 112 project reports found AI-related keywords 18.7 times per document in successful projects versus 11.3 in failed ones, while traditional PM terms such as experience, intuition and judgment showed no meaningful difference. The mixed-methods study combined 315 survey responses, a comparison of four algorithms (Random Forest, XGBoost, neural networks and SVM) and the text analysis."
+      ],
+      "ko": [
+        "강병준 연구책임자가 콜롬비아 보고타 EAN 대학교에서 열린 제14회 IPMA(국제프로젝트경영협회) 연구 콘퍼런스에서 'PM의 AI 역량 체계화 연구'를 발표했습니다.",
+        "연구는 PM의 AI 역량을 데이터 리터러시, AI 협업 및 도구 활용, AI 윤리 및 거버넌스의 세 축으로 정리했습니다. 측정 도구의 신뢰도·적합도는 Cronbach's α 0.91, CFI 0.95, RMSEA 0.051이었습니다. KPI 설계에서는 측정 가능한 수준(Level), 성과 기여도를 반영한 가중치(Weight), 선행·중간·결과지표의 인과 순서(Sequence)를 제시했습니다.",
+        "기존 역량 모델에 AI 역량을 추가하자 설명력(R²)이 0.41에서 0.58로 높아졌습니다. AI 역량과 구조화된 KPI를 포함한 예측 모델은 XGBoost 기준 정확도 86.3%(F1 0.857, AUC-ROC 0.912)로, 기존 변수만 쓴 모델(정확도 73.7%, F1 0.703, AUC-ROC 0.781)보다 크게 나아졌습니다.",
+        "프로젝트 보고서 112건 텍스트 마이닝에서는 성공 프로젝트의 AI 관련 키워드가 문서당 평균 18.7회로 실패 프로젝트(11.3회)보다 많았고, 경험·직관·판단 같은 전통적 PM 용어는 성패 간 차이가 없었습니다. 연구는 설문 315건, 4개 알고리즘(Random Forest, XGBoost, 신경망, SVM) 비교, 텍스트 마이닝을 결합한 혼합연구로 진행됐습니다."
+      ]
+    },
+    "source": { "name": { "en": "Money Today", "ko": "머니투데이" }, "url": "https://n.news.naver.com/mnews/article/008/0005347371?sid=101" }
   },
   {
     "slug": "us-patent-business-performance-prediction",
     "date": "2026-03-31",
+    "category": "research",
     "tag": { "en": "Patent", "ko": "특허" },
     "title": { "en": "US patent granted for machine-learning business performance prediction", "ko": "머신러닝 경영성과 예측 기술, 미국 특허 등록" },
     "summary": { "en": "US 12,591,902 B2 follows the 2023 Korean patent for the same method.", "ko": "2023년 국내 특허에 이어 같은 기술로 미국 특허 US 12,591,902 B2를 등록했습니다." },
     "body": {
       "en": [
-        "The United States Patent and Trademark Office has granted NFN patent US 12,591,902 B2, \"Method for Predicting Business Performance Using Machine Learning and Apparatus Using the Same\", with Lab Director Byung Jun Kang as inventor. It follows Korean patent No. 10-2573799, registered on 29 August 2023, and claims priority from Korean application 10-2022-0098623.",
+        "The United States Patent and Trademark Office has granted NFN patent US 12,591,902 B2, \"Method for Predicting Business Performance Using Machine Learning and Apparatus Using the Same\", with Lab Director Byung Jun Kang as inventor. It follows Korean patent No. 10-2573799, registered on 29 August 2023, and claims priority from Korean application 10-2022-0098623. The notice of allowance was reported in January 2026.",
         "The method predicts company performance from structured data, such as financial statements and management indicators, together with unstructured data, such as reports, news and survey text. Text is cleaned, tokenized and encoded, turned into frequency-weighted feature vectors with a bag-of-words model, rescaled, and passed to an ensemble of classification and regression trees (CART).",
         "US examination applies strict standards to software and business-method inventions. In allowing the claims, the examiner pointed to the combination of sparse-matrix data construction and the CART ensemble as a concrete technical application.",
         "The method is the basis of DAL's business performance prediction research."
       ],
       "ko": [
-        "미국 특허청(USPTO)이 NFN의 「머신러닝을 이용한 경영 성과 예측 방법 및 장치」(US 12,591,902 B2)를 등록했습니다. 발명자는 강병준 연구책임자입니다. 2023년 8월 29일 등록된 국내 특허 제10-2573799호와 같은 계열이며, 국내 출원 10-2022-0098623을 우선권으로 합니다.",
+        "미국 특허청(USPTO)이 NFN의 「머신러닝을 이용한 경영 성과 예측 방법 및 장치」(US 12,591,902 B2)를 등록했습니다. 발명자는 강병준 연구책임자입니다. 2023년 8월 29일 등록된 국내 특허 제10-2573799호와 같은 계열이며, 국내 출원 10-2022-0098623을 우선권으로 합니다. 등록 결정 소식은 2026년 1월에 보도되었습니다.",
         "이 기술은 재무제표·경영지표 같은 정형 데이터와 보고서·뉴스·설문 같은 비정형 텍스트를 함께 분석해 기업 성과를 예측합니다. 텍스트를 정제·토큰화·인코딩한 뒤 BOW(Bag-of-Words) 모델로 빈도 가중 특징 벡터를 만들고, 재스케일링을 거쳐 CART(분류·회귀 트리) 앙상블 모델로 예측합니다.",
         "미국은 소프트웨어·비즈니스 모델 발명에 엄격한 심사 기준을 적용합니다. 심사관은 희소 행렬 기반 데이터 구성과 CART 앙상블의 결합을 구체적인 기술적 구현으로 인정했습니다.",
         "이 기술은 DAL 경영성과 예측 연구의 기반입니다."
       ]
-    }
+    },
+    "source": { "name": { "en": "Money Today (Jan. 2026)", "ko": "머니투데이 (2026.01)" }, "url": "https://n.news.naver.com/mnews/article/008/0005310251?sid=101" }
+  },
+  {
+    "slug": "g-series-subscription",
+    "date": "2026-03-30",
+    "category": "product",
+    "tag": { "en": "Product", "ko": "제품" },
+    "title": { "en": "G Series: HR assessment subscriptions by company size", "ko": "G시리즈: 기업 규모별 HR 진단 구독 서비스" },
+    "summary": { "en": "Three annual plans, Guide, Growth and Giant, plus a Project & Custom service.", "ko": "가이드·그로스·자이언트 연간 구독 3종과 프로젝트&커스텀 서비스입니다." },
+    "body": {
+      "en": [
+        "NFN launched the G Series, three annual subscription plans for HR assessment (Guide, Growth and Giant), plus a Project & Custom service for specific issues.",
+        "Guide is for companies or departments new to HR assessment and covers everything from opening the assessment system to producing results. Growth is for mid-sized companies with assessment experience and builds an assess–analyze–feedback cycle with data-based improvement plans for individuals and departments. Giant is for large companies and platform organizations that need a company-wide assessment system, bringing department assessments onto one platform to align organizational development.",
+        "The goal is data-based people decisions regardless of company size, with continued work on assessment items and analysis algorithms."
+      ],
+      "ko": [
+        "NFN이 연간 구독형 HR 진단 서비스 3종 G시리즈(가이드·그로스·자이언트)와, 특정 이슈 해결을 위한 프로젝트&커스텀 서비스를 출시했습니다.",
+        "가이드는 HR 진단을 처음 도입하는 기업·부서를 위해 진단 시스템 오픈부터 운영, 결과 산출까지 일괄 지원합니다. 그로스는 진단 경험이 있는 중규모 기업을 위해 진단·분석·피드백 사이클을 만들고 개인과 부서 단위 개선안을 도출합니다. 자이언트는 전사 통합 진단 체계가 필요한 대기업·플랫폼 조직을 위해 부서별 진단을 하나의 플랫폼으로 통합합니다.",
+        "기업 규모와 관계없이 데이터 기반 인사 결정을 돕고, 진단 문항과 분석 알고리즘을 계속 고도화할 계획입니다."
+      ]
+    },
+    "source": { "name": { "en": "Money Today", "ko": "머니투데이" }, "url": "https://n.news.naver.com/article/008/0005337217?sid=101" }
+  },
+  {
+    "slug": "l-competency-360-launch",
+    "date": "2026-02-20",
+    "category": "product",
+    "tag": { "en": "Product", "ko": "제품" },
+    "title": { "en": "L. Competency 360: competency assessment by job level", "ko": "L.역량다면진단: 실무자부터 임원까지 직급별 역량 진단" },
+    "summary": { "en": "A standard, level-based competency model that companies can use without building their own.", "ko": "자체 역량모델 없이 바로 쓸 수 있는 계층별 표준 역량모델 기반 진단입니다." },
+    "body": {
+      "en": [
+        "NFN released L. Competency 360, a level-based assessment that turns the behaviors each level of an organization needs for performance into indicators. It covers three competency groups: common competencies, leadership competencies and task performance competencies, broken down by the role and responsibility of each job level.",
+        "It is built on a standard competency model derived from about ten years of accumulated data and tens of thousands of records, so companies without their own model can start assessing right away instead of spending months building one. Detailed reports with individual strengths and development areas are generated automatically and feed training recommendations and development planning."
+      ],
+      "ko": [
+        "NFN이 조직의 각 계층이 성과를 내기 위해 보여야 할 우수 행동을 지표화한 계층별 역량진단 솔루션 L.역량다면진단을 출시했습니다. 공통역량, 리더십역량, 업무수행역량의 세 역량군으로 구성되고, 직급별 역할과 책임에 따라 세분화되어 있습니다.",
+        "10여 년간 쌓인 데이터와 수만 건의 데이터 분석으로 도출한 표준 역량모델을 기반으로 하기 때문에, 역량모델이 없는 기업도 수개월의 모델 구축 없이 바로 진단할 수 있습니다. 개인별 강점과 보완점을 담은 상세 리포트가 자동 생성되어 교육 추천과 개발 전략 수립에 활용됩니다."
+      ]
+    },
+    "source": { "name": { "en": "Money Today", "ko": "머니투데이" }, "url": "https://n.news.naver.com/mnews/article/008/0005320165?sid=101" }
+  },
+  {
+    "slug": "book-sentences-after-living",
+    "date": "2026-02-12",
+    "category": "activity",
+    "tag": { "en": "Book", "ko": "저서" },
+    "title": { "en": "New book: Sentences You Can Only Read After Living Them", "ko": "신간 「살아본 뒤에야 비로소 읽히는 문장들」" },
+    "summary": { "en": "99 pieces of everyday wisdom, with the hundredth page left for the reader.", "ko": "99가지 삶의 지혜와, 독자가 직접 채우는 100번째 페이지." },
+    "body": {
+      "en": [
+        "Lab Director Byung Jun Kang, writing under the pen name Kang Rim (강림선생), published a book of everyday wisdom with BOOKK.",
+        "The book connects familiar proverbs to perspectives from economics, physics and psychology without technical jargon. It offers 99 pieces of wisdom and leaves the hundredth page blank for readers to write their own. It is organized in nine parts, including economics and exchange, cause and nature, time and change, human nature and psychology, and wisdom and insight."
+      ],
+      "ko": [
+        "강병준 연구책임자가 필명 강림선생으로 삶의 지혜를 다룬 책을 부크크(BOOKK)에서 출간했습니다.",
+        "익숙한 속담과 격언을 경제학·물리학·심리학 관점과 연결해, 어려운 용어 없이 99가지 지혜로 풀었습니다. 마지막 100번째 페이지는 독자가 자신의 깨달음을 직접 적도록 비워 두었습니다. 경제와 거래, 인과와 자연, 시간과 변화, 인간 본성과 심리, 지혜와 통찰 등 9부로 구성됩니다."
+      ]
+    },
+    "source": { "name": { "en": "Money Today", "ko": "머니투데이" }, "url": "https://www.mt.co.kr/industry/2026/02/12/2026021217472596816" }
+  },
+  {
+    "slug": "korea-corporate-award-2025",
+    "date": "2025-12-22",
+    "category": "activity",
+    "tag": { "en": "Award", "ko": "수상" },
+    "title": { "en": "Korea Corporate Awards 2025: Grand Prize for Service Innovation", "ko": "2025 대한민국 기업대상 서비스혁신 부문 대상" },
+    "summary": { "en": "Recognized for the AI-based HR assessment and analytics platform.", "ko": "AI 기반 HR 진단·분석 플랫폼으로 수상했습니다." },
+    "body": {
+      "en": [
+        "NFN won the Grand Prize in the Service Innovation category of the 11th Korea Corporate Awards 2025, hosted by Money Today, for its AI-based HR assessment and analytics platform. The head of NFN's Platform Center accepted the award at the Korea Press Center in Seoul on 22 December.",
+        "NFN brings 15 years of management consulting experience into its AI SaaS platform Global Assess and online assessment cloud services, which analyze organizational competency and performance data to predict future performance and support data-driven decisions."
+      ],
+      "ko": [
+        "NFN이 머니투데이 주최 '2025 제11회 대한민국 기업대상'에서 AI 기반 HR 진단·분석 플랫폼으로 서비스혁신 분야 대상을 받았습니다. 시상식은 12월 22일 서울 한국프레스센터에서 열렸고, NFN 플랫폼센터장이 상을 받았습니다.",
+        "NFN은 15년간 쌓은 경영컨설팅 경험을 AI SaaS 플랫폼 Global Assess와 온라인 진단 클라우드 서비스로 구현해, 조직의 역량과 성과 데이터를 분석하고 미래 성과를 예측해 데이터 중심 의사결정을 돕고 있습니다."
+      ]
+    },
+    "source": { "name": { "en": "Money Today", "ko": "머니투데이" }, "url": "https://n.news.naver.com/mnews/article/008/0005295394?sid=101" }
+  },
+  {
+    "slug": "epm-congress-2025",
+    "date": "2025-11-27",
+    "category": "activity",
+    "tag": { "en": "Event", "ko": "행사" },
+    "title": { "en": "2025 EPM Congress at Seoul National University", "ko": "서울대 2025 EPM 콩그레스" },
+    "summary": { "en": "SNU EPM's 15th-anniversary congress on project management innovation, with an AI4PM workshop. NFN sponsored the event.", "ko": "서울대 EPM 15주년 프로젝트 관리 혁신 콩그레스. AI4PM 워크숍이 열리고 NFN이 후원했습니다." },
+    "body": {
+      "en": [
+        "Marking 15 years of Seoul National University's Engineering Project Management (EPM) program, the 2025 EPM Congress was scheduled for 12 December at SNU's Gwanak campus as a hybrid event for about 500 participants. NFN sponsored the congress along with the Ministry of Trade, KIAT and HKCMC.",
+        "Sessions covered AI for project management (the 2nd AI4PM workshop, on automation strategies built with vibe coding), megaproject leadership, results of international joint research with 27 overseas universities and institutes, and smart PMC.",
+        "Byung Jun Kang was to chair the 2nd Business Summit session and present cases of companies applying AI."
+      ],
+      "ko": [
+        "서울대학교 EPM(엔지니어링 프로젝트 매니지먼트) 과정 개설 15주년을 기념한 '2025 EPM 콩그레스'가 12월 12일 서울대 관악캠퍼스에서 약 500명 규모의 온·오프라인 행사로 예정되었습니다. NFN은 산업통상부, 한국산업기술진흥원(KIAT), 한국씨엠씨(HKCMC)와 함께 후원했습니다.",
+        "AI 활용 프로젝트 관리(제2회 AI4PM 워크숍, 바이브코딩 기반 업무 자동화 전략), 메가프로젝트 리더십, 27개 해외 대학·연구기관과의 국제공동연구 성과, 스마트 PMC 등의 세션이 마련되었습니다.",
+        "강병준 대표는 제2회 비즈니스 써밋 세션의 좌장을 맡아 AI 적용 기업 사례를 소개할 예정이었습니다."
+      ]
+    },
+    "source": { "name": { "en": "Money Today", "ko": "머니투데이" }, "url": "https://n.news.naver.com/mnews/article/008/0005284211?sid=101" }
   }
 ]

@@ -413,3 +413,8 @@ footer.site li a:hover { color: var(--fg); }
 footer.site .addr { color: var(--fg-2); line-height: 1.6; margin-top: 8px; }
 footer.site .addr a { display: inline-flex; align-items: center; min-height: 44px; color: var(--accent-t); }
 footer.site .legal { grid-column: 1 / -1; padding-top: 20px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: var(--t-label); }
+
+/* ---------- news additions ---------- */
+.news-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
+.article .source { font-size: var(--t-small); color: var(--fg-3); padding-top: 18px; border-top: 1px solid var(--line); }
+.article .source a { display: inline-flex; align-items: center; gap: 4px; min-height: 44px; color: var(--accent-t); font-weight: 600; }

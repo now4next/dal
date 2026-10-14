@@ -8,26 +8,50 @@ interface Props { lang: Lang }
 const { lang } = Astro.props;
 const ko = lang === 'ko';
 const posts = [...news].sort(byDate);
+const CATS = [
+  { key: 'research', label: { en: 'Research', ko: '연구' } },
+  { key: 'product', label: { en: 'Products', ko: '제품' } },
+  { key: 'activity', label: { en: 'Activities', ko: '활동' } },
+];
+const count = (k: string) => posts.filter((p) => p.category === k).length;
 ---
 <Base lang={lang} path="/news/" section="news" title={ko ? '소식' : 'News'}
-  description={ko ? 'DAL의 특허, 논문, 연구 소식.' : 'Patents, papers and research news from DAL.'}>
+  description={ko ? 'DAL의 연구, 특허, 논문, 제품과 활동 소식.' : 'Research, patents, papers, products and activities from DAL.'}>
   <header class="page-head">
     <div class="wrap">
       <span class="eyebrow">News</span>
       <h1>{ko ? '소식' : 'News'}</h1>
-      <p>{ko ? '특허 등록, 논문 게재, 새로운 연구를 알립니다.' : 'Patent grants, published papers and new research.'}</p>
+      <p>{ko ? '연구 성과, 특허와 논문, 진단 플랫폼 소식, 협력 활동을 전합니다.' : 'Research results, patents and papers, assessment platform updates and collaborations.'}</p>
     </div>
   </header>
   <section>
-    <div class="wrap news-grid">
-      {posts.map((n) => (
-        <a class="card news-card" href={href(lang, `/news/${n.slug}/`)}>
-          <div class="top"><span class="meta-line">{fmtDate(n.date, lang)}</span><span class="tag">{tr(n.tag, lang)}</span></div>
-          <h2>{tr(n.title, lang)}</h2>
-          <p>{tr(n.summary, lang)}</p>
-          <span class="more">{ko ? '읽기' : 'Read'} <Icon name="arrow-right" size={18} stroke={2} /></span>
-        </a>
-      ))}
+    <div class="wrap">
+      <div class="news-bar">
+        <div class="seg" role="group" aria-label={ko ? '분류 필터' : 'Filter by category'}>
+          <button type="button" data-f="all" aria-pressed="true">{ko ? '전체' : 'All'} {posts.length}</button>
+          {CATS.map((c) => <button type="button" data-f={c.key} aria-pressed="false">{tr(c.label, lang)} {count(c.key)}</button>)}
+        </div>
+      </div>
+      <div class="news-grid" id="newsGrid">
+        {posts.map((n) => (
+          <a class="card news-card" href={href(lang, `/news/${n.slug}/`)} data-cat={n.category}>
+            <div class="top"><span class="meta-line">{fmtDate(n.date, lang)}</span><span class="tag">{tr(n.tag, lang)}</span></div>
+            <h2>{tr(n.title, lang)}</h2>
+            <p>{tr(n.summary, lang)}</p>
+            <span class="more">{ko ? '읽기' : 'Read'} <Icon name="arrow-right" size={18} stroke={2} /></span>
+          </a>
+        ))}
+      </div>
     </div>
   </section>
 </Base>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.news-bar .seg button');
+  const cards = document.querySelectorAll<HTMLElement>('#newsGrid .news-card');
+  buttons.forEach((b) => b.addEventListener('click', () => {
+    const f = b.dataset.f;
+    buttons.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    cards.forEach((c) => { c.hidden = !(f === 'all' || c.dataset.cat === f); });
+  }));
+</script>

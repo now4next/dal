@@ -8,7 +8,7 @@ interface Props { lang: Lang; slug: string }
 const { lang, slug } = Astro.props;
 const ko = lang === 'ko';
 const post = news.find((n) => n.slug === slug)!;
-const others = [...news].filter((n) => n.slug !== slug).sort(byDate);
+const others = [...news].filter((n) => n.slug !== slug).sort(byDate).slice(0, 3);
 ---
 <Base lang={lang} path={`/news/${slug}/`} section="news" title={tr(post.title, lang)} description={tr(post.summary, lang)}>
   <section style="padding-top:56px">
@@ -21,6 +21,12 @@ const others = [...news].filter((n) => n.slug !== slug).sort(byDate);
         <div class="body">
           {trList(post.body, lang).map((para) => <p>{para}</p>)}
         </div>
+        {post.source && (
+          <p class="source">
+            {ko ? '원문' : 'Original article'}:&nbsp;
+            <a href={post.source.url} target="_blank" rel="noopener">{tr(post.source.name, lang)} <Icon name="arrow-up-right" size={16} stroke={2} /></a>
+          </p>
+        )}
       </article>
     </div>
   </section>
