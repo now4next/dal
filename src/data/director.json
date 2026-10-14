@@ -1,0 +1,200 @@
+{
+  "name": {
+    "en": "Byung Jun Kang",
+    "ko": "강병준"
+  },
+  "initials": "BJ",
+  "role": {
+    "en": "Lab Director · CEO, NFN",
+    "ko": "연구책임자 · NFN 대표이사"
+  },
+  "affiliation": {
+    "en": "NFN Corporate R&D Center (Jamsil, Seoul) · Data Analytics Lab",
+    "ko": "NFN 기업부설연구소 (서울 잠실) · Data Analytics Lab"
+  },
+  "keywords": [
+    "HR Analytics",
+    "AI Agent",
+    "BI Platform",
+    "OD · OC",
+    "Coaching"
+  ],
+  "summary": {
+    "en": "Leads NFN, a Business Intelligence Platform (BIP) company that runs an online SaaS platform. Through management consulting, NFN helps organizations see where they need to go (Awareness), builds standards they can measure (Assess), draws insight through analysis (Analytics) and supports them in putting it into practice (Action).",
+    "ko": "BIP(Business Intelligence Platform) 전문기업의 대표로, 경영컨설팅을 통해 조직이 나아갈 방향을 명확히 인식(Awareness)하도록 측정(Assess) 가능한 기준을 만들고, 분석(Analytics)으로 인사이트를 도출하여, 실행(Action)할 수 있도록 돕는 온라인 SaaS 플랫폼 서비스 기업을 이끌고 있습니다."
+  },
+  "expertise": [
+    {
+      "en": "AI agent planning, design & development (StratEdge, AI Assessment, AI Coaching)",
+      "ko": "AI Agent 기획·설계·개발 (StratEdge, AI Assessment, AI Coaching)"
+    },
+    {
+      "en": "HR platform planning, design & software development PM",
+      "ko": "HR Platform 기획·설계·개발 및 SW 개발 PM"
+    },
+    {
+      "en": "BI SaaS cloud platform planning & software development PM",
+      "ko": "BI SaaS Cloud Platform 기획 및 SW 개발 PM"
+    },
+    {
+      "en": "HR consulting, coaching & change management",
+      "ko": "HR Consulting & Coaching & Change Management"
+    },
+    {
+      "en": "Organizational Development (OD) process design",
+      "ko": "OD(Organizational Development) Process Design"
+    },
+    {
+      "en": "Organizational Culture (OC) index R&D & system integration",
+      "ko": "OC(Organizational Culture) Index R&D & System Integration"
+    }
+  ],
+  "education": [
+    {
+      "title": {
+        "en": "Ph.D. Candidate, Business Administration",
+        "ko": "경영학 박사 Candidate"
+      },
+      "org": {
+        "en": "SDG MS, Geneva, Switzerland",
+        "ko": "스위스 제네바 SDG MS"
+      }
+    },
+    {
+      "title": {
+        "en": "Ph.D. Candidate, AI Engineering",
+        "ko": "AI공학 박사 Candidate"
+      },
+      "org": {
+        "en": "aSSIST (Seoul School of Integrated Sciences & Technologies)",
+        "ko": "서울과학종합대학원(aSSIST)"
+      }
+    },
+    {
+      "title": {
+        "en": "M.S. in AI Engineering · MBA",
+        "ko": "AI공학 석사 · MBA(경영학 석사)"
+      },
+      "org": {
+        "en": "aSSIST · SDG MS",
+        "ko": "aSSIST · SDG MS"
+      }
+    },
+    {
+      "title": {
+        "en": "B.A. Economics & B.S. Biology (double degree)",
+        "ko": "경제학·생물학 학사 (복수학위)"
+      },
+      "org": {
+        "en": "Kyung Hee University",
+        "ko": "경희대학교"
+      }
+    }
+  ],
+  "career": {
+    "current": [
+      {
+        "title": {
+          "en": "CEO",
+          "ko": "대표이사(CEO)"
+        },
+        "org": {
+          "en": "NFN",
+          "ko": "NFN"
+        }
+      },
+      {
+        "title": {
+          "en": "Head, AI4PM Initiative (EPM Engineering Researcher)",
+          "ko": "AI4PM 사업단장 (EPM 공학연구원)"
+        },
+        "org": {
+          "en": "Seoul National University",
+          "ko": "서울대학교"
+        }
+      },
+      {
+        "title": {
+          "en": "EPM (Engineering Project Management) & CEPM",
+          "ko": "EPM(Engineering Project Management) & CEPM"
+        },
+        "org": {
+          "en": "College of Engineering, Seoul National University",
+          "ko": "서울대학교 공과대학"
+        }
+      },
+      {
+        "title": {
+          "en": "Publisher",
+          "ko": "발행인"
+        },
+        "org": {
+          "en": "PM Times (online newspaper)",
+          "ko": "PM Times(피엠타임스) 온라인 신문사"
+        }
+      },
+      {
+        "title": {
+          "en": "Certified Professional Coach",
+          "ko": "인증 전문코치"
+        },
+        "org": {
+          "en": "ICF PCC · KCA KPC",
+          "ko": "국제인증 PCC · 국내인증 KPC"
+        }
+      },
+      {
+        "title": {
+          "en": "CBO / CHO (Business & Organization Director)",
+          "ko": "CBO/CHO 사업 및 조직 담당 이사"
+        },
+        "org": {
+          "en": "Magic Ecole",
+          "ko": "매직에꼴"
+        }
+      },
+      {
+        "title": {
+          "en": "AX Strategy Lead",
+          "ko": "AX Strategy Lead"
+        },
+        "org": {
+          "en": "LUCASMETA",
+          "ko": "루카스메타"
+        }
+      }
+    ],
+    "former": [
+      {
+        "title": {
+          "en": "Co-CEO (CTO)",
+          "ko": "공동대표(CTO)"
+        },
+        "org": {
+          "en": "PSI Compass",
+          "ko": "PSI컴파스"
+        }
+      },
+      {
+        "title": {
+          "en": "Senior Consultant",
+          "ko": "수석컨설턴트"
+        },
+        "org": {
+          "en": "WISDOM Holdings",
+          "ko": "WISDOM Holdings"
+        }
+      },
+      {
+        "title": {
+          "en": "Investment Advisory Team",
+          "ko": "투자상담팀"
+        },
+        "org": {
+          "en": "Dongwon Securities",
+          "ko": "동원증권"
+        }
+      }
+    ]
+  }
+}

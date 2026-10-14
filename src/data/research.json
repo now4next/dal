@@ -1,0 +1,158 @@
+{
+  "themes": [
+    {
+      "id": "ra-01",
+      "icon": "chart-line",
+      "title": { "en": "Business Performance Prediction", "ko": "AI 경영성과 예측" },
+      "sub": { "en": "Structured + unstructured data", "ko": "Business Performance Prediction" },
+      "short": { "en": "Predicting company performance from financial, management and text data.", "ko": "재무·경영·텍스트 데이터로 기업 성과를 예측합니다." },
+      "desc": {
+        "en": "Combines structured data such as financial statements and management indicators with unstructured data such as meeting minutes, reports, surveys and online articles to predict company performance, then maps the results to business indicators on predefined statistical fields.",
+        "ko": "재무제표·경영지표 같은 정형 데이터와 회의록·보고서·설문·온라인 기사 같은 비정형 데이터를 통합해 기업의 성과를 예측하고, 결과를 통계 속성 필드에 매핑한 경영지표로 제공합니다."
+      },
+      "topics": {
+        "en": ["Structured + unstructured integration", "Text mining · BOW vectorization", "CART ensemble prediction", "Indicator mapping · dashboards"],
+        "ko": ["정형·비정형 데이터 통합", "텍스트 마이닝 · BOW 특징 벡터화", "CART 앙상블 예측 모델", "경영지표 매핑 · 대시보드"]
+      },
+      "basis": { "en": "US 12,591,902 B2 · KR 10-2573799", "ko": "US 12,591,902 B2 · KR 10-2573799" }
+    },
+    {
+      "id": "ra-02",
+      "icon": "user-search",
+      "title": { "en": "People & Talent Analytics", "ko": "HR Analytics · 인재 예측" },
+      "sub": { "en": "Hiring · selection · placement", "ko": "People & Talent Analytics" },
+      "short": { "en": "Predicting job fit and growth potential for hiring and placement decisions.", "ko": "채용·선발·보임 의사결정을 위한 직무 적합도와 성장 가능성 예측." },
+      "desc": {
+        "en": "Applies machine learning to the assessment, interview and evaluation data behind hiring, promotion and placement decisions to predict job fit and growth potential. Text such as cover letters and interview notes is part of the analysis.",
+        "ko": "채용·선발·승진·보임 의사결정에 쓰이는 진단·면접·평가 데이터를 머신러닝으로 분석해 직무 적합도와 성장 가능성을 예측합니다. 자기소개서·면접 기록 같은 텍스트도 분석 대상입니다."
+      },
+      "topics": {
+        "en": ["Hiring & placement prediction", "Recruitment text analytics", "Competency dictionary matching", "Key talent · competency gaps", "Org-unit & demographic analysis"],
+        "ko": ["채용·선발·보임 예측 모델링", "채용평가 텍스트 분석", "역량사전 키워드 매칭", "핵심인재 · 역량 갭 분석", "조직단위 · 인구통계 분석"]
+      },
+      "basis": { "en": "Hyundai Motor HR Analytics ML R&D; recruitment text analytics", "ko": "현대자동차 HR Analytics ML 알고리즘 R&D, 채용평가 텍스트분석" }
+    },
+    {
+      "id": "ra-03",
+      "icon": "clipboard-check",
+      "title": { "en": "Assessment Science", "ko": "진단 과학 · 척도 개발" },
+      "sub": { "en": "Psychometrics & scale development", "ko": "Assessment Science & Psychometrics" },
+      "short": { "en": "Building and validating leadership, team and personality measures.", "ko": "리더십·팀·성격 진단 도구를 개발하고 타당화합니다." },
+      "desc": {
+        "en": "Defines measurable criteria through competency modeling, then statistically tests the factor structure, reliability and validity of leadership, team and personality assessments. Korean industry norm scores allow relative comparison.",
+        "ko": "역량모델링으로 측정 가능한 기준을 정의하고, 리더십·팀·성격 진단의 요인구조와 신뢰도·타당도를 통계적으로 검증합니다. 국내 산업별 Norm 점수로 결과를 상대 비교합니다."
+      },
+      "topics": {
+        "en": ["Shared Mental Model (SMM) scale", "360° leadership assessment", "Big5 · NEO-PI-3", "Norm-referenced scores"],
+        "ko": ["공유정신모형(SMM) 척도", "리더십 다면진단", "Big5 · NEO-PI-3", "Norm 표준점수"]
+      },
+      "basis": { "en": "KJIOP 39(2), n = 5,137; Journal of Creativity and Innovation 19(3)", "ko": "한국심리학회지: 산업 및 조직 39(2), 5,137명 표본 · Journal of Creativity and Innovation 19(3)" }
+    },
+    {
+      "id": "ra-04",
+      "icon": "shield-check",
+      "title": { "en": "Culture, Safety & Compliance", "ko": "조직문화 · 안전 · 컴플라이언스" },
+      "sub": { "en": "Organizational risk analytics", "ko": "Culture & Risk Analytics" },
+      "short": { "en": "Indices for culture, ways of working, safety and compliance at scale.", "ko": "조직문화·일하는 방식·안전·준법을 대규모로 측정하는 지수." },
+      "desc": {
+        "en": "Designs indices for organizational culture, ways of working, safety culture and compliance sensitivity, and measures them across large multinational organizations, analyzing results by unit, level and region over time.",
+        "ko": "조직문화, 일하는 방식, 안전문화, 준법 민감도를 지수(Index)로 설계하고 대규모 다국적 조직에서 측정합니다. 조직·직급·지역별 결과와 시계열 변화를 함께 분석합니다."
+      },
+      "topics": {
+        "en": ["Work Smart Index (WSI)", "Safety Culture Index", "Compliance sensitivity", "Employee experience"],
+        "ko": ["워크스마트 지수(WSI)", "Safety Culture Index", "컴플라이언스 민감도", "직원경험 · 조직통합 진단"]
+      },
+      "basis": { "en": "WSI for 100,000 staff in 200 subsidiaries; safety culture for 40,000", "ko": "10만 명·200개 해외법인 WSI, 4만 명 안전문화 진단" }
+    },
+    {
+      "id": "ra-05",
+      "icon": "messages-square",
+      "title": { "en": "Assessment Intelligence", "ko": "Assessment Intelligence" },
+      "sub": { "en": "Generative AI feedback & coaching (GAX)", "ko": "생성형 AI 피드백·코칭 (GAX)" },
+      "short": { "en": "Generative AI feedback and coaching grounded in real assessment results.", "ko": "실제 진단 결과에 근거한 생성형 AI 피드백과 코칭." },
+      "desc": {
+        "en": "Rather than fine-tuning models on client HR data, we structure each person's actual results, competency hierarchy and interpretation rules and give them to the AI as context. Results turn into conversational feedback and action plans.",
+        "ko": "고객 HR 데이터로 모델을 학습시키지 않고, 개인의 실제 진단 결과와 역량 계층, 해석 기준을 구조화해 AI에 제공합니다. 진단 결과를 대화형 피드백과 실행 계획으로 연결합니다."
+      },
+      "topics": {
+        "en": ["Competency hierarchy reconstruction", "Context engineering", "Inference control rules", "GROW coaching", "AI coaching agents"],
+        "ko": ["역량 계층 트리 복원", "컨텍스트 엔지니어링", "추론 통제 · 해석 규칙", "GROW 코칭 연계", "AI 코칭 에이전트"]
+      },
+      "basis": { "en": "GAX architecture, AI One-Flow; AI coaching agents for Hyundai Capital and Shinsegae Group", "ko": "GAX 아키텍처, AI One-Flow · 현대캐피탈·신세계그룹 AI 코칭 에이전트" }
+    },
+    {
+      "id": "ra-06",
+      "icon": "workflow",
+      "title": { "en": "AX & Project Analytics", "ko": "AX · 프로젝트 성과 분석" },
+      "sub": { "en": "AI transformation & project management", "ko": "AI Transformation & PM Analytics" },
+      "short": { "en": "Turning assessment results into AI transformation and project plans.", "ko": "진단 결과를 AI 전환과 프로젝트 실행 계획으로 연결합니다." },
+      "desc": {
+        "en": "Diagnoses the current state of people, teams, organizations and work, turns the findings into priorities and designs AI transformation plans. Also studies PM AI competency, project outcome indicators and AI project frameworks such as CPMAI.",
+        "ko": "개인·팀·조직·업무의 현재 상태를 진단하고, 진단 결과를 경영 인사이트와 우선순위로 바꿔 AI 전환 실행 계획을 설계합니다. PM의 AI 역량, 프로젝트 성과 예측 지표, CPMAI 같은 AI 프로젝트 관리 체계도 연구합니다."
+      },
+      "topics": {
+        "en": ["AX readiness assessment", "PM AI competency indicators", "Agile-CPMAI · PMBOK 8", "7-layer reality diagnosis", "StratEdge strategy AI"],
+        "ko": ["AX 역량 진단", "PM AI 역량 지표", "Agile-CPMAI · PMBOK 8", "7-Layer 현실 진단", "StratEdge 전략 AI"]
+      },
+      "basis": { "en": "IPMA 2026, ProjMAN 2026, Procedia CS 2024, SNU AI4PM", "ko": "IPMA 2026, ProjMAN 2026, Procedia CS 2024, 서울대 AI4PM" }
+    }
+  ],
+
+  "instruments": [
+    {
+      "level": "Personal",
+      "items": [
+        { "name": { "en": "LCI 360°", "ko": "LCI 360°" }, "desc": { "en": "360° leader competency · AMA model · 10+ years of norm data", "ko": "리더 역량 다면진단 · AMA 모델 · 10년+ Norm DB" } },
+        { "name": { "en": "LRC", "ko": "LRC" }, "desc": { "en": "4 leadership types · 8 roles", "ko": "리더십 4유형 · 8역할 진단" } },
+        { "name": { "en": "NEO-PI Big5", "ko": "NEO-PI Big5" }, "desc": { "en": "Five-factor personality · hiring · development", "ko": "성격 5요인 · 채용 · 리더십 개발" } },
+        { "name": { "en": "L. Competency 360", "ko": "L.역량다면진단" }, "desc": { "en": "Common, leadership & task competencies (2026)", "ko": "공통·리더십·업무수행 역량 (2026)" } },
+        { "name": { "en": "PTI · Caliper · EQ-i", "ko": "PTI · Caliper · EQ-i" }, "desc": { "en": "Psychological type · job potential · emotional intelligence", "ko": "심리유형 · 직무 잠재역량 · 감성역량" } }
+      ]
+    },
+    {
+      "level": "Team",
+      "items": [
+        { "name": { "en": "ACE", "ko": "ACE" }, "desc": { "en": "Awakening · Communication · Execution (SMM-based)", "ko": "자각 · 소통 · 실행 팀 리더십 (SMM 기반)" } },
+        { "name": { "en": "TPI", "ko": "TPI" }, "desc": { "en": "Drivers and barriers of team performance", "ko": "팀 성과 촉진·저해 요인" } },
+        { "name": { "en": "TEP", "ko": "TEP" }, "desc": { "en": "Goal attainment · member engagement", "ko": "목표달성 능력 · 팀원 몰입" } },
+        { "name": { "en": "8BA", "ko": "8BA" }, "desc": { "en": "8 high-performance team behavior norms", "ko": "고성과 팀행동 8규범" } }
+      ]
+    },
+    {
+      "level": "Organization",
+      "items": [
+        { "name": { "en": "Denison", "ko": "Denison" }, "desc": { "en": "Mission · consistency · involvement · adaptability", "ko": "사명 · 일관성 · 참여 · 적응성" } },
+        { "name": { "en": "E-SPEC", "ko": "E-SPEC" }, "desc": { "en": "E = ƒ(Strategy · Process · Employee · Culture)", "ko": "E = ƒ(Strategy · Process · Employee · Culture)" } },
+        { "name": { "en": "OHD", "ko": "OHD" }, "desc": { "en": "Organizational health · growing pains", "ko": "조직건강도 · 성장통" } },
+        { "name": { "en": "WSI", "ko": "WSI" }, "desc": { "en": "Work · People · Infra (work smart)", "ko": "Work · People · Infra 워크스마트" } },
+        { "name": { "en": "EX", "ko": "EX" }, "desc": { "en": "Physical, cultural & technological employee experience", "ko": "물리·문화·기술 직원경험" } }
+      ]
+    }
+  ],
+
+  "methods": [
+    { "icon": "layers", "group": { "en": "Statistics & psychometrics", "ko": "통계 · 심리측정" }, "items": ["Confirmatory Factor Analysis", "ESEM", "Item Response Theory", "Multi-group Path Analysis", "Norm-referenced Scoring", "Multi-rater 360° Feedback"] },
+    { "icon": "brain", "group": { "en": "Machine learning", "ko": "머신러닝" }, "items": ["Ensemble Learning (CART · Boosting)", "Predictive Modeling", "Feature Scaling", "Time-series Analysis"] },
+    { "icon": "file-text", "group": { "en": "Text & language", "ko": "텍스트 · 언어" }, "items": ["Text Mining", "Feature Vectorization (BOW)", "Natural Language Processing", "Keyword Dictionary Matching"] },
+    { "icon": "sparkles", "group": { "en": "Generative AI", "ko": "생성형 AI" }, "items": ["LLM Context Engineering", "Competency Hierarchy Grounding", "AI Coaching Agents", "Multimodal Emotion Recognition"] }
+  ],
+
+  "pipeline": [
+    { "key": "COLLECT", "title": { "en": "Collect", "ko": "수집" }, "desc": { "en": "Internal (financials, KPIs, minutes, surveys, assessments) and external (articles, papers, patents, communities) data", "ko": "내부(재무·KPI·회의록·설문·진단) + 외부(기사·논문·특허·커뮤니티) 데이터" } },
+    { "key": "CLASSIFY", "title": { "en": "Classify", "ko": "분류" }, "desc": { "en": "Split into structured and unstructured data", "ko": "정형 데이터와 비정형 데이터로 구분" } },
+    { "key": "STRUCTURE", "title": { "en": "Structure", "ko": "정형화" }, "desc": { "en": "Cleaning, tokenizing, word extraction and integer encoding turn text into structured data", "ko": "정제·토큰화·단어 추출·정수 인코딩으로 비정형 → 정형 변환" } },
+    { "key": "FEATURE", "title": { "en": "Extract features", "ko": "특징 추출" }, "desc": { "en": "Frequency-weighted vectorization, then rescaling and standard normalization", "ko": "빈도 가중 벡터화 후 재스케일링·표준 정규화" } },
+    { "key": "PREDICT", "title": { "en": "Predict & map", "ko": "예측 · 매핑" }, "desc": { "en": "An ensemble model predicts performance and maps indicators to statistical fields", "ko": "앙상블 모델로 성과 예측, 통계 속성 필드에 경영지표 매핑" } }
+  ],
+
+  "ax": {
+    "steps": [
+      ["Assess", "Reality Map"], ["Awareness", "AX Target"], ["Strategy AI", "Roadmap"], ["Role & Capability", "New Roles"],
+      ["Customized Build", "AI Build"], ["Action", "New Workflow"], ["Continuous Analytics", "Value"]
+    ],
+    "gates": {
+      "en": "Gate 1 (4 weeks): value, owner and data are ready → Gate 2 (4 months): less work at the same quality → Gate 3 (8 months): operations and economics hold at scale",
+      "ko": "Gate 1 (4주) 가치·책임자·데이터 준비 확인 → Gate 2 (4개월) 품질을 유지하며 실제 업무가 줄었는지 확인 → Gate 3 (8개월) 확산 후에도 운영·경제성이 유지되는지 확인"
+    }
+  }
+}

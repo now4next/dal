@@ -1,0 +1,111 @@
+---
+import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
+import '../styles/global.css';
+import Icon from '../components/Icon.astro';
+import { NAV, href, tr, type Lang } from '../lib/i18n';
+import site from '../data/site.json';
+
+interface Props { lang: Lang; path: string; title?: string; description?: string; section?: string }
+const { lang, path, title, description, section } = Astro.props;
+
+const siteName = 'Data Analytics Lab';
+const fullTitle = title ? `${title} · ${siteName}` : lang === 'ko' ? `${siteName} · 데이터 분석 연구소` : siteName;
+const desc = description ?? (lang === 'ko'
+  ? 'NFN Data Analytics Lab(DAL)은 경영성과 예측, HR Analytics, 진단 과학, AI 피드백·코칭을 연구합니다.'
+  : 'Data Analytics Lab (DAL) at NFN researches business performance prediction, people analytics, assessment science and AI coaching.');
+const origin = 'https://dal.fyi';
+const enUrl = origin + path;
+const koUrl = origin + '/ko' + path;
+const canonical = lang === 'ko' ? koUrl : enUrl;
+const year = new Date().getFullYear();
+---
+<!doctype html>
+<html lang={lang}>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>{fullTitle}</title>
+  <meta name="description" content={desc} />
+  <link rel="canonical" href={canonical} />
+  <link rel="alternate" hreflang="en" href={enUrl} />
+  <link rel="alternate" hreflang="ko" href={koUrl} />
+  <link rel="alternate" hreflang="x-default" href={enUrl} />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content={siteName} />
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={desc} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:locale" content={lang === 'ko' ? 'ko_KR' : 'en_US'} />
+  <meta name="theme-color" content="#06021a" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+</head>
+<body>
+  <a class="skip" href="#main">{lang === 'ko' ? '본문 바로가기' : 'Skip to content'}</a>
+  <header class="nav">
+    <div class="wrap">
+      <a class="brand" href={href(lang, '/')} aria-label={lang === 'ko' ? 'DAL 홈' : 'DAL home'}>
+        <svg width="30" height="30" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <circle cx="7" cy="24" r="3.2" stroke="#b8a4fd" stroke-width="2" />
+          <circle cx="16" cy="9" r="3.2" stroke="#d8ccff" stroke-width="2" />
+          <circle cx="25" cy="20" r="3.2" stroke="#b8a4fd" stroke-width="2" />
+          <path d="M9.2 21.6 14 11.6M18.6 10.8l4.6 6.6M10.2 24.2l11.6-3.4" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" />
+        </svg>
+        DAL<small>DATA ANALYTICS LAB</small>
+      </a>
+      <div class="nav-right">
+        <nav class="menu" id="menu" aria-label={lang === 'ko' ? '주 메뉴' : 'Main'}>
+          {NAV.map((n) => (
+            <a href={href(lang, n.path)} aria-current={section === n.key ? 'page' : undefined}>{tr(n.label, lang)}</a>
+          ))}
+        </nav>
+        <div class="lang" role="group" aria-label="Language">
+          <a href={path} hreflang="en" lang="en" aria-current={lang === 'en' ? 'true' : undefined}>EN</a>
+          <a href={'/ko' + path} hreflang="ko" lang="ko" aria-current={lang === 'ko' ? 'true' : undefined}>KO</a>
+        </div>
+        <button class="menu-btn" id="menuBtn" type="button" aria-controls="menu" aria-expanded="false" aria-label={lang === 'ko' ? '메뉴 열기' : 'Open menu'}>
+          <Icon name="menu" size={20} />
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <slot />
+  </main>
+
+  <footer class="site">
+    <div class="wrap">
+      <div>
+        <a class="brand" href={href(lang, '/')}>DAL · Data Analytics Lab</a>
+        <p class="addr">{lang === 'ko' ? 'NFN 기업부설연구소' : 'NFN Corporate R&D Center'}<br />{tr(site.address, lang)}</p>
+        <p class="addr"><a href={`mailto:${site.email}`}>{site.email}</a></p>
+      </div>
+      <div>
+        <h4>{lang === 'ko' ? '바로가기' : 'Explore'}</h4>
+        <ul>
+          {NAV.map((n) => <li><a href={href(lang, n.path)}>{tr(n.label, lang)}</a></li>)}
+        </ul>
+      </div>
+      <div>
+        <h4>{lang === 'ko' ? '관련 서비스' : 'Related'}</h4>
+        <ul>
+          {site.links.map((l) => <li><a href={l.url} target="_blank" rel="noopener">{l.label} ↗</a></li>)}
+        </ul>
+      </div>
+      <div class="legal">
+        <span>© {year} Data Analytics Lab · NFN. All rights reserved.</span>
+        <span>{lang === 'ko' ? '업데이트' : 'Updated'} {site.updated.replaceAll('-', '.')}</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const btn = document.getElementById('menuBtn');
+    const menu = document.getElementById('menu');
+    btn?.addEventListener('click', () => {
+      const open = menu!.classList.toggle('open');
+      btn.setAttribute('aria-expanded', String(open));
+    });
+  </script>
+</body>
+</html>

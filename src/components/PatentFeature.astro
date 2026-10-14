@@ -1,0 +1,28 @@
+---
+import type { Lang } from '../lib/i18n';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+---
+<article class="card patent">
+  <div class="flag"><span>US PATENT</span><span>US 12,591,902 B2</span><span>2026.03.31</span></div>
+  <h3>
+    Method for Predicting Business Performance Using Machine Learning and Apparatus Using the Same
+    <small>머신러닝을 이용한 경영 성과 예측 방법 및 장치</small>
+  </h3>
+  <div class="eq" role="img" aria-label="y hat i equals the sum over k from 1 to K of f k of x i, with f k in F">
+    ŷ<sub>i</sub> = Σ<sub>k=1</sub><sup>K</sup> f<sub>k</sub>(x<sub>i</sub>),&nbsp; f<sub>k</sub> ∈ ℱ
+    <span class="cap">
+      {lang === 'ko'
+        ? <>청구항 1 · 식 (1) — f<sub>k</sub>: CART 모델, x<sub>i</sub>: 추출된 특징, ŷ<sub>i</sub>: 경영성과 예측값</>
+        : <>Claim 1 · Equation (1): f<sub>k</sub> is a CART model, x<sub>i</sub> an extracted feature, ŷ<sub>i</sub> the predicted performance</>}
+    </span>
+  </div>
+  <dl class="meta">
+    <dt>Assignee</dt><dd>NFN ltd., Seoul (KR)</dd>
+    <dt>Inventor</dt><dd>Byung Jun Kang{lang === 'ko' && ' (강병준)'}</dd>
+    <dt>Appl. No.</dt><dd>18/366,373 · Filed Aug. 7, 2023</dd>
+    <dt>Priority</dt><dd>KR 10-2022-0098623 (2022.08.08)</dd>
+    <dt>CPC</dt><dd>G06Q 30/0202 · G06N 20/20 · G06Q 30/0204</dd>
+    <dt>Claims</dt><dd>9 Claims, 9 Drawing Sheets</dd>
+  </dl>
+</article>

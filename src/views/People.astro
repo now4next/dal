@@ -1,0 +1,138 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { tr, href, byDate, PROJECT_TAG, type Lang } from '../lib/i18n';
+import director from '../data/director.json';
+import projects from '../data/projects.json';
+import publications from '../data/publications.json';
+import patents from '../data/patents.json';
+import books from '../data/books.json';
+import network from '../data/network.json';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const ko = lang === 'ko';
+const papers = publications.filter((p) => p.type !== 'working');
+const pats = [...patents].sort(byDate);
+const tl = (arr: any[]) => arr.map((x) => ({ title: tr(x.title, lang), org: tr(x.org, lang) }));
+const tagCount = (t: string) => projects.filter((p) => p.tag === t).length;
+---
+<Base lang={lang} path="/people/" section="people" title={ko ? '사람' : 'People'}
+  description={ko ? 'DAL 연구책임자 강병준의 프로필, 프로젝트 경력, 연구 성과와 연구 네트워크.' : "Profile, projects and research output of DAL's director, Byung Jun Kang, and the lab's research network."}>
+  <header class="page-head">
+    <div class="wrap">
+      <span class="eyebrow">People</span>
+      <h1>{ko ? '연구책임자와 연구 네트워크' : 'Lab director and research network'}</h1>
+      <p>{ko ? '경영컨설팅과 HR 데이터 플랫폼 개발을 함께 해온 연구 책임자와, DAL이 함께 연구하는 기관입니다.' : 'The director who has led both management consulting and HR data platform development, and the organizations DAL works with.'}</p>
+    </div>
+  </header>
+
+  <section id="director">
+    <div class="wrap prof">
+      <aside class="card prof-card">
+        <div class="avatar" aria-hidden="true">{director.initials}</div>
+        <h2>{director.name.en}</h2>
+        <p class="ko-name">{director.name.ko}</p>
+        <p class="role">{tr(director.role, lang)}</p>
+        <hr />
+        <p class="aff">{tr(director.affiliation, lang)}</p>
+        <ul class="tags">{director.keywords.map((k) => <li class="tag">{k}</li>)}</ul>
+        <div class="mini">
+          <a href={href(lang, '/publications/#papers')}><b>{papers.length}</b><span>{ko ? '논문·발표' : 'Papers'}</span></a>
+          <a href={href(lang, '/publications/#patents')}><b>{pats.length}</b><span>{ko ? '특허' : 'Patents'}</span></a>
+          <a href="#projects"><b>{projects.length}</b><span>{ko ? '프로젝트' : 'Projects'}</span></a>
+          <a href={href(lang, '/publications/#books')}><b>{books.length}</b><span>{ko ? '저서' : 'Books'}</span></a>
+        </div>
+      </aside>
+
+      <div class="prof-body">
+        <section class="card block">
+          <div class="block-h"><h3><Icon name="user" />Profile</h3></div>
+          <p class="lead">{tr(director.summary, lang)}</p>
+        </section>
+
+        <section class="card block">
+          <div class="block-h"><h3><Icon name="sparkles" />Core Expertise</h3></div>
+          <ul class="exp">{director.expertise.map((x) => <li>{tr(x, lang)}</li>)}</ul>
+        </section>
+
+        <div class="two">
+          <section class="card block">
+            <div class="block-h"><h3><Icon name="graduation-cap" />Education</h3></div>
+            <ul class="tl">{tl(director.education).map((x) => <li><b>{x.title}</b><span>{x.org}</span></li>)}</ul>
+          </section>
+          <section class="card block">
+            <div class="block-h"><h3><Icon name="briefcase" />Career</h3></div>
+            <p class="sub-h">{ko ? '현직' : 'CURRENT'}</p>
+            <ul class="tl">{tl(director.career.current).map((x) => <li><b>{x.title}</b><span>{x.org}</span></li>)}</ul>
+            <p class="sub-h">{ko ? '전직' : 'PREVIOUS'}</p>
+            <ul class="tl">{tl(director.career.former).map((x) => <li class="past"><b>{x.title}</b><span>{x.org}</span></li>)}</ul>
+          </section>
+        </div>
+
+        <section class="card block" id="projects">
+          <div class="block-h">
+            <h3><Icon name="chart-line" />Project Experience <span class="cnt" id="projCount">· {projects.length}</span></h3>
+            <div class="seg" role="group" aria-label={ko ? '프로젝트 필터' : 'Filter projects'}>
+              <button type="button" data-f="all" aria-pressed="true">{ko ? '전체' : 'All'}</button>
+              <button type="button" data-f="ai" aria-pressed="false">AI {tagCount('ai')}</button>
+              <button type="button" data-f="platform" aria-pressed="false">{ko ? '플랫폼' : 'Platform'} {tagCount('platform')}</button>
+              <button type="button" data-f="consulting" aria-pressed="false">{ko ? '컨설팅' : 'Consulting'} {tagCount('consulting')}</button>
+            </div>
+          </div>
+          <ul class="projlist" id="projlist">
+            {projects.map((p) => (
+              <li data-tag={p.tag}>
+                <span class="cl">{tr(p.client, lang)}</span>
+                <span class="ds">{tr(p.desc, lang)}</span>
+                <span class={`pt ${p.tag === 'ai' ? 'ai' : ''}`}>{tr(PROJECT_TAG[p.tag], lang)}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section class="card block">
+          <div class="block-h">
+            <h3><Icon name="file-text" />{ko ? '연구 성과' : 'Research output'}</h3>
+            <a class="more" href={href(lang, '/publications/')}>{ko ? '논문·특허 전체' : 'All publications'} <Icon name="arrow-right" size={18} stroke={2} /></a>
+          </div>
+          <ul class="tl">
+            {pats.map((p) => <li><b>{tr(p.title, lang)}</b><span>{tr(p.office, lang)}</span></li>)}
+          </ul>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <section id="network" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Research Network</span>
+        <h2>{ko ? '함께 연구하는 곳' : 'Who we work with'}</h2>
+        <p>{ko ? 'DAL은 학계, 진단 전문기관, 기업 현장과 함께 연구합니다.' : 'DAL works with academia, assessment specialists and enterprise practitioners.'}</p>
+      </div>
+      <div class="net">
+        {network.map((n: any) => (
+          <article class="card node">
+            <span class="k"><Icon name={n.icon} size={18} />{n.kind}</span>
+            <h3>{n.url ? <a href={n.url} target="_blank" rel="noopener">{tr(n.name, lang)} ↗</a> : tr(n.name, lang)}</h3>
+            <dl>{n.rows.map((r: any) => <><dt>{r.k}</dt><dd>{tr(r.v, lang)}</dd></>)}</dl>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('#projects .seg button');
+  const items = document.querySelectorAll<HTMLLIElement>('#projlist li');
+  const count = document.getElementById('projCount');
+  buttons.forEach((b) => b.addEventListener('click', () => {
+    const f = b.dataset.f;
+    buttons.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    let n = 0;
+    items.forEach((li) => { const show = f === 'all' || li.dataset.tag === f; li.hidden = !show; if (show) n++; });
+    if (count) count.textContent = `· ${n}`;
+  }));
+</script>

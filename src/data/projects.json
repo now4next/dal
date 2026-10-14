@@ -1,0 +1,244 @@
+[
+  {
+    "tag": "ai",
+    "client": {
+      "en": "Hyundai Capital",
+      "ko": "현대캐피탈"
+    },
+    "desc": {
+      "en": "AI Leadership Coaching Agent: design, development & co-coaching",
+      "ko": "AI Leadership Coaching Agent 설계·개발·Co-Coaching"
+    }
+  },
+  {
+    "tag": "ai",
+    "client": {
+      "en": "Shinsegae Group",
+      "ko": "신세계그룹"
+    },
+    "desc": {
+      "en": "Leadership Assessment & AI Coaching Agent Service: design & development",
+      "ko": "Leadership Assessment & AI Coaching Agent Service 설계·개발"
+    }
+  },
+  {
+    "tag": "platform",
+    "client": {
+      "en": "Hyundai Motor Group",
+      "ko": "현대자동차그룹"
+    },
+    "desc": {
+      "en": "Work Smart Index (WSI) development & online analytics system PM (100,000 employees, 200 overseas subsidiaries)",
+      "ko": "워크스마트 측정 지표(WSI) 개발 및 온라인 분석 시스템 개발 PM (10만 명, 200개 해외법인)"
+    }
+  },
+  {
+    "tag": "platform",
+    "client": {
+      "en": "Hyundai Motor Group",
+      "ko": "현대자동차그룹"
+    },
+    "desc": {
+      "en": "Integrated Culture Survey design & web results dashboard system PM",
+      "ko": "조직문화통합진단(Culture Survey) 설계 및 웹 결과 분석 통합 대시보드 시스템 개발 PM"
+    }
+  },
+  {
+    "tag": "platform",
+    "client": {
+      "en": "Hyundai Motor Group",
+      "ko": "현대자동차그룹"
+    },
+    "desc": {
+      "en": "Safety Culture Index development & results analytics system PM (40,000 employees, 2023–2024)",
+      "ko": "안전문화(Safety Culture) Index 개발 및 결과 분석 시스템 개발 PM (4만 명, 2023–2024)"
+    }
+  },
+  {
+    "tag": "platform",
+    "client": {
+      "en": "Hanwha Group",
+      "ko": "한화그룹"
+    },
+    "desc": {
+      "en": "Integrated assessment system design & software development PM",
+      "ko": "통합 Assessment System 설계 및 SW 개발 PM"
+    }
+  },
+  {
+    "tag": "platform",
+    "client": {
+      "en": "HL Group",
+      "ko": "HL그룹"
+    },
+    "desc": {
+      "en": "Integrated online assessment system for culture, leadership & compliance: design & software development PM",
+      "ko": "조직문화·리더십·컴플라이언스 통합 온라인 진단 시스템 설계 및 SW 개발 PM"
+    }
+  },
+  {
+    "tag": "platform",
+    "client": {
+      "en": "DH Group",
+      "ko": "DH그룹"
+    },
+    "desc": {
+      "en": "Integrated HRD framework & LMS design and development PM",
+      "ko": "HRD 통합체계 구축 및 LMS 시스템 설계·개발 PM"
+    }
+  },
+  {
+    "tag": "ai",
+    "client": {
+      "en": "Hyundai Motor Company",
+      "ko": "현대자동차"
+    },
+    "desc": {
+      "en": "HR Analytics machine learning algorithm R&D PM (hiring, selection & placement prediction modeling)",
+      "ko": "HR Analytics Machine Learning Algorithm R&D PM (채용·선발·보임 예측 모델링)"
+    }
+  },
+  {
+    "tag": "platform",
+    "client": {
+      "en": "Hyundai Mobis",
+      "ko": "현대모비스"
+    },
+    "desc": {
+      "en": "Team leadership competency model (incl. statistical validation) & online system development and operation PM (2014–2023)",
+      "ko": "Team Leadership 역량 모델 개발(통계 검증 등) 및 온라인 시스템 개발·운영 PM (2014–2023)"
+    }
+  },
+  {
+    "tag": "platform",
+    "client": {
+      "en": "Smilegate Group",
+      "ko": "스마일게이트 그룹"
+    },
+    "desc": {
+      "en": "Peer Review & Culture Survey metrics development & online system development and operation (2018–2024)",
+      "ko": "Peer Review & Culture Survey 측정 지표 개발 및 온라인 시스템 개발·운영 (2018–2024)"
+    }
+  },
+  {
+    "tag": "consulting",
+    "client": {
+      "en": "KHNP",
+      "ko": "한국수력원자력"
+    },
+    "desc": {
+      "en": "Competency-based leadership assessment tool development consulting",
+      "ko": "역량기반 리더십 평가도구 개발 컨설팅"
+    }
+  },
+  {
+    "tag": "platform",
+    "client": {
+      "en": "KEPCO KPS",
+      "ko": "한전KPS"
+    },
+    "desc": {
+      "en": "Leadership competency assessment & feedback system for grade 1–2 managers",
+      "ko": "1·2직급 리더십 역량 평가 및 피드백 시스템 개발"
+    }
+  },
+  {
+    "tag": "platform",
+    "client": {
+      "en": "AJ Group",
+      "ko": "AJ그룹"
+    },
+    "desc": {
+      "en": "AMI organizational culture assessment consulting & system development",
+      "ko": "AMI 조직문화진단 개발 컨설팅 및 시스템 개발"
+    }
+  },
+  {
+    "tag": "platform",
+    "client": {
+      "en": "Kakao Pay",
+      "ko": "카카오페이"
+    },
+    "desc": {
+      "en": "Performance goal management (KPI) system development",
+      "ko": "성과목표관리(KPI) 시스템 개발"
+    }
+  },
+  {
+    "tag": "consulting",
+    "client": {
+      "en": "Woowa Brothers (Baemin)",
+      "ko": "우아한형제들(배달의민족)"
+    },
+    "desc": {
+      "en": "Leadership competency assessment & development",
+      "ko": "리더십 역량 진단 및 개발"
+    }
+  },
+  {
+    "tag": "consulting",
+    "client": {
+      "en": "PHC Group",
+      "ko": "PHC그룹"
+    },
+    "desc": {
+      "en": "Leadership assessment tool & improvement measurement",
+      "ko": "리더십 진단도구 및 향상도 측정"
+    }
+  },
+  {
+    "tag": "consulting",
+    "client": {
+      "en": "CJ CheilJedang BIO R&D Center",
+      "ko": "CJ제일제당 BIO기술연구소"
+    },
+    "desc": {
+      "en": "360° leadership assessment & feedback coaching",
+      "ko": "리더십 다면진단 및 피드백 코칭"
+    }
+  },
+  {
+    "tag": "consulting",
+    "client": {
+      "en": "SK Telecom",
+      "ko": "SK텔레콤"
+    },
+    "desc": {
+      "en": "Shared-growth LIP: high-performing team behavior assessment & coaching workshops for team leaders",
+      "ko": "동반성장 LIP 팀장 고성과팀행동진단 및 코칭 워크샵"
+    }
+  },
+  {
+    "tag": "consulting",
+    "client": {
+      "en": "KT",
+      "ko": "KT"
+    },
+    "desc": {
+      "en": "Team leader 360° leadership assessment & feedback workshops",
+      "ko": "팀장 리더십 다면진단 및 피드백 워크샵"
+    }
+  },
+  {
+    "tag": "consulting",
+    "client": {
+      "en": "Samsung HRD Center",
+      "ko": "삼성인력개발원"
+    },
+    "desc": {
+      "en": "Assessment Center leadership coaching",
+      "ko": "Assessment Center 리더십 코칭"
+    }
+  },
+  {
+    "tag": "consulting",
+    "client": {
+      "en": "Korea Labor and Employment Service (KLES)",
+      "ko": "노사발전재단"
+    },
+    "desc": {
+      "en": "CEO leadership innovation coaching manual development",
+      "ko": "CEO 리더십 혁신코칭 매뉴얼 개발"
+    }
+  }
+]

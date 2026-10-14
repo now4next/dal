@@ -1,0 +1,75 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { tr, type Lang } from '../lib/i18n';
+import site from '../data/site.json';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const ko = lang === 'ko';
+const mapUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('240 Olympic-ro, Songpa-gu, Seoul');
+const topics = ko
+  ? ['진단 데이터와 경영 데이터를 연결한 성과 예측 분석', '리더십·팀·조직문화 진단 도구 공동 개발과 타당화', 'AI 피드백·코칭 에이전트 도입', 'AX 전략과 프로젝트 성과 지표 설계', '학술 공동 연구와 데이터 협력']
+  : ['Performance prediction that links assessment and business data', 'Co-developing and validating leadership, team and culture assessments', 'AI feedback and coaching agents', 'AX strategy and project performance indicators', 'Academic research partnerships and data collaboration'];
+---
+<Base lang={lang} path="/contact/" section="contact" title={ko ? '연락' : 'Contact'}
+  description={ko ? 'DAL 공동 연구와 데이터 분석 협업 문의: now@nfn.co.kr' : 'Contact DAL about joint research and analytics collaboration: now@nfn.co.kr'}>
+  <header class="page-head">
+    <div class="wrap">
+      <span class="eyebrow">Contact</span>
+      <h1>{ko ? '연락하기' : 'Contact'}</h1>
+      <p>{ko ? '공동 연구, 데이터 분석 협업, 진단 도구 개발에 관한 문의는 이메일로 보내 주세요.' : 'For joint research, analytics collaboration or assessment development, email us.'}</p>
+    </div>
+  </header>
+
+  <section>
+    <div class="wrap contact-grid">
+      <div class="card cbox">
+        <span class="k"><Icon name="mail" size={18} />Email</span>
+        <p class="v" id="email">{site.email}</p>
+        <p>{ko ? '연구 협업, 데이터 분석, 진단 도구에 관한 문의를 받습니다.' : 'For research collaboration, analytics and assessment inquiries.'}</p>
+        <div class="acts">
+          <a class="btn pri" href={`mailto:${site.email}`}><Icon name="mail" size={18} stroke={2} />{ko ? '메일 보내기' : 'Send email'}</a>
+          <button class="btn sec" type="button" id="copyEmail" data-done={ko ? '복사했습니다' : 'Copied'}><Icon name="copy" size={18} stroke={2} />{ko ? '주소 복사' : 'Copy address'}</button>
+          <span class="copied" id="copyMsg" role="status" aria-live="polite"></span>
+        </div>
+      </div>
+      <div class="card cbox">
+        <span class="k"><Icon name="map-pin" size={18} />{ko ? '주소' : 'Address'}</span>
+        <p class="v" style="font-size:20px;line-height:1.5">{tr(site.address, lang)}</p>
+        <p>{ko ? 'NFN 기업부설연구소 · 잠실역 4번 출구에서 도보 약 10분' : 'NFN Corporate R&D Center · about 10 minutes on foot from Jamsil Station, exit 4'}</p>
+        <div class="acts">
+          <a class="btn sec" href={mapUrl} target="_blank" rel="noopener"><Icon name="map-pin" size={18} stroke={2} />{ko ? '지도에서 보기' : 'Open in Maps'}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Collaboration</span>
+        <h2>{ko ? '이런 협업을 함께합니다' : 'What we collaborate on'}</h2>
+      </div>
+      <ul class="topics">
+        {topics.map((x) => <li><Icon name="check" size={18} stroke={2} />{x}</li>)}
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const btn = document.getElementById('copyEmail');
+  const msg = document.getElementById('copyMsg');
+  const email = document.getElementById('email');
+  btn?.addEventListener('click', async () => {
+    const text = email?.textContent?.trim() ?? '';
+    try {
+      await navigator.clipboard.writeText(text);
+      if (msg) msg.textContent = btn.dataset.done ?? 'Copied';
+    } catch {
+      const r = document.createRange(); r.selectNodeContents(email!);
+      const s = getSelection(); s?.removeAllRanges(); s?.addRange(r);
+    }
+  });
+</script>

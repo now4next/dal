@@ -1,0 +1,36 @@
+[
+  {
+    "featured": true,
+    "date": "2026-03",
+    "title": {
+      "en": "Method for Predicting Business Performance Using Machine Learning and Apparatus Using the Same",
+      "ko": "머신러닝을 이용한 경영 성과 예측 방법 및 장치"
+    },
+    "office": {
+      "en": "US patent · US 12,591,902 B2 · 2026.03.31",
+      "ko": "미국 특허 · US 12,591,902 B2 · 2026.03.31"
+    }
+  },
+  {
+    "date": "2023-08",
+    "title": {
+      "en": "Method and Apparatus for Predicting Business Performance Using Machine Learning",
+      "ko": "머신러닝을 이용한 경영 성과 예측 방법 및 장치"
+    },
+    "office": {
+      "en": "KR patent · No. 10-2573799 · 2023.08.29 (term to 2042.08.08)",
+      "ko": "국내 특허 · 제10-2573799호 · 2023.08.29 (존속 2042.08.08까지)"
+    }
+  },
+  {
+    "date": "",
+    "title": {
+      "en": "Multi-modality Emotion Recognition Method and System",
+      "ko": "멀티모달리티 감정인식 방법 및 시스템"
+    },
+    "office": {
+      "en": "KR patent · registered",
+      "ko": "국내 특허 · 등록"
+    }
+  }
+]

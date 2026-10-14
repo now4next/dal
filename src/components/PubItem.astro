@@ -1,0 +1,16 @@
+---
+import { tr, fmtDate, PUB_TYPE, type Lang } from '../lib/i18n';
+interface Props { pub: any; lang: Lang }
+const { pub: p, lang } = Astro.props;
+---
+<li data-type={p.type}>
+  <span class="yr">{fmtDate(p.date, lang)}</span>
+  <p class="t">
+    {tr(p.title, lang)}
+    <span>
+      {tr(p.venue, lang)}
+      {p.doi && <> · <a href={`https://doi.org/${p.doi}`} target="_blank" rel="noopener">doi:{p.doi}</a></>}
+    </span>
+  </p>
+  <span class={`ty ${p.type}`}>{tr(PUB_TYPE[p.type], lang)}</span>
+</li>

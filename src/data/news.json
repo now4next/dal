@@ -1,0 +1,65 @@
+[
+  {
+    "slug": "gax-assessment-intelligence",
+    "date": "2026-08-10",
+    "tag": { "en": "Research", "ko": "연구" },
+    "title": { "en": "GAX: connecting assessment data to AI feedback and coaching", "ko": "GAX: 진단 데이터를 AI 피드백·코칭으로 잇는 아키텍처" },
+    "summary": { "en": "An AI architecture that grounds feedback and coaching in each person's real assessment results, without training models on client HR data.", "ko": "고객 HR 데이터로 모델을 학습시키지 않고, 개인의 실제 진단 결과에 근거해 피드백과 코칭을 제공하는 AI 아키텍처입니다." },
+    "body": {
+      "en": [
+        "NFN is building GAX, an AI architecture that links the individual, leadership, team and organization assessments of the GA Platform to AI feedback and AI coaching.",
+        "GAX does not fine-tune language models on client HR data. When a user starts AI feedback, the system structures that person's actual results, competency definitions, interpretation guidelines and score-based feedback criteria, and supplies them to the AI as context. The conversation stays within the platform's professional interpretation standards.",
+        "GAX also reconstructs the real competency hierarchy from the assessment's item groups and applies rules that stop the AI from inventing parent–child relationships that do not exist. In a general chatbot this would be a small error; in an assessment of a person's competencies it is a serious one. Different scales (5, 7 or 100 points) and different instruments for executives and team leaders are handled from the actual data.",
+        "The aim is to carry assessment results through feedback and GROW-model coaching into action plans and change management."
+      ],
+      "ko": [
+        "NFN은 GA Platform의 개인·리더십·팀·조직 진단을 AI 피드백과 AI 코칭으로 연결하는 AI 아키텍처 GAX를 구축하고 있습니다.",
+        "GAX는 고객사의 인사 데이터로 언어모델을 파인튜닝하지 않습니다. 사용자가 AI 피드백을 시작하면 그 사람의 실제 진단 결과, 역량 정의, 해석 가이드라인, 점수별 피드백 기준을 구조화해 AI에 컨텍스트로 제공합니다. 대화는 플랫폼의 전문적인 해석 기준 안에서 진행됩니다.",
+        "또한 진단 문항 그룹의 관계를 분석해 실제 역량 계층 트리를 복원하고, 존재하지 않는 상위·하위 관계를 AI가 임의로 추정하지 못하도록 해석 규칙을 적용합니다. 일반 챗봇에서는 작은 오류지만 사람의 역량을 해석하는 진단에서는 치명적인 오류가 될 수 있기 때문입니다. 5점·7점·100점 척도, 임원·팀장 진단처럼 서로 다른 진단 체계도 실제 데이터에 맞춰 재구성합니다.",
+        "목표는 진단 결과를 피드백과 GROW 모델 기반 코칭을 거쳐 실행 계획과 변화관리까지 연결하는 것입니다."
+      ]
+    }
+  },
+  {
+    "slug": "shared-mental-model-scale",
+    "date": "2026-07-28",
+    "tag": { "en": "Publication", "ko": "논문" },
+    "title": { "en": "Shared Mental Model Scale published in the Korean Journal of Industrial and Organizational Psychology", "ko": "공유정신모형(SMM) 척도, 한국심리학회지: 산업 및 조직 게재" },
+    "summary": { "en": "A three-factor scale (Awareness, Communication, Execution) validated with 5,137 employees in manufacturing and IT.", "ko": "제조·IT 종사자 5,137명 데이터로 검증한 3요인(자각·소통·실행) 척도입니다." },
+    "body": {
+      "en": [
+        "\"Development and Validation of the Shared Mental Model Scale\" by Lab Director Byung Jun Kang has been published in the Korean Journal of Industrial and Organizational Psychology, Vol. 39, No. 2, pp. 267–285 (doi:10.24230/kjiop.v39i2.267-285).",
+        "Existing scales, mostly developed overseas, split shared mental models into task and teamwork dimensions. This study proposes a three-factor structure suited to Korean industrial settings: Awareness (a clear view of the team's mission, individual goals and roles), Communication (open discussion, information sharing and mutual respect) and Execution (proactive work, use of resources and overcoming obstacles).",
+        "Using data from 5,137 employees in manufacturing and IT, the study confirmed the structure statistically and found that all three factors correlate positively with team effectiveness.",
+        "The framework underpins the ACE Team Leadership assessment on the Global Assess platform, which measures Awakening, Communication and Execution in teams."
+      ],
+      "ko": [
+        "강병준 연구책임자의 논문 「공유정신모형 척도의 개발과 타당화」가 한국심리학회지: 산업 및 조직 39권 2호(267–285쪽)에 게재되었습니다 (doi:10.24230/kjiop.v39i2.267-285).",
+        "기존 척도는 주로 해외에서 개발되어 과제와 팀워크라는 두 차원으로 공유정신모형을 나눕니다. 이 연구는 국내 산업·조직 맥락에 맞춘 3요인 구조를 제안합니다. 자각(팀의 사명·개인 목표·역할에 대한 명확한 인식), 소통(자유로운 의견 개진·정보 공유·상호 존중), 실행(주도적 과업 수행·자원 활용·장애 극복)입니다.",
+        "제조업과 IT 분야 종사자 5,137명의 데이터로 구조를 통계적으로 검증했고, 세 요인 모두 팀 효과성과 정(+)적 상관을 보였습니다.",
+        "이 프레임워크는 Global Assess 플랫폼의 ACE 팀 리더십 진단(자각·소통·실행)의 이론적 기반입니다."
+      ]
+    }
+  },
+  {
+    "slug": "us-patent-business-performance-prediction",
+    "date": "2026-03-31",
+    "tag": { "en": "Patent", "ko": "특허" },
+    "title": { "en": "US patent granted for machine-learning business performance prediction", "ko": "머신러닝 경영성과 예측 기술, 미국 특허 등록" },
+    "summary": { "en": "US 12,591,902 B2 follows the 2023 Korean patent for the same method.", "ko": "2023년 국내 특허에 이어 같은 기술로 미국 특허 US 12,591,902 B2를 등록했습니다." },
+    "body": {
+      "en": [
+        "The United States Patent and Trademark Office has granted NFN patent US 12,591,902 B2, \"Method for Predicting Business Performance Using Machine Learning and Apparatus Using the Same\", with Lab Director Byung Jun Kang as inventor. It follows Korean patent No. 10-2573799, registered on 29 August 2023, and claims priority from Korean application 10-2022-0098623.",
+        "The method predicts company performance from structured data, such as financial statements and management indicators, together with unstructured data, such as reports, news and survey text. Text is cleaned, tokenized and encoded, turned into frequency-weighted feature vectors with a bag-of-words model, rescaled, and passed to an ensemble of classification and regression trees (CART).",
+        "US examination applies strict standards to software and business-method inventions. In allowing the claims, the examiner pointed to the combination of sparse-matrix data construction and the CART ensemble as a concrete technical application.",
+        "The method is the basis of DAL's business performance prediction research."
+      ],
+      "ko": [
+        "미국 특허청(USPTO)이 NFN의 「머신러닝을 이용한 경영 성과 예측 방법 및 장치」(US 12,591,902 B2)를 등록했습니다. 발명자는 강병준 연구책임자입니다. 2023년 8월 29일 등록된 국내 특허 제10-2573799호와 같은 계열이며, 국내 출원 10-2022-0098623을 우선권으로 합니다.",
+        "이 기술은 재무제표·경영지표 같은 정형 데이터와 보고서·뉴스·설문 같은 비정형 텍스트를 함께 분석해 기업 성과를 예측합니다. 텍스트를 정제·토큰화·인코딩한 뒤 BOW(Bag-of-Words) 모델로 빈도 가중 특징 벡터를 만들고, 재스케일링을 거쳐 CART(분류·회귀 트리) 앙상블 모델로 예측합니다.",
+        "미국은 소프트웨어·비즈니스 모델 발명에 엄격한 심사 기준을 적용합니다. 심사관은 희소 행렬 기반 데이터 구성과 CART 앙상블의 결합을 구체적인 기술적 구현으로 인정했습니다.",
+        "이 기술은 DAL 경영성과 예측 연구의 기반입니다."
+      ]
+    }
+  }
+]

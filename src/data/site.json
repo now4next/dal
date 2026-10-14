@@ -1,0 +1,12 @@
+{
+  "updated": "2026-10-14",
+  "email": "now@nfn.co.kr",
+  "address": {
+    "en": "#237 Lotte Wellbeing Center, 240 Olympic-ro, Songpa-gu, Seoul, Republic of Korea",
+    "ko": "서울특별시 송파구 올림픽로 240, 롯데웰빙센터 237호"
+  },
+  "links": [
+    { "label": "Global Assess", "url": "https://globalassess.net/" },
+    { "label": "StratEdge", "url": "https://stratedges.cc/" }
+  ]
+}

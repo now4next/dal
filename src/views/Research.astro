@@ -1,0 +1,91 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import ThemeCard from '../components/ThemeCard.astro';
+import { tr, type Lang } from '../lib/i18n';
+import research from '../data/research.json';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const ko = lang === 'ko';
+---
+<Base lang={lang} path="/research/" section="research" title={ko ? '연구 영역' : 'Research'}
+  description={ko ? 'DAL의 6개 연구 영역, 연구에 쓰이는 진단 도구, 방법론과 분석 파이프라인.' : "DAL's six research areas, the assessment instruments behind the data, and our methods and analytics pipeline."}>
+  <header class="page-head">
+    <div class="wrap">
+      <span class="eyebrow">Research</span>
+      <h1>{ko ? '연구 영역' : 'Research areas'}</h1>
+      <p>{ko
+        ? '특허, 학술 논문, 대규모 기업 프로젝트에서 나온 연구를 여섯 개 영역으로 정리했습니다. 각 영역은 사람·팀·조직·경영 데이터가 만나는 지점을 다룹니다.'
+        : 'Our research comes from patents, journal papers and large enterprise projects, and falls into six themes. Each sits where people, team, organization and business data meet.'}</p>
+    </div>
+  </header>
+
+  <section>
+    <div class="wrap">
+      <div class="themes">
+        {research.themes.map((t) => <ThemeCard theme={t} lang={lang} />)}
+      </div>
+
+      <div class="assets" id="instruments">
+        <div class="assets-head">
+          <span class="eyebrow">Research Assets</span>
+          <h3>{ko ? '연구에 쓰이는 진단 도구' : 'Assessment instruments behind our data'}</h3>
+          <p>{ko
+            ? 'Global Assess 플랫폼에서 운영하는 표준 진단이 DAL의 1차 데이터원입니다. 개인·팀·조직 수준에서 같은 사람과 조직을 시계열로 추적할 수 있습니다.'
+            : "Standard assessments run on the Global Assess platform are DAL's primary data source. They let us follow the same people and organizations over time at individual, team and organization level."}</p>
+        </div>
+        <div class="levels">
+          {research.instruments.map((g) => (
+            <div class="lv">
+              <span class="lv-k">{g.level}</span>
+              <dl>
+                {g.items.map((it) => <><dt>{tr(it.name, lang)}</dt><dd>{tr(it.desc, lang)}</dd></>)}
+              </dl>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="methods" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Methodologies</span>
+        <h2>{ko ? '연구 방법론' : 'Methods'}</h2>
+        <p>{ko ? '심리측정, 통계 모델링, 머신러닝, 생성형 AI를 하나의 분석 파이프라인으로 연결합니다.' : 'We connect psychometrics, statistical modeling, machine learning and generative AI in one analytics pipeline.'}</p>
+      </div>
+      <div class="methods-grid">
+        {research.methods.map((m) => (
+          <div class="card mg">
+            <h3><Icon name={m.icon} />{tr(m.group, lang)}</h3>
+            <ul>{m.items.map((x) => <li>{x}</li>)}</ul>
+          </div>
+        ))}
+      </div>
+
+      <h3 class="sub-title">{ko ? '경영성과 예측 파이프라인 (특허 청구항 기준)' : 'Performance prediction pipeline (from the patent claims)'}</h3>
+      <div class="pipeline">
+        {research.pipeline.map((s, i) => (
+          <div class="card step">
+            <span class="n">STEP {i + 1} · {s.key}</span>
+            <h4>{tr(s.title, lang)}</h4>
+            <p>{tr(s.desc, lang)}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="ax">
+        <div class="ax-head">
+          <span class="eyebrow">Applied Framework · AX Consulting</span>
+          <h3>{ko ? '진단에서 성과 검증까지, 7단계로 연결합니다' : 'Seven connected stages, from assessment to verified value'}</h3>
+        </div>
+        <ol class="ax-steps">
+          {research.ax.steps.map(([a, b]) => <li><b>{a}</b><span>{b}</span></li>)}
+        </ol>
+        <p class="ax-note">{tr(research.ax.gates, lang)}</p>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { tr, href, byDate, fmtDate, type Lang } from '../lib/i18n';
+import news from '../data/news.json';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const ko = lang === 'ko';
+const posts = [...news].sort(byDate);
+---
+<Base lang={lang} path="/news/" section="news" title={ko ? '소식' : 'News'}
+  description={ko ? 'DAL의 특허, 논문, 연구 소식.' : 'Patents, papers and research news from DAL.'}>
+  <header class="page-head">
+    <div class="wrap">
+      <span class="eyebrow">News</span>
+      <h1>{ko ? '소식' : 'News'}</h1>
+      <p>{ko ? '특허 등록, 논문 게재, 새로운 연구를 알립니다.' : 'Patent grants, published papers and new research.'}</p>
+    </div>
+  </header>
+  <section>
+    <div class="wrap news-grid">
+      {posts.map((n) => (
+        <a class="card news-card" href={href(lang, `/news/${n.slug}/`)}>
+          <div class="top"><span class="meta-line">{fmtDate(n.date, lang)}</span><span class="tag">{tr(n.tag, lang)}</span></div>
+          <h2>{tr(n.title, lang)}</h2>
+          <p>{tr(n.summary, lang)}</p>
+          <span class="more">{ko ? '읽기' : 'Read'} <Icon name="arrow-right" size={18} stroke={2} /></span>
+        </a>
+      ))}
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,26 @@
+[
+  {
+    "date": "2026-10",
+    "title": {
+      "en": "The Art of Self-Deception (나를 속이는 나)",
+      "ko": "나를 속이는 나 (The Art of Self-Deception)"
+    },
+    "publisher": "BOOKK",
+    "desc": {
+      "en": "Humanities and psychology book that links the psychological concept of self-deception with social deception.",
+      "ko": "'자기기만'의 심리 개념과 사회적 기만을 연결해 구성한 인문·심리 도서"
+    }
+  },
+  {
+    "date": "2026-01",
+    "title": {
+      "en": "살아본 뒤에야 비로소 읽히는 문장들 (Sentences You Can Only Read After Living Them)",
+      "ko": "살아본 뒤에야 비로소 읽히는 문장들"
+    },
+    "publisher": "BOOKK",
+    "desc": {
+      "en": "Essays of humanistic reflection and practical wisdom. Pen name: Kang Rim (姜林).",
+      "ko": "인문학적 성찰과 삶의 지혜를 담은 에세이. 필명 강림(姜林)선생"
+    }
+  }
+]

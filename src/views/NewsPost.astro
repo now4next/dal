@@ -1,0 +1,42 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { tr, trList, href, byDate, fmtDate, type Lang } from '../lib/i18n';
+import news from '../data/news.json';
+
+interface Props { lang: Lang; slug: string }
+const { lang, slug } = Astro.props;
+const ko = lang === 'ko';
+const post = news.find((n) => n.slug === slug)!;
+const others = [...news].filter((n) => n.slug !== slug).sort(byDate);
+---
+<Base lang={lang} path={`/news/${slug}/`} section="news" title={tr(post.title, lang)} description={tr(post.summary, lang)}>
+  <section style="padding-top:56px">
+    <div class="wrap">
+      <article class="article">
+        <a class="back" href={href(lang, '/news/')}><Icon name="arrow-left" size={18} stroke={2} />{ko ? '소식 목록' : 'All news'}</a>
+        <div class="meta-row"><span class="meta-line"><time datetime={post.date}>{fmtDate(post.date, lang)}</time></span><span class="tag">{tr(post.tag, lang)}</span></div>
+        <h1>{tr(post.title, lang)}</h1>
+        <p class="summary">{tr(post.summary, lang)}</p>
+        <div class="body">
+          {trList(post.body, lang).map((para) => <p>{para}</p>)}
+        </div>
+      </article>
+    </div>
+  </section>
+  {others.length > 0 && (
+    <section style="padding-top:0">
+      <div class="wrap">
+        <div class="sec-head"><h2 style="font-size:24px">{ko ? '다른 소식' : 'More news'}</h2></div>
+        <div class="news-grid">
+          {others.map((n) => (
+            <a class="card news-card" href={href(lang, `/news/${n.slug}/`)}>
+              <div class="top"><span class="meta-line">{fmtDate(n.date, lang)}</span><span class="tag">{tr(n.tag, lang)}</span></div>
+              <h2>{tr(n.title, lang)}</h2>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+</Base>

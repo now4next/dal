@@ -1,0 +1,23 @@
+{
+  "pillars": [
+    { "icon": "chart-line", "title": "Performance Prediction", "desc": { "en": "Business performance prediction from structured and unstructured data (KR · US patents)", "ko": "정형·비정형 데이터 기반 경영성과 예측 (한·미 특허)" } },
+    { "icon": "users", "title": "People Analytics", "desc": { "en": "Predicting fit for hiring, selection and placement, and competency levels", "ko": "채용·선발·보임 적합도와 역량 수준 예측" } },
+    { "icon": "clipboard-check", "title": "Assessment Science", "desc": { "en": "Scale development and validation, 360° assessment, norm scores", "ko": "척도 개발·타당화, 다면진단, Norm 점수" } },
+    { "icon": "sparkles", "title": "Assessment Intelligence", "desc": { "en": "Generative AI feedback and coaching grounded in assessment data (GAX)", "ko": "진단 데이터 기반 생성형 AI 피드백·코칭 (GAX)" } }
+  ],
+  "stats": [
+    { "value": "500", "suffix": "+", "label": { "en": "Companies contributing assessment data", "ko": "진단 데이터를 제공한 기업" } },
+    { "value": "200K", "suffix": "+", "label": { "en": "Cumulative assessment users", "ko": "누적 진단 사용자" } },
+    { "value": "100K", "suffix": "", "label": { "en": "Largest single project (30 affiliates · 200 entities · 15 languages)", "ko": "단일 프로젝트 규모 (30개 계열사 · 200개 법인 · 15개 언어)" } },
+    { "value": "1,000", "suffix": "+", "label": { "en": "Items in the assessment data archive", "ko": "진단 문항 Data Archive" } }
+  ],
+  "impact": [
+    { "icon": "graduation-cap", "title": "Academic Impact", "items": { "en": ["I/O psychology scale development", "HR analytics · people science", "AI × project management"], "ko": ["산업·조직심리 척도 개발", "HR Analytics · People Science", "AI × Project Management"] } },
+    { "icon": "briefcase", "title": "Industry Applications", "items": { "en": ["Hiring, promotion & placement decisions", "Leadership & culture assessment consulting", "Tailored AX strategy"], "ko": ["채용·승진·보임 의사결정 지원", "리더십·조직문화 진단 컨설팅", "기업 맞춤형 AX 전략"] } },
+    { "icon": "layers", "title": "Platform & Product", "items": { "en": ["Global Assess assessment SaaS", "Automated results reporting", "GAX AI feedback & coaching"], "ko": ["Global Assess 진단통합 SaaS", "자동 결과 분석 리포팅", "GAX AI 피드백 · 코칭"] } }
+  ],
+  "clients": {
+    "en": ["Hyundai Motor Group", "Hyundai Mobis", "Hyundai Capital", "Shinsegae Group", "Hanwha Group", "HL Group", "LG Chem", "LG Energy Solution", "GS Caltex", "SK hynix", "Smilegate", "Woowa Brothers", "Kakao Pay", "Kyobo Life", "KHNP", "KEPCO KPS", "KT", "SNU EPM"],
+    "ko": ["현대자동차그룹", "현대모비스", "현대캐피탈", "신세계그룹", "한화그룹", "HL그룹", "LG화학", "LG에너지솔루션", "GS칼텍스", "SK하이닉스", "스마일게이트", "우아한형제들", "카카오페이", "교보생명", "한국수력원자력", "한전KPS", "KT", "서울대학교 EPM"]
+  }
+}

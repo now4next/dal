@@ -1,0 +1,217 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import ThemeCard from '../components/ThemeCard.astro';
+import PubItem from '../components/PubItem.astro';
+import { tr, trList, href, byDate, fmtDate, type Lang } from '../lib/i18n';
+import home from '../data/home.json';
+import research from '../data/research.json';
+import publications from '../data/publications.json';
+import patents from '../data/patents.json';
+import projects from '../data/projects.json';
+import books from '../data/books.json';
+import news from '../data/news.json';
+import director from '../data/director.json';
+import site from '../data/site.json';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const ko = lang === 'ko';
+const papers = publications.filter((p) => p.type !== 'working').sort(byDate);
+const latestPapers = papers.slice(0, 4);
+const latestNews = [...news].sort(byDate).slice(0, 3);
+---
+<Base lang={lang} path="/">
+  <section class="hero">
+    <canvas id="net" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <span class="pill"><i></i>HR Analytics · Business Intelligence · Assessment AI</span>
+      <h1>Turning People Data into <span class="grad">Predictive Decisions</span></h1>
+      <p class="h-sub">{ko ? '사람과 조직의 데이터로 경영 성과를 예측합니다' : 'Assessment science, people analytics and AI for organizational performance'}</p>
+      <p class="lead">{ko
+        ? 'Data Analytics Lab(DAL)은 NFN 기업부설연구소의 데이터·AI 연구 조직입니다. 진단(Assess) 데이터와 경영 데이터를 연결하고, 머신러닝과 생성형 AI로 개인·팀·조직의 성과를 해석하고 예측하는 방법을 연구합니다.'
+        : "Data Analytics Lab (DAL) is the data and AI research group of NFN's corporate R&D center. We connect assessment data with business data, and use machine learning and generative AI to interpret and predict how individuals, teams and organizations perform."}</p>
+      <div class="cta">
+        <a class="btn pri" href={href(lang, '/research/')}>{ko ? '연구 영역 보기' : 'Explore research'} <Icon name="arrow-right" size={18} stroke={2} /></a>
+        <a class="btn sec" href={href(lang, '/publications/')}>{ko ? '논문 · 특허' : 'Publications & patents'}</a>
+      </div>
+      <div class="flow" aria-label="Assess, Analytics, Awareness, Action">
+        <span>Assess</span><b>→</b><span>Analytics</span><b>→</b><span>Awareness</span><b>→</b><span>Action</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="overview">
+    <div class="wrap ov">
+      <div class="ov-text">
+        <span class="eyebrow">Overview</span>
+        <h2>{ko ? <>측정에서 예측까지,<br /><span class="grad">데이터와 의사결정 사이를 잇습니다</span></> : <>From measurement to prediction,<br /><span class="grad">bridging data and decisions</span></>}</h2>
+        <p>{ko
+          ? '조직의 지속가능한 성장은 사람을 잘 뽑고, 전문가로 키우고, 잘 이끄는 데서 나옵니다. DAL은 채용·역량·리더십·조직문화 진단에서 쌓인 데이터를 재무·경영지표, 보고서, 설문, 텍스트 같은 정형·비정형 데이터와 통합해 분석 가능한 형태로 만듭니다.'
+          : 'Sustainable growth depends on hiring the right people, developing them into experts and leading them well. DAL takes data from hiring, competency, leadership and culture assessments and integrates it with structured and unstructured business data: financial and management indicators, reports, surveys and free text.'}</p>
+        <p>{ko
+          ? '그 위에서 경영성과 예측 모델, 진단 도구의 신뢰도·타당도 검증, AI 기반 피드백·코칭을 연구하고, 결과를 Global Assess 플랫폼과 AX 컨설팅 현장에 바로 적용합니다.'
+          : 'On that foundation we research business performance prediction models, the reliability and validity of assessment tools, and AI-driven feedback and coaching. The results go straight into the Global Assess platform and AX consulting work.'}</p>
+      </div>
+      <div class="card pillars">
+        {home.pillars.map((p) => (
+          <div class="pillar">
+            <div class="ico"><Icon name={p.icon} /></div>
+            <h3>{p.title}</h3>
+            <p>{tr(p.desc, lang)}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="research" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Research Themes</span>
+        <div class="row">
+          <h2>{ko ? '주요 연구 영역' : 'Research areas'}</h2>
+          <a class="more" href={href(lang, '/research/')}>{ko ? '연구 영역 전체' : 'All research'} <Icon name="arrow-right" size={18} stroke={2} /></a>
+        </div>
+      </div>
+      <div class="themes">
+        {research.themes.map((t) => <ThemeCard theme={t} lang={lang} compact />)}
+      </div>
+    </div>
+  </section>
+
+  <section id="latest" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Latest</span>
+        <h2>{ko ? '최근 연구 성과와 소식' : 'Recent output and news'}</h2>
+      </div>
+      <div class="hl">
+        <div class="card pubs">
+          <div class="pubs-head">
+            <h3><Icon name="file-text" />{ko ? '논문 · 학술발표' : 'Publications'}</h3>
+            <a class="more" href={href(lang, '/publications/')}>{ko ? '전체 보기' : 'View all'} <Icon name="arrow-right" size={18} stroke={2} /></a>
+          </div>
+          <ul class="publist">
+            {latestPapers.map((p) => <PubItem pub={p} lang={lang} />)}
+          </ul>
+        </div>
+        <div class="card pubs">
+          <div class="pubs-head">
+            <h3><Icon name="newspaper" />{ko ? '소식' : 'News'}</h3>
+            <a class="more" href={href(lang, '/news/')}>{ko ? '전체 보기' : 'View all'} <Icon name="arrow-right" size={18} stroke={2} /></a>
+          </div>
+          <ul class="newslist">
+            {latestNews.map((n) => (
+              <li><a href={href(lang, `/news/${n.slug}/`)}>
+                <span class="d">{fmtDate(n.date, lang)} · {tr(n.tag, lang)}</span>
+                <h4>{tr(n.title, lang)}</h4>
+              </a></li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="impact" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head center">
+        <span class="eyebrow">Research Impact</span>
+        <h2>{ko ? '연구가 현장에 닿는 방식' : 'How the research reaches the field'}</h2>
+        <p>{ko ? 'DAL의 연구는 학술 성과, 기업 의사결정, 진단 플랫폼 기능으로 이어집니다.' : "DAL's work feeds academic output, enterprise decisions and features of the assessment platform."}</p>
+      </div>
+      <div class="stats">
+        {home.stats.map((s) => (
+          <div class="stat"><b>{s.value}{s.suffix && <small>{s.suffix}</small>}</b><span>{tr(s.label, lang)}</span></div>
+        ))}
+      </div>
+      <div class="impact">
+        {home.impact.map((i) => (
+          <article class="card imp">
+            <div class="ico"><Icon name={i.icon} /></div>
+            <h3>{i.title}</h3>
+            <ul>{trList(i.items, lang).map((x) => <li>{x}</li>)}</ul>
+          </article>
+        ))}
+      </div>
+      <div class="clients">
+        <span class="eyebrow">Research &amp; Project Partners</span>
+        <div class="logos">{trList(home.clients, lang).map((c) => <span>{c}</span>)}</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="lab-director" style="padding-top:0">
+    <div class="wrap">
+      <div class="card teaser">
+        <div class="who">
+          <div class="avatar" aria-hidden="true">{director.initials}</div>
+          <span class="nm">{tr(director.name, lang)}</span>
+          <span class="rl">{tr(director.role, lang)}</span>
+        </div>
+        <div class="body">
+          <span class="eyebrow">Lab Director</span>
+          <h2>{ko ? '현장에서 출발하는 연구' : 'Research that starts in the field'}</h2>
+          <p class="sum">{tr(director.summary, lang)}</p>
+          <div class="kpis">
+            <div class="kpi"><b>{papers.length}</b><span>{ko ? '논문·발표' : 'Papers'}</span></div>
+            <div class="kpi"><b>{patents.length}</b><span>{ko ? '특허' : 'Patents'}</span></div>
+            <div class="kpi"><b>{projects.length}</b><span>{ko ? '기업 프로젝트' : 'Enterprise projects'}</span></div>
+            <div class="kpi"><b>{books.length}</b><span>{ko ? '저서' : 'Books'}</span></div>
+          </div>
+          <div class="acts">
+            <a class="btn pri" href={href(lang, '/people/')}>{ko ? '프로필 전체 보기' : 'Full profile'} <Icon name="arrow-right" size={18} stroke={2} /></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="card cta-band">
+        <div>
+          <h2>{ko ? '공동 연구 · 데이터 분석 협업' : 'Joint research & analytics collaboration'}</h2>
+          <p>{ko ? '진단 데이터와 경영 데이터를 연결한 예측 분석, 진단 도구 공동 개발, AX 컨설팅 과제를 함께 설계합니다.' : 'We design predictive analytics that link assessment and business data, co-develop assessment tools and scope AX consulting projects together.'} <strong>{site.email}</strong></p>
+        </div>
+        <a class="btn pri" href={href(lang, '/contact/')}>{ko ? '연락하기' : 'Get in touch'} <Icon name="arrow-right" size={18} stroke={2} /></a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  // Hero network: draws only while the hero is on screen and the tab is visible.
+  const cv = document.getElementById('net') as HTMLCanvasElement | null;
+  if (cv) {
+    const ctx = cv.getContext('2d')!;
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let W = 0, H = 0, raf = 0, onScreen = true;
+    let pts: { x: number; y: number; vx: number; vy: number; r: number }[] = [];
+    const size = () => {
+      const r = cv.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2);
+      W = r.width; H = r.height; cv.width = W * d; cv.height = H * d; ctx.setTransform(d, 0, 0, d, 0, 0);
+      const n = Math.round(Math.min(W < 600 ? 28 : 64, W / 18));
+      pts = Array.from({ length: n }, () => ({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * .25, vy: (Math.random() - .5) * .25, r: Math.random() * 1.6 + .6 }));
+    };
+    const frame = () => {
+      ctx.clearRect(0, 0, W, H);
+      for (let i = 0; i < pts.length; i++) {
+        const p = pts[i];
+        if (!reduce) { p.x += p.vx; p.y += p.vy; if (p.x < 0 || p.x > W) p.vx *= -1; if (p.y < 0 || p.y > H) p.vy *= -1; }
+        for (let j = i + 1; j < pts.length; j++) {
+          const q = pts[j], dd = Math.hypot(p.x - q.x, p.y - q.y);
+          if (dd < 130) { ctx.strokeStyle = `rgba(167,139,250,${.22 * (1 - dd / 130)})`; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke(); }
+        }
+        ctx.fillStyle = 'rgba(216,204,255,.8)'; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.283); ctx.fill();
+      }
+      raf = !reduce && onScreen && !document.hidden ? requestAnimationFrame(frame) : 0;
+    };
+    const start = () => { if (!raf) raf = requestAnimationFrame(frame); };
+    new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; if (onScreen) start(); }).observe(cv);
+    document.addEventListener('visibilitychange', () => { if (!document.hidden && onScreen) start(); });
+    addEventListener('resize', () => { size(); if (reduce) frame(); });
+    size(); frame();
+  }
+</script>

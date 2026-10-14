@@ -1,0 +1,33 @@
+---
+import Icon from './Icon.astro';
+import { tr, trList, href, type Lang } from '../lib/i18n';
+
+interface Props { theme: any; lang: Lang; compact?: boolean }
+const { theme: t, lang, compact = false } = Astro.props;
+const code = t.id.toUpperCase();
+---
+{compact ? (
+  <a class="card theme compact" href={href(lang, `/research/#${t.id}`)}>
+    <div class="top">
+      <div class="ico"><Icon name={t.icon} /></div>
+      <span class="code">{code}</span>
+    </div>
+    <h3>{tr(t.title, lang)}</h3>
+    <p>{tr(t.short, lang)}</p>
+    <span class="go">{lang === 'ko' ? '자세히' : 'Learn more'} <Icon name="arrow-right" size={16} stroke={2} /></span>
+  </a>
+) : (
+  <article class="card theme" id={t.id}>
+    <div class="top">
+      <div class="ico"><Icon name={t.icon} /></div>
+      <span class="code">{code}</span>
+    </div>
+    <h3>{tr(t.title, lang)}<small>{tr(t.sub, lang)}</small></h3>
+    <p>{tr(t.desc, lang)}</p>
+    <div class="kt">KEY TOPICS</div>
+    <ul class="tags">
+      {trList(t.topics, lang).map((x) => <li class="tag">{x}</li>)}
+    </ul>
+    <p class="basis"><b>{lang === 'ko' ? '근거' : 'Basis'}</b>{tr(t.basis, lang)}</p>
+  </article>
+)}

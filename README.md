@@ -1,54 +1,73 @@
 # DAL · Data Analytics Lab
 
-NFN 기업부설연구소 **Data Analytics Lab(DAL)** 웹사이트입니다.
-사람과 조직의 데이터로 경영 성과를 예측하는 연구(경영성과 예측, HR Analytics, 진단 과학, AI 피드백·코칭, AX)를 소개합니다.
+NFN 기업부설연구소 **Data Analytics Lab(DAL)** 웹사이트입니다. https://dal.fyi
 
-- 기본 언어: **English** (오른쪽 위 `EN / KO` 버튼으로 한국어 전환, 선택은 브라우저에 저장)
-- 별도 빌드 없는 정적 사이트 (HTML + CSS + JS)
-- 사이트 주소(GitHub Pages): https://now4next.github.io/dal/
+- [Astro](https://astro.build) 정적 사이트, GitHub Actions로 GitHub Pages에 자동 배포
+- 영어가 기본(`/`), 한국어는 `/ko/` 주소
+- 글꼴 Pretendard, 아이콘 Lucide
 
-## 폴더 구조
+## 페이지
 
-```
-index.html          페이지 전체 (레이아웃·스타일·고정 문구)
-data/lab-data.js    계속 바뀌는 내용 (연구책임자 프로필, 프로젝트, 특허, 논문, 저서, 마일스톤)
-```
+| 영어 | 한국어 | 내용 |
+|---|---|---|
+| `/` | `/ko/` | 홈 |
+| `/research/` | `/ko/research/` | 연구 영역 6개, 진단 도구, 방법론 |
+| `/publications/` | `/ko/publications/` | 특허, 논문, 저서, 마일스톤 |
+| `/people/` | `/ko/people/` | 연구책임자 프로필, 프로젝트, 연구 네트워크 |
+| `/news/` | `/ko/news/` | 소식 목록과 글 |
+| `/contact/` | `/ko/contact/` | 이메일, 주소 |
 
 ## 내용 업데이트하기
 
-새 논문·특허·프로젝트·마일스톤은 **`data/lab-data.js`만 수정**하면 됩니다.
-홈의 특허·논문·마일스톤 목록, 연구책임자 요약 숫자, Director 페이지가 함께 갱신됩니다.
+내용은 모두 `src/data/` 폴더의 JSON 파일에 있습니다. 파일만 고쳐서 `main`에 커밋하면 2~3분 뒤 사이트에 반영됩니다.
+GitHub 웹에서 파일을 열고 연필 아이콘(Edit)으로 고친 뒤 **Commit changes**를 눌러도 됩니다.
 
-1. 파일 맨 위 `updated` 날짜를 오늘 날짜로 바꿉니다.
-2. 알맞은 배열(`publications`, `patents`, `projects`, `books`, `milestones`)에 항목을 추가합니다.
-3. 텍스트는 `{ en: "...", ko: "..." }` 형태로 두 언어를 함께 씁니다. 한쪽만 쓰면 두 언어 모두 그 값이 보입니다.
-4. 커밋하고 `main`에 푸시하면 1~2분 뒤 사이트에 반영됩니다.
+| 파일 | 내용 |
+|---|---|
+| `publications.json` | 논문 · 학술발표 (`type`: `journal` / `conference` / `working`) |
+| `patents.json` | 특허 (`featured: true`는 큰 카드로 따로 표시) |
+| `news.json` | 소식 글 (`slug`가 주소가 됨: `/news/<slug>/`) |
+| `milestones.json` | 마일스톤 |
+| `projects.json` | 연구책임자 프로젝트 경력 (`tag`: `ai` / `platform` / `consulting`) |
+| `books.json` | 저서 |
+| `director.json` | 연구책임자 프로필, 학력, 경력 |
+| `research.json` | 연구 영역, 진단 도구, 방법론 |
+| `home.json` | 홈 수치, 파트너 목록 |
+| `network.json` | 연구 네트워크 |
+| `site.json` | 업데이트 날짜, 이메일, 주소 |
 
-논문 예시:
+규칙
 
-```js
+- 텍스트는 `{ "en": "...", "ko": "..." }` 형태로 두 언어를 함께 씁니다. 한쪽만 쓰면 두 언어 모두 그 값이 보입니다.
+- 날짜는 `"2026"` 또는 `"2026-09"` 형식입니다. 목록은 최신순으로 자동 정렬됩니다.
+- 내용을 고치면 `site.json`의 `updated` 날짜도 바꿔 주세요.
+- JSON은 쉼표 하나만 빠져도 빌드가 실패합니다. 실패하면 저장소 **Actions** 탭에 빨간 표시가 생기고, 사이트는 이전 버전이 그대로 유지됩니다.
+
+논문 예시
+
+```json
 {
-  type: "journal",            // "journal" | "conference" | "working"
-  date: "2026-11",            // 정렬 기준 (최신순 자동 정렬)
-  title: "Paper title",
-  venue: "Journal name, 20(1), 1–20",
-  doi: "10.xxxx/xxxx"         // 선택
+  "type": "journal",
+  "date": "2026-11",
+  "title": "Paper title",
+  "venue": "Journal name, 20(1), 1–20",
+  "doi": "10.xxxx/xxxx"
 }
 ```
 
-GitHub 웹에서 `data/lab-data.js` → 연필 아이콘(Edit)으로 바로 수정하고 커밋해도 됩니다.
+## 로컬에서 실행
 
-## 로컬에서 미리보기
-
-`index.html`을 브라우저로 바로 열어도 되고, 로컬 서버로 볼 수도 있습니다.
+Node.js 22.12 이상이 필요합니다.
 
 ```bash
-python -m http.server 8765
+npm install
+npm run dev
 ```
 
-브라우저에서 http://localhost:8765 를 엽니다.
+브라우저에서 http://localhost:4321 을 엽니다. 배포용 빌드는 `npm run build`이며 결과는 `dist/`에 생깁니다.
 
-## 배포 (GitHub Pages)
+## 배포
 
-저장소 **Settings → Pages → Build and deployment**에서
-Source를 `Deploy from a branch`, Branch를 `main` / `(root)`로 지정하면 됩니다.
+`main`에 푸시하면 `.github/workflows/deploy.yml`이 빌드해서 GitHub Pages에 올립니다.
+저장소 **Settings → Pages → Build and deployment**의 Source가 **GitHub Actions**여야 합니다.
+사용자 도메인 `dal.fyi`는 `public/CNAME`과 Pages 설정에 지정되어 있습니다.

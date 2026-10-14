@@ -1,0 +1,120 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import PubItem from '../components/PubItem.astro';
+import PatentFeature from '../components/PatentFeature.astro';
+import { tr, byDate, fmtDate, type Lang } from '../lib/i18n';
+import publications from '../data/publications.json';
+import patents from '../data/patents.json';
+import books from '../data/books.json';
+import milestones from '../data/milestones.json';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const ko = lang === 'ko';
+const papers = publications.filter((p) => p.type !== 'working').sort(byDate);
+const working = publications.filter((p) => p.type === 'working');
+const otherPatents = [...patents].filter((p: any) => !p.featured).sort(byDate);
+const miles = [...milestones].sort(byDate);
+const count = (t: string) => papers.filter((p) => p.type === t).length;
+---
+<Base lang={lang} path="/publications/" section="publications" title={ko ? '논문 · 특허' : 'Publications'}
+  description={ko ? 'DAL의 특허, 학술지 논문, 학술대회 발표, 저서, 연구 마일스톤.' : "DAL's patents, journal articles, conference papers, books and research milestones."}>
+  <header class="page-head">
+    <div class="wrap">
+      <span class="eyebrow">Patents &amp; Publications</span>
+      <h1>{ko ? '특허와 연구 성과' : 'Patents and research output'}</h1>
+      <p>{ko
+        ? '한·미 양국에 등록된 경영성과 예측 특허와, 리더십·팀·프로젝트 관리 분야의 학술 연구입니다.'
+        : 'A business performance prediction patent registered in both Korea and the US, and academic work on leadership, teams and project management.'}</p>
+    </div>
+  </header>
+
+  <section id="patents">
+    <div class="wrap">
+      <div class="ip">
+        <PatentFeature lang={lang} />
+        <div class="ip-side">
+          {otherPatents.map((p: any) => (
+            <article class="card ip-mini">
+              <span class="k">{tr(p.office, lang)}</span>
+              <h4>{tr(p.title, lang)}</h4>
+            </article>
+          ))}
+          <article class="card ip-mini">
+            <span class="k">PLATFORM IP</span>
+            <h4>{ko ? '유형별 결과 분석 자동 리포팅' : 'Automated results reporting by assessment type'}</h4>
+            <p>{ko ? '자가·다면·조직·설문 유형별 결과를 자동 분석해 웹/PDF 리포트로 생성하는 독자 기술.' : 'Proprietary engine that analyzes self, 360°, organization and survey results and generates web and PDF reports automatically.'}</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="papers" style="padding-top:0">
+    <div class="wrap">
+      <div class="card pubs">
+        <div class="pubs-head">
+          <h3><Icon name="file-text" />{ko ? '논문 · 학술발표' : 'Journal articles & conference papers'} <span class="cnt" id="pubCount">· {papers.length}</span></h3>
+          <div class="seg" role="group" aria-label={ko ? '유형 필터' : 'Filter by type'}>
+            <button type="button" data-f="all" aria-pressed="true">{ko ? '전체' : 'All'} {papers.length}</button>
+            <button type="button" data-f="journal" aria-pressed="false">{ko ? '학술지' : 'Journal'} {count('journal')}</button>
+            <button type="button" data-f="conference" aria-pressed="false">{ko ? '학술대회' : 'Conference'} {count('conference')}</button>
+          </div>
+        </div>
+        <ul class="publist" id="publist">
+          {papers.map((p) => <PubItem pub={p} lang={lang} />)}
+        </ul>
+        {working.length > 0 && (
+          <>
+            <p class="sub-h" style="margin-top:22px">{ko ? '진행 중인 연구' : 'WORK IN PROGRESS'}</p>
+            <ul class="publist">{working.map((p) => <PubItem pub={p} lang={lang} />)}</ul>
+          </>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <section id="books" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Books</span>
+        <h2>{ko ? '저서' : 'Books'}</h2>
+      </div>
+      <div class="books">
+        {[...books].sort(byDate).map((b) => (
+          <div class="book">
+            <div class="cv" aria-hidden="true"></div>
+            <div><b>{tr(b.title, lang)}</b><span>{fmtDate(b.date, lang)} · {b.publisher}</span><p>{tr(b.desc, lang)}</p></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="milestones" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Milestones</span>
+        <h2>{ko ? '연구 마일스톤' : 'Milestones'}</h2>
+        <p>{ko ? '최신순으로 정리했습니다.' : 'Latest first.'}</p>
+      </div>
+      <ol class="mlist">
+        {miles.map((m) => <li><time>{fmtDate(m.date, lang)}</time><p>{tr(m.text, lang)}</p></li>)}
+      </ol>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('#papers .seg button');
+  const items = document.querySelectorAll<HTMLLIElement>('#publist li');
+  const count = document.getElementById('pubCount');
+  buttons.forEach((b) => b.addEventListener('click', () => {
+    const f = b.dataset.f;
+    buttons.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    let n = 0;
+    items.forEach((li) => { const show = f === 'all' || li.dataset.type === f; li.hidden = !show; if (show) n++; });
+    if (count) count.textContent = `· ${n}`;
+  }));
+</script>
