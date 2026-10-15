@@ -26,11 +26,13 @@ const latestNews = [...news].sort(byDate).slice(0, 3);
     <canvas id="net" aria-hidden="true"></canvas>
     <div class="wrap">
       <span class="pill"><i></i>HR Analytics · Business Intelligence · Assessment AI</span>
-      <h1>Turning People Data into <span class="grad">Predictive Decisions</span></h1>
-      <p class="h-sub">{ko ? '사람과 조직의 데이터로 경영 성과를 예측합니다' : 'Assessment science, people analytics and AI for organizational performance'}</p>
+      <h1>Foresight for <span class="grad">People and Performance</span></h1>
+      <p class="h-sub">{ko
+        ? '특허받은 예측 모델과 검증된 진단 과학으로 성과가 향하는 곳과 지금 바꿔야 할 것을 보여 줍니다'
+        : 'Patented prediction models and validated assessment science show where performance is heading, and what to change now.'}</p>
       <p class="lead">{ko
-        ? 'Data Analytics Lab(DAL)은 NFN 기업부설연구소의 데이터·AI 연구 조직입니다. 진단(Assess) 데이터와 경영 데이터를 연결하고, 머신러닝과 생성형 AI로 개인·팀·조직의 성과를 해석하고 예측하는 방법을 연구합니다.'
-        : "Data Analytics Lab (DAL) is the data and AI research group of NFN's corporate R&D center. We connect assessment data with business data, and use machine learning and generative AI to interpret and predict how individuals, teams and organizations perform."}</p>
+        ? 'Data Analytics Lab(DAL)은 사람과 성과를 연구하는 NFN의 연구소입니다. 500여 개 기업의 진단 데이터를 경영 데이터와 결합하고, 머신러닝과 생성형 AI로 개인·팀·조직의 성과를 예측한 뒤, 예측 결과를 구체적인 다음 행동으로 연결합니다.'
+        : "Data Analytics Lab (DAL) is NFN's research lab for people and performance. We combine assessment data from more than 500 companies with business data, and use machine learning and generative AI to forecast how individuals, teams and organizations will perform, then turn each forecast into a concrete next step."}</p>
       <div class="cta">
         <a class="btn pri" href={href(lang, '/research/')}>{ko ? '연구 영역 보기' : 'Explore research'} <Icon name="arrow-right" size={18} stroke={2} /></a>
         <a class="btn sec" href={href(lang, '/publications/')}>{ko ? '논문 · 특허' : 'Publications & patents'}</a>
