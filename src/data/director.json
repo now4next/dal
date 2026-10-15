@@ -198,11 +198,11 @@
     ]
   },
   "photo": {
-    "src": "/people/byung-jun-kang.webp",
-    "fallback": "/people/byung-jun-kang.jpg",
+    "src": "/people/byung-jun-kang-caricature.webp",
+    "fallback": "/people/byung-jun-kang-caricature.jpg",
     "alt": {
-      "en": "Illustrated portrait of Byung Jun Kang",
-      "ko": "강병준 연구책임자 일러스트 초상"
+      "en": "Caricature of Byung Jun Kang",
+      "ko": "강병준 연구책임자 캐리커처"
     }
   }
 }

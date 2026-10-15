@@ -5,13 +5,18 @@ import director from '../data/director.json';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const photo = (director as any).photo;
+const isSvg = photo?.src?.endsWith('.svg');
 ---
 {photo ? (
   <div class="avatar has-photo">
-    <picture>
-      <source srcset={photo.src} type="image/webp" />
-      <img src={photo.fallback} alt={tr(photo.alt, lang)} width="400" height="400" loading="lazy" decoding="async" />
-    </picture>
+    {isSvg ? (
+      <img src={photo.src} alt={tr(photo.alt, lang)} width="400" height="400" loading="lazy" decoding="async" />
+    ) : (
+      <picture>
+        <source srcset={photo.src} type="image/webp" />
+        <img src={photo.fallback} alt={tr(photo.alt, lang)} width="400" height="400" loading="lazy" decoding="async" />
+      </picture>
+    )}
   </div>
 ) : (
   <div class="avatar" aria-hidden="true">{director.initials}</div>
