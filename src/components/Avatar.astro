@@ -1,0 +1,18 @@
+---
+import { tr, type Lang } from '../lib/i18n';
+import director from '../data/director.json';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const photo = (director as any).photo;
+---
+{photo ? (
+  <div class="avatar has-photo">
+    <picture>
+      <source srcset={photo.src} type="image/webp" />
+      <img src={photo.fallback} alt={tr(photo.alt, lang)} width="400" height="400" loading="lazy" decoding="async" />
+    </picture>
+  </div>
+) : (
+  <div class="avatar" aria-hidden="true">{director.initials}</div>
+)}

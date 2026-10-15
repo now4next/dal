@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
+import Avatar from '../components/Avatar.astro';
 import { tr, href, byDate, PROJECT_TAG, type Lang } from '../lib/i18n';
 import director from '../data/director.json';
 import projects from '../data/projects.json';
@@ -30,7 +31,7 @@ const tagCount = (t: string) => projects.filter((p) => p.tag === t).length;
   <section id="director">
     <div class="wrap prof">
       <aside class="card prof-card">
-        <div class="avatar" aria-hidden="true">{director.initials}</div>
+        <Avatar lang={lang} />
         <h2>{director.name.en}</h2>
         <p class="ko-name">{director.name.ko}</p>
         <p class="role">{tr(director.role, lang)}</p>
