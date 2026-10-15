@@ -1,9 +1,197 @@
 [
-  { "kind": "HOME · SEOUL", "icon": "building-2", "name": { "en": "NFN Corporate R&D Center (Jamsil)", "ko": "NFN 기업부설연구소 (잠실)" }, "rows": [ { "k": "LOCATION", "v": { "en": "240 Olympic-ro, Songpa-gu, Seoul", "ko": "서울 송파구 올림픽로 240" } }, { "k": "ROLE", "v": { "en": "DAL operations · platform R&D", "ko": "DAL 운영 · 플랫폼 R&D" } } ] },
-  { "kind": "PLATFORM", "icon": "layers", "name": { "en": "Global Assess", "ko": "Global Assess" }, "url": "https://globalassess.net/", "rows": [ { "k": "ROLE", "v": { "en": "Assess → Analytics → Action SaaS", "ko": "진단 → 분석 → 실행 통합 SaaS" } }, { "k": "SCALE", "v": { "en": "10+ standard assessments · 1,000+ items", "ko": "표준 진단 10+ · 문항 1,000+" } } ] },
-  { "kind": "ACADEMIA", "icon": "landmark", "name": { "en": "Seoul National University · AI4PM", "ko": "서울대학교 EPM · AI4PM" }, "rows": [ { "k": "FIELD", "v": { "en": "Engineering Project Management", "ko": "Engineering Project Management" } }, { "k": "ROLE", "v": { "en": "AX PM leadership · outcome prediction", "ko": "AX PM 리더십 · 성과 예측 연구" } } ] },
-  { "kind": "ACADEMIA", "icon": "graduation-cap", "name": { "en": "aSSIST", "ko": "서울과학종합대학원 aSSIST" }, "rows": [ { "k": "FIELD", "v": { "en": "AI Engineering · Management", "ko": "AI Engineering · Management" } }, { "k": "ROLE", "v": { "en": "AI management & strategy research", "ko": "AI 경영 · 전략 연구" } } ] },
-  { "kind": "ASSESSMENT PARTNER", "icon": "handshake", "name": { "en": "PSI Compass", "ko": "PSI컴파스" }, "rows": [ { "k": "FIELD", "v": { "en": "Big5 NEO-PI-3 · compliance", "ko": "Big5 NEO-PI-3 · 컴플라이언스" } }, { "k": "ROLE", "v": { "en": "Co-development & delivery of assessments", "ko": "진단 도구 공동 개발 · 운영" } } ] },
-  { "kind": "AI PRODUCT", "icon": "network", "name": { "en": "StratEdge", "ko": "StratEdge" }, "url": "https://stratedges.cc/", "rows": [ { "k": "FIELD", "v": { "en": "Strategy AI with 20+ frameworks", "ko": "20+ 전략 프레임워크 Strategy AI" } }, { "k": "ROLE", "v": { "en": "Links assessments to strategy reports", "ko": "진단 → 전략 리포트 연결" } } ] },
-  { "kind": "MEDIA", "icon": "newspaper", "name": { "en": "PM Times", "ko": "PM Times" }, "rows": [ { "k": "FIELD", "v": { "en": "Project management media", "ko": "프로젝트 관리 전문 미디어" } }, { "k": "ROLE", "v": { "en": "Sharing research results", "ko": "연구 성과 확산" } } ] }
+  {
+    "kind": "HOME · SEOUL",
+    "icon": "building-2",
+    "name": {
+      "en": "NFN Corporate R&D Center (Jamsil)",
+      "ko": "NFN 기업부설연구소 (잠실)"
+    },
+    "rows": [
+      {
+        "k": "LOCATION",
+        "v": {
+          "en": "240 Olympic-ro, Songpa-gu, Seoul",
+          "ko": "서울 송파구 올림픽로 240"
+        }
+      },
+      {
+        "k": "ROLE",
+        "v": {
+          "en": "DAL operations · platform R&D",
+          "ko": "DAL 운영 · 플랫폼 R&D"
+        }
+      }
+    ]
+  },
+  {
+    "kind": "PLATFORM",
+    "icon": "layers",
+    "name": {
+      "en": "Global Assess",
+      "ko": "Global Assess"
+    },
+    "url": "https://globalassess.net/",
+    "rows": [
+      {
+        "k": "ROLE",
+        "v": {
+          "en": "Assess → Analytics → Action SaaS",
+          "ko": "진단 → 분석 → 실행 통합 SaaS"
+        }
+      },
+      {
+        "k": "SCALE",
+        "v": {
+          "en": "10+ standard assessments · 1,000+ items",
+          "ko": "표준 진단 10+ · 문항 1,000+"
+        }
+      }
+    ]
+  },
+  {
+    "kind": "ACADEMIA",
+    "icon": "landmark",
+    "name": {
+      "en": "Seoul National University · AI4PM",
+      "ko": "서울대학교 EPM · AI4PM"
+    },
+    "rows": [
+      {
+        "k": "FIELD",
+        "v": {
+          "en": "Engineering Project Management",
+          "ko": "Engineering Project Management"
+        }
+      },
+      {
+        "k": "ROLE",
+        "v": {
+          "en": "AX PM leadership · outcome prediction",
+          "ko": "AX PM 리더십 · 성과 예측 연구"
+        }
+      }
+    ]
+  },
+  {
+    "kind": "ACADEMIA",
+    "icon": "graduation-cap",
+    "name": {
+      "en": "aSSIST",
+      "ko": "서울과학종합대학원 aSSIST"
+    },
+    "rows": [
+      {
+        "k": "FIELD",
+        "v": {
+          "en": "AI Engineering · Management",
+          "ko": "AI Engineering · Management"
+        }
+      },
+      {
+        "k": "ROLE",
+        "v": {
+          "en": "AI management & strategy research",
+          "ko": "AI 경영 · 전략 연구"
+        }
+      }
+    ]
+  },
+  {
+    "kind": "ASSESSMENT PARTNER",
+    "icon": "handshake",
+    "name": {
+      "en": "PSI Compass",
+      "ko": "PSI컴파스"
+    },
+    "rows": [
+      {
+        "k": "FIELD",
+        "v": {
+          "en": "Big5 NEO-PI-3 · compliance",
+          "ko": "Big5 NEO-PI-3 · 컴플라이언스"
+        }
+      },
+      {
+        "k": "ROLE",
+        "v": {
+          "en": "Co-development & delivery of assessments",
+          "ko": "진단 도구 공동 개발 · 운영"
+        }
+      }
+    ]
+  },
+  {
+    "kind": "AI PRODUCT",
+    "icon": "network",
+    "name": {
+      "en": "StratEdge",
+      "ko": "StratEdge"
+    },
+    "url": "https://stratedges.cc/",
+    "rows": [
+      {
+        "k": "FIELD",
+        "v": {
+          "en": "Strategy AI with 20+ frameworks",
+          "ko": "20+ 전략 프레임워크 Strategy AI"
+        }
+      },
+      {
+        "k": "ROLE",
+        "v": {
+          "en": "Links assessments to strategy reports",
+          "ko": "진단 → 전략 리포트 연결"
+        }
+      }
+    ]
+  },
+  {
+    "kind": "AI PRODUCT",
+    "icon": "messages-square",
+    "name": {
+      "en": "AI Review & Coaching",
+      "ko": "AI Review & Coaching"
+    },
+    "url": "https://globalassess.net/globalassess/KO/ai.html#ai-review-coaching",
+    "rows": [
+      {
+        "k": "FIELD",
+        "v": {
+          "en": "AI feedback · GROW-based 1:1 coaching",
+          "ko": "AI 분석 피드백 · GROW 기반 1:1 코칭"
+        }
+      },
+      {
+        "k": "ROLE",
+        "v": {
+          "en": "Turns assessment results into action plans",
+          "ko": "진단 결과를 실행 계획으로 연결"
+        }
+      }
+    ]
+  },
+  {
+    "kind": "MEDIA",
+    "icon": "newspaper",
+    "name": {
+      "en": "PM Times",
+      "ko": "PM Times"
+    },
+    "rows": [
+      {
+        "k": "FIELD",
+        "v": {
+          "en": "Project management media",
+          "ko": "프로젝트 관리 전문 미디어"
+        }
+      },
+      {
+        "k": "ROLE",
+        "v": {
+          "en": "Sharing research results",
+          "ko": "연구 성과 확산"
+        }
+      }
+    ]
+  }
 ]
