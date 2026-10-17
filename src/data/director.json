@@ -204,5 +204,73 @@
       "en": "Caricature of Byung Jun Kang",
       "ko": "강병준 연구책임자 캐리커처"
     }
-  }
+  },
+  "columns": [
+    {
+      "name": "PLI · Project Leadership Insight",
+      "host": "projectleadership.cc",
+      "url": "https://projectleadership.cc/",
+      "icon": "newspaper",
+      "cadence": {
+        "en": "Every Friday",
+        "ko": "매주 금요일"
+      },
+      "audience": {
+        "en": "A weekly column for leaders",
+        "ko": "리더를 위한 주간 칼럼"
+      },
+      "desc": {
+        "en": "Each issue takes one piece of leadership and management research, from sources such as HBR, INSEAD and PNAS, and retells it in the language leaders use at work.",
+        "ko": "매주 HBR·INSEAD·PNAS 등 세계의 리더십·경영 연구 한 편을 골라, 현장 리더의 언어로 풀어 씁니다."
+      },
+      "topics": {
+        "en": [
+          "Strategy",
+          "People",
+          "Judgment",
+          "Growth",
+          "Reflection",
+          "History"
+        ],
+        "ko": [
+          "전략",
+          "사람",
+          "판단",
+          "성장",
+          "성찰",
+          "역사"
+        ]
+      }
+    },
+    {
+      "name": "99 Wisdom Insight",
+      "host": "99wisdombook.org",
+      "url": "https://99wisdombook.org/",
+      "icon": "book-open",
+      "cadence": {
+        "en": "Every morning",
+        "ko": "매일 아침"
+      },
+      "audience": {
+        "en": "Daily wisdom from Lines Life Taught Me",
+        "ko": "데일리 공감 지혜 · 「살아본 뒤에야 비로소 읽히는 문장들」"
+      },
+      "desc": {
+        "en": "The book's 99 laws of life, in nine parts, read one a day as short columns with real cases and sources, plus a one-line message for the day.",
+        "ko": "책의 9부 99장 인생 법칙을 사례와 출처가 있는 짧은 칼럼으로 매일 아침 한 편씩 전하고, 오늘의 한 문장을 보내 드립니다."
+      },
+      "topics": {
+        "en": [
+          "9 parts · 99 chapters",
+          "One line for today",
+          "Readers' notes"
+        ],
+        "ko": [
+          "9부 99장",
+          "오늘의 한 문장",
+          "독자의 기록"
+        ]
+      }
+    }
+  ]
 }

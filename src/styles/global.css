@@ -428,3 +428,15 @@ footer.site .legal { grid-column: 1 / -1; padding-top: 20px; border-top: 1px sol
 .avatar.has-photo picture, .avatar.has-photo img { display: block; width: 100%; height: 100%; }
 .avatar.has-photo img { object-fit: cover; border-radius: 50%; }
 footer.site .tagline { margin-top: 4px; font-size: var(--t-label); font-weight: 600; letter-spacing: .06em; color: var(--accent-t); }
+
+/* ---------- director columns ---------- */
+.channels { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 720px) { .channels { grid-template-columns: 1fr; } }
+.channel { display: grid; gap: 10px; align-content: start; padding: 22px; border-radius: 14px; border: 1px solid var(--line); background: rgba(6, 2, 26, .45); min-width: 0; }
+.channel .ch-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.channel .ico { width: 42px; height: 42px; border-radius: 11px; }
+.channel h4 { font-size: 18px; letter-spacing: -.015em; }
+.channel .for { color: var(--accent-t); font-weight: 600; font-size: var(--t-small); }
+.channel .desc { color: var(--fg-2); font-size: var(--t-small); line-height: 1.65; }
+.channel .btn { justify-self: start; margin-top: 4px; }
+.book-body .acts { margin-top: 4px; }

@@ -99,7 +99,10 @@ const count = (t: string) => papers.filter((p) => p.type === t).length;
                 <dt>{ko ? '쪽수' : 'Pages'}</dt><dd>{b.pages}</dd>
                 <dt>ISBN</dt><dd class="num">{b.isbn}</dd>
               </dl>
-              <a class="btn sec" href={b.store.url} target="_blank" rel="noopener">{ko ? `${b.store.label}에서 보기` : `View on ${b.store.label}`} <Icon name="arrow-up-right" size={18} stroke={2} /></a>
+              <div class="acts">
+                <a class="btn sec" href={b.store.url} target="_blank" rel="noopener">{ko ? `${b.store.label}에서 보기` : `View on ${b.store.label}`} <Icon name="arrow-up-right" size={18} stroke={2} /></a>
+                {(b as any).related && <a class="more" href={(b as any).related.url} target="_blank" rel="noopener">{tr((b as any).related.label, lang)} <Icon name="arrow-up-right" size={16} stroke={2} /></a>}
+              </div>
             </div>
           </article>
         ))}

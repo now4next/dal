@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import Avatar from '../components/Avatar.astro';
-import { tr, href, byDate, PROJECT_TAG, type Lang } from '../lib/i18n';
+import { tr, trList, href, byDate, PROJECT_TAG, type Lang } from '../lib/i18n';
 import director from '../data/director.json';
 import projects from '../data/projects.json';
 import publications from '../data/publications.json';
@@ -70,6 +70,27 @@ const tagCount = (t: string) => projects.filter((p) => p.tag === t).length;
             <ul class="tl">{tl(director.career.former).map((x) => <li class="past"><b>{x.title}</b><span>{x.org}</span></li>)}</ul>
           </section>
         </div>
+
+        {(director as any).columns && (
+          <section class="card block" id="columns">
+            <div class="block-h"><h3><Icon name="newspaper" />{ko ? '연재 칼럼' : 'Columns'}</h3></div>
+            <div class="channels">
+              {(director as any).columns.map((c: any) => (
+                <article class="channel">
+                  <div class="ch-top">
+                    <span class="ico"><Icon name={c.icon} /></span>
+                    <span class="tag">{tr(c.cadence, lang)}</span>
+                  </div>
+                  <h4>{c.name}</h4>
+                  <p class="for">{tr(c.audience, lang)}</p>
+                  <p class="desc">{tr(c.desc, lang)}</p>
+                  <ul class="tags">{trList(c.topics, lang).map((t: string) => <li class="tag">{t}</li>)}</ul>
+                  <a class="btn sec" href={c.url} target="_blank" rel="noopener">{c.host} <Icon name="arrow-up-right" size={18} stroke={2} /></a>
+                </article>
+              ))}
+            </div>
+          </section>
+        )}
 
         <section class="card block" id="projects">
           <div class="block-h">
