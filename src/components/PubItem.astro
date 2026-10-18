@@ -13,6 +13,11 @@ const { pub: p, lang } = Astro.props;
       {p.doi && <> · <a href={`https://doi.org/${p.doi}`} target="_blank" rel="noopener">doi:{p.doi}</a></>}
     </span>
     {p.summary && <span class="sm">{tr(p.summary, lang)}</span>}
+    {p.links && (
+      <span class="ln">
+        {p.links.map((l: any) => <a href={l.url} target="_blank" rel="noopener">{tr(l.label, lang)} ↗</a>)}
+      </span>
+    )}
   </p>
   <span class={`ty ${p.type}`}>{tr(PUB_TYPE[p.type], lang)}</span>
 </li>

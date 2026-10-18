@@ -28,8 +28,32 @@
   {
     "type": "conference",
     "date": "2026-07",
-    "title": "Reconciling Two Time Logics: An Agile-CPMAI Integration Framework for Managing AI Projects",
-    "venue": "ProjMAN – International Conference on Project MANagement"
+    "title": "Reconciling Two Time Logics: An Agile–CPMAI Integration Framework for Managing AI Projects",
+    "venue": {
+      "en": "ProjMAN 2026 – International Conference on Project MANagement · to appear in Procedia Computer Science",
+      "ko": "ProjMAN 2026 – International Conference on Project MANagement · Procedia Computer Science 게재 예정"
+    },
+    "authors": "Park, J., Kang, B., Syeed, M. S. I., Nyarkoh, M., Kwak, Y. H., & Park, C.",
+    "links": [
+      {
+        "label": {
+          "en": "Paper (PDF)",
+          "ko": "논문 PDF"
+        },
+        "url": "https://frontend.scms.scika.org/uploads/scms/u1528-ed30-pub1983-K553gsWGWF-7PHdbcOj-HcGjCzRvxEgS.pdf"
+      },
+      {
+        "label": {
+          "en": "Data & replication (GitHub)",
+          "ko": "데이터·재현 자료 (GitHub)"
+        },
+        "url": "https://github.com/camp-epm/reconciling-two-time-logics"
+      }
+    ],
+    "summary": {
+      "en": "Frames the clash between Agile and AI work as a dual-timeline problem and proposes a framework in which CPMAI phases form the strategic backbone and Agile sprints the execution rhythm, linked by phase gates and a two-tier Definition of Done. The evaluation instrument was pre-tested with an LLM-simulated Delphi.",
+      "ko": "애자일을 AI 프로젝트에 적용할 때 생기는 충돌을 이중 시간축 문제로 정식화하고, CPMAI 단계를 전략 골격으로·애자일 스프린트를 실행 리듬으로 삼아 단계 게이트와 2단계 완료 정의(DoD)로 잇는 통합 프레임워크를 제안합니다. 평가 도구는 LLM 시뮬레이션 델파이로 사전 검증했습니다."
+    }
   },
   {
     "type": "journal",

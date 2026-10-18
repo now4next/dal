@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import Avatar from '../components/Avatar.astro';
+import PubItem from '../components/PubItem.astro';
 import { tr, trList, href, byDate, PROJECT_TAG, type Lang } from '../lib/i18n';
 import director from '../data/director.json';
 import projects from '../data/projects.json';
@@ -14,6 +15,7 @@ interface Props { lang: Lang }
 const { lang } = Astro.props;
 const ko = lang === 'ko';
 const papers = publications.filter((p) => p.type !== 'working');
+const allPubs = [...publications].sort(byDate);
 const pats = [...patents].filter((p: any) => !p.history).sort(byDate);
 const patHistory = [...patents].filter((p: any) => p.history).sort(byDate);
 const tl = (arr: any[]) => arr.map((x) => ({ title: tr(x.title, lang), org: tr(x.org, lang), url: x.url as string | undefined }));
@@ -135,11 +137,16 @@ const tagCount = (t: string) => projects.filter((p) => p.tag === t).length;
           </ul>
         </section>
 
-        <section class="card block">
+        <section class="card block" id="research-output">
           <div class="block-h">
             <h3><Icon name="file-text" />{ko ? '연구 성과' : 'Research output'}</h3>
             <a class="more" href={href(lang, '/publications/')}>{ko ? '논문·특허 전체' : 'All publications'} <Icon name="arrow-right" size={18} stroke={2} /></a>
           </div>
+          <p class="sub-h">{ko ? '논문 · 학술발표' : 'PAPERS'}</p>
+          <ul class="publist compact">
+            {allPubs.map((p) => <PubItem pub={p} lang={lang} />)}
+          </ul>
+          <p class="sub-h" style="margin-top:18px">{ko ? '특허' : 'PATENTS'}</p>
           <ul class="tl">
             {pats.map((p) => <li><b>{tr(p.title, lang)}</b><span>{tr(p.office, lang)}</span></li>)}
             {patHistory.length > 0 && <li class="tl-head"><p class="sub-h">{ko ? '연구 이력' : 'RESEARCH HISTORY'}</p></li>}
