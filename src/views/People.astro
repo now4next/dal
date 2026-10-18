@@ -14,7 +14,8 @@ interface Props { lang: Lang }
 const { lang } = Astro.props;
 const ko = lang === 'ko';
 const papers = publications.filter((p) => p.type !== 'working');
-const pats = [...patents].sort(byDate);
+const pats = [...patents].filter((p: any) => !p.history).sort(byDate);
+const patHistory = [...patents].filter((p: any) => p.history).sort(byDate);
 const tl = (arr: any[]) => arr.map((x) => ({ title: tr(x.title, lang), org: tr(x.org, lang), url: x.url as string | undefined }));
 const tagCount = (t: string) => projects.filter((p) => p.tag === t).length;
 ---
@@ -141,6 +142,8 @@ const tagCount = (t: string) => projects.filter((p) => p.tag === t).length;
           </div>
           <ul class="tl">
             {pats.map((p) => <li><b>{tr(p.title, lang)}</b><span>{tr(p.office, lang)}</span></li>)}
+            {patHistory.length > 0 && <li class="tl-head"><p class="sub-h">{ko ? '연구 이력' : 'RESEARCH HISTORY'}</p></li>}
+            {patHistory.map((p) => <li class="past"><b>{tr(p.title, lang)}</b><span>{tr(p.office, lang)}</span></li>)}
           </ul>
         </section>
       </div>

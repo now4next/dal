@@ -454,3 +454,10 @@ footer.site .tagline { margin-top: 4px; font-size: var(--t-label); font-weight: 
 .product .p-desc { color: var(--fg-2); font-size: var(--t-small); line-height: 1.6; }
 .product .p-host { color: var(--fg-3); font-size: var(--t-label); overflow-wrap: anywhere; }
 .tl .tl-link { display: inline-flex; align-items: center; min-height: 32px; color: var(--accent-t); font-weight: 600; }
+.history { margin-top: 20px; padding: 22px 26px; display: grid; gap: 10px; }
+.history .sub-h { margin: 0; }
+.history-item { display: grid; gap: 4px; }
+.history-item h4 { font-size: 16px; font-weight: 700; letter-spacing: -.01em; }
+.history-item p { color: var(--fg-2); font-size: var(--t-small); }
+.tl li.tl-head { padding: 6px 0 0; border-top: 1px solid var(--line); }
+.tl li.tl-head::before { display: none; }

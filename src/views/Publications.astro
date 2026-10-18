@@ -14,7 +14,8 @@ const { lang } = Astro.props;
 const ko = lang === 'ko';
 const papers = publications.filter((p) => p.type !== 'working').sort(byDate);
 const working = publications.filter((p) => p.type === 'working');
-const otherPatents = [...patents].filter((p: any) => !p.featured).sort(byDate);
+const otherPatents = [...patents].filter((p: any) => !p.featured && !p.history).sort(byDate);
+const patHistory = [...patents].filter((p: any) => p.history).sort(byDate);
 const miles = [...milestones].sort(byDate);
 const count = (t: string) => papers.filter((p) => p.type === t).length;
 ---
@@ -49,6 +50,18 @@ const count = (t: string) => papers.filter((p) => p.type === t).length;
           </article>
         </div>
       </div>
+      {patHistory.length > 0 && (
+        <div class="card history">
+          <p class="sub-h">{ko ? '연구 이력' : 'RESEARCH HISTORY'}</p>
+          {patHistory.map((p: any) => (
+            <div class="history-item">
+              <h4>{tr(p.title, lang)}</h4>
+              {p.desc && <p>{tr(p.desc, lang)}</p>}
+              <p class="meta-line">{tr(p.office, lang)}</p>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   </section>
 

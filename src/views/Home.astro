@@ -158,7 +158,7 @@ const latestNews = [...news].sort(byDate).slice(0, 3);
           <p class="sum">{tr(director.summary, lang)}</p>
           <div class="kpis">
             <div class="kpi"><b>{papers.length}</b><span>{ko ? '논문·발표' : 'Papers'}</span></div>
-            <div class="kpi"><b>{patents.length}</b><span>{ko ? '특허' : 'Patents'}</span></div>
+            <div class="kpi"><b>{patents.filter((p: any) => !p.history).length}</b><span>{ko ? '특허' : 'Patents'}</span></div>
             <div class="kpi"><b>{projects.length}</b><span>{ko ? '기업 프로젝트' : 'Enterprise projects'}</span></div>
             <div class="kpi"><b>{books.length}</b><span>{ko ? '저서' : 'Books'}</span></div>
           </div>
