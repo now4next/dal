@@ -461,3 +461,5 @@ footer.site .tagline { margin-top: 4px; font-size: var(--t-label); font-weight: 
 .history-item p { color: var(--fg-2); font-size: var(--t-small); }
 .tl li.tl-head { padding: 6px 0 0; border-top: 1px solid var(--line); }
 .tl li.tl-head::before { display: none; }
+.publist .t span.au { color: var(--fg-2); font-weight: 500; }
+.publist .t span.sm { color: var(--fg-2); font-weight: 400; line-height: 1.6; margin-top: 8px; padding-left: 12px; border-left: 2px solid var(--line-2); }

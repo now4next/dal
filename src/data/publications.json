@@ -45,9 +45,15 @@
   },
   {
     "type": "journal",
-    "date": "2024",
+    "date": "2026",
     "title": "The Application of Generative AI in Project Management: Focusing on Text-Mining Projects for Human Resources",
-    "venue": "Procedia Computer Science, 278, 1993–2002"
+    "venue": "Procedia Computer Science, 278, 1993–2002 (Elsevier)",
+    "doi": "10.1016/j.procs.2026.03.196",
+    "authors": "Oum, S., Park, J., Kwak, Y. H., Kang, B., Choi, J., & Park, C.",
+    "summary": {
+      "en": "Compares GPT-3.5 and BERT with human experts on 2,420 compliance and culture survey responses: GPT-3.5 without fine-tuning reached F1 0.73, BERT 0.72, and fine-tuned BERT 0.83.",
+      "ko": "컴플라이언스·조직문화 설문 응답 2,420건으로 GPT-3.5·BERT와 전문가의 텍스트 분류를 비교했습니다. 파인튜닝 없는 GPT-3.5는 F1 0.73, BERT 0.72, 파인튜닝한 BERT는 0.83을 기록했습니다."
+    }
   },
   {
     "type": "working",

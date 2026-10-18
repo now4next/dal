@@ -7,10 +7,12 @@ const { pub: p, lang } = Astro.props;
   <span class="yr">{fmtDate(p.date, lang)}</span>
   <p class="t">
     {tr(p.title, lang)}
+    {p.authors && <span class="au">{p.authors}</span>}
     <span>
       {tr(p.venue, lang)}
       {p.doi && <> · <a href={`https://doi.org/${p.doi}`} target="_blank" rel="noopener">doi:{p.doi}</a></>}
     </span>
+    {p.summary && <span class="sm">{tr(p.summary, lang)}</span>}
   </p>
   <span class={`ty ${p.type}`}>{tr(PUB_TYPE[p.type], lang)}</span>
 </li>

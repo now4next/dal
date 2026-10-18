@@ -94,7 +94,7 @@
         "en": ["AX readiness assessment", "PM AI competency indicators", "Agile-CPMAI · PMBOK 8", "7-layer reality diagnosis", "StratEdge strategy AI"],
         "ko": ["AX 역량 진단", "PM AI 역량 지표", "Agile-CPMAI · PMBOK 8", "7-Layer 현실 진단", "StratEdge 전략 AI"]
       },
-      "basis": { "en": "IPMA 2026, ProjMAN 2026, Procedia CS 2024, SNU AI4PM", "ko": "IPMA 2026, ProjMAN 2026, Procedia CS 2024, 서울대 AI4PM" }
+      "basis": { "en": "IPMA 2026, ProjMAN 2026, Procedia CS 2026, SNU AI4PM", "ko": "IPMA 2026, ProjMAN 2026, Procedia CS 2026, 서울대 AI4PM" }
     }
   ],
 
