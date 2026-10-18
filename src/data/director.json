@@ -131,7 +131,8 @@
         "org": {
           "en": "PM Times (online newspaper)",
           "ko": "PM Times(피엠타임스) 온라인 신문사"
-        }
+        },
+        "url": "https://pmtimes.kr/"
       },
       {
         "title": {
@@ -342,6 +343,23 @@
       "desc": {
         "en": "A concept studio that turns brand strategy into one line and one scene: brand concept, naming and copy, visual direction and campaign story.",
         "ko": "브랜드 전략을 한 문장과 한 장면으로 만드는 컨셉 스튜디오. 브랜드 컨셉, 네이밍·카피, 비주얼 방향, 캠페인 스토리를 다룹니다."
+      }
+    },
+    {
+      "name": {
+        "en": "SNU EPM website",
+        "ko": "서울대 EPM 웹사이트"
+      },
+      "host": "epm.kr",
+      "url": "https://epm.kr/",
+      "icon": "landmark",
+      "role": {
+        "en": "Program website for Seoul National University EPM",
+        "ko": "서울대 공과대학 EPM 과정 사이트 개발"
+      },
+      "desc": {
+        "en": "Website for the Engineering Project Management program at SNU College of Engineering: courses, R&D, Congress, PMC, AI4PM and the PM Times news section.",
+        "ko": "서울대 공과대학 EPM(엔지니어링 프로젝트 매니지먼트) 과정 사이트. 교육과정, 연구개발, 콩그레스, PMC, AI4PM, PM타임즈 뉴스를 담았습니다."
       }
     }
   ]

@@ -181,8 +181,8 @@
       {
         "k": "FIELD",
         "v": {
-          "en": "Project management media",
-          "ko": "프로젝트 관리 전문 미디어"
+          "en": "Project management media · Weekly EPM, PM Daily News",
+          "ko": "프로젝트 관리 전문 미디어 · 위클리EPM, PM데일리뉴스"
         }
       },
       {
@@ -192,6 +192,7 @@
           "ko": "연구 성과 확산"
         }
       }
-    ]
+    ],
+    "url": "https://pmtimes.kr/"
   }
 ]

@@ -15,7 +15,7 @@ const { lang } = Astro.props;
 const ko = lang === 'ko';
 const papers = publications.filter((p) => p.type !== 'working');
 const pats = [...patents].sort(byDate);
-const tl = (arr: any[]) => arr.map((x) => ({ title: tr(x.title, lang), org: tr(x.org, lang) }));
+const tl = (arr: any[]) => arr.map((x) => ({ title: tr(x.title, lang), org: tr(x.org, lang), url: x.url as string | undefined }));
 const tagCount = (t: string) => projects.filter((p) => p.tag === t).length;
 ---
 <Base lang={lang} path="/people/" section="people" title={ko ? '사람' : 'People'}
@@ -65,7 +65,7 @@ const tagCount = (t: string) => projects.filter((p) => p.tag === t).length;
           <section class="card block">
             <div class="block-h"><h3><Icon name="briefcase" />Career</h3></div>
             <p class="sub-h">{ko ? '현직' : 'CURRENT'}</p>
-            <ul class="tl">{tl(director.career.current).map((x) => <li><b>{x.title}</b><span>{x.org}</span></li>)}</ul>
+            <ul class="tl">{tl(director.career.current).map((x) => <li><b>{x.title}</b><span>{x.url ? <a class="tl-link" href={x.url} target="_blank" rel="noopener">{x.org} ↗</a> : x.org}</span></li>)}</ul>
             <p class="sub-h">{ko ? '전직' : 'PREVIOUS'}</p>
             <ul class="tl">{tl(director.career.former).map((x) => <li class="past"><b>{x.title}</b><span>{x.org}</span></li>)}</ul>
           </section>
@@ -102,7 +102,7 @@ const tagCount = (t: string) => projects.filter((p) => p.tag === t).length;
                 <a class="product" href={p.url} target="_blank" rel="noopener">
                   <span class="ico"><Icon name={p.icon} /></span>
                   <span class="p-body">
-                    <span class="p-name">{p.name} <Icon name="arrow-up-right" size={16} stroke={2} /></span>
+                    <span class="p-name">{tr(p.name, lang)} <Icon name="arrow-up-right" size={16} stroke={2} /></span>
                     <span class="p-role">{tr(p.role, lang)}</span>
                     <span class="p-desc">{tr(p.desc, lang)}</span>
                     <span class="p-host">{p.host}</span>

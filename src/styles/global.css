@@ -453,3 +453,4 @@ footer.site .tagline { margin-top: 4px; font-size: var(--t-label); font-weight: 
 .product .p-role { color: var(--accent-t); font-weight: 600; font-size: var(--t-small); }
 .product .p-desc { color: var(--fg-2); font-size: var(--t-small); line-height: 1.6; }
 .product .p-host { color: var(--fg-3); font-size: var(--t-label); overflow-wrap: anywhere; }
+.tl .tl-link { display: inline-flex; align-items: center; min-height: 32px; color: var(--accent-t); font-weight: 600; }
