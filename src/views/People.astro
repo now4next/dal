@@ -92,6 +92,27 @@ const tagCount = (t: string) => projects.filter((p) => p.tag === t).length;
           </section>
         )}
 
+        {(director as any).products && (
+          <section class="card block" id="products">
+            <div class="block-h">
+              <h3><Icon name="sparkles" />{ko ? '개발한 서비스' : 'Products built'} <span class="cnt">· {(director as any).products.length}</span></h3>
+            </div>
+            <div class="products">
+              {(director as any).products.map((p: any) => (
+                <a class="product" href={p.url} target="_blank" rel="noopener">
+                  <span class="ico"><Icon name={p.icon} /></span>
+                  <span class="p-body">
+                    <span class="p-name">{p.name} <Icon name="arrow-up-right" size={16} stroke={2} /></span>
+                    <span class="p-role">{tr(p.role, lang)}</span>
+                    <span class="p-desc">{tr(p.desc, lang)}</span>
+                    <span class="p-host">{p.host}</span>
+                  </span>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+
         <section class="card block" id="projects">
           <div class="block-h">
             <h3><Icon name="chart-line" />Project Experience <span class="cnt" id="projCount">· {projects.length}</span></h3>

@@ -440,3 +440,16 @@ footer.site .tagline { margin-top: 4px; font-size: var(--t-label); font-weight: 
 .channel .desc { color: var(--fg-2); font-size: var(--t-small); line-height: 1.65; }
 .channel .btn { justify-self: start; margin-top: 4px; }
 .book-body .acts { margin-top: 4px; }
+
+/* ---------- director products ---------- */
+.products { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 720px) { .products { grid-template-columns: 1fr; } }
+.product { display: grid; grid-template-columns: auto 1fr; gap: 14px; padding: 18px; border-radius: 14px; border: 1px solid var(--line); background: rgba(6, 2, 26, .45); transition: border-color .2s, background .2s; min-width: 0; }
+.product:hover { border-color: var(--line-2); background: var(--surface-2); }
+.product .ico { width: 42px; height: 42px; border-radius: 11px; }
+.product .p-body { display: grid; gap: 4px; min-width: 0; }
+.product .p-name { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; font-size: 17px; letter-spacing: -.015em; }
+.product .p-name .icon { color: var(--accent-t); }
+.product .p-role { color: var(--accent-t); font-weight: 600; font-size: var(--t-small); }
+.product .p-desc { color: var(--fg-2); font-size: var(--t-small); line-height: 1.6; }
+.product .p-host { color: var(--fg-3); font-size: var(--t-label); overflow-wrap: anywhere; }
