@@ -23,14 +23,18 @@
     }
   },
   {
-    "date": "",
+    "date": "2013-07",
     "title": {
-      "en": "Multi-modality Emotion Recognition Method and System",
-      "ko": "멀티모달리티 감정인식 방법 및 시스템"
+      "en": "System and Method for Multi-Modality Emotion Recognition and Recording Medium Thereof",
+      "ko": "멀티 모달리티 감정인식 시스템, 감정인식 방법 및 그 기록매체"
     },
     "office": {
-      "en": "KR patent · registered",
-      "ko": "국내 특허 · 등록"
+      "en": "KR patent · No. 10-1284561 · 2013.07.04 · acquired by NFN · lapsed",
+      "ko": "국내 특허 · 제10-1284561호 · 2013.07.04 등록 · NFN 인수 · 권리 소멸"
+    },
+    "desc": {
+      "en": "Recognizes emotion from bio-signals, facial expression and facial surface temperature, processed in parallel. Originally filed by Chungnam National University.",
+      "ko": "생체신호·얼굴표정·얼굴표면온도를 병렬로 활용해 감정을 인식합니다. 충남대학교 산학협력단 출원."
     }
   }
 ]

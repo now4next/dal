@@ -39,6 +39,7 @@ const count = (t: string) => papers.filter((p) => p.type === t).length;
             <article class="card ip-mini">
               <span class="k">{tr(p.office, lang)}</span>
               <h4>{tr(p.title, lang)}</h4>
+              {p.desc && <p>{tr(p.desc, lang)}</p>}
             </article>
           ))}
           <article class="card ip-mini">
