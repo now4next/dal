@@ -82,7 +82,7 @@ const count = (t: string) => papers.filter((p) => p.type === t).length;
         {working.length > 0 && (
           <>
             <p class="sub-h" style="margin-top:22px">{ko ? '진행 중인 연구' : 'WORK IN PROGRESS'}</p>
-            <ul class="publist">{working.map((p) => <PubItem pub={p} lang={lang} />)}</ul>
+            <ul class="publist wip">{working.map((p) => <PubItem pub={p} lang={lang} />)}</ul>
           </>
         )}
       </div>

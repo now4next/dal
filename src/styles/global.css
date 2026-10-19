@@ -468,3 +468,5 @@ footer.site .tagline { margin-top: 4px; font-size: var(--t-label); font-weight: 
 .publist.compact li { grid-template-columns: 72px 1fr auto; padding: 14px 0; }
 .publist.compact .t { font-size: 15px; }
 @media (max-width: 640px) { .publist.compact li { grid-template-columns: 1fr; } }
+.publist.wip li { grid-template-columns: 1fr; padding: 12px 0; }
+.publist.wip .yr, .publist.wip .ty { display: none; }

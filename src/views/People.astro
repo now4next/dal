@@ -15,7 +15,8 @@ interface Props { lang: Lang }
 const { lang } = Astro.props;
 const ko = lang === 'ko';
 const papers = publications.filter((p) => p.type !== 'working');
-const allPubs = [...publications].sort(byDate);
+const allPubs = [...publications].filter((p) => p.type !== 'working').sort(byDate);
+const wipPubs = publications.filter((p) => p.type === 'working');
 const pats = [...patents].filter((p: any) => !p.history).sort(byDate);
 const patHistory = [...patents].filter((p: any) => p.history).sort(byDate);
 const tl = (arr: any[]) => arr.map((x) => ({ title: tr(x.title, lang), org: tr(x.org, lang), url: x.url as string | undefined }));
@@ -146,6 +147,14 @@ const tagCount = (t: string) => projects.filter((p) => p.tag === t).length;
           <ul class="publist compact">
             {allPubs.map((p) => <PubItem pub={p} lang={lang} />)}
           </ul>
+          {wipPubs.length > 0 && (
+            <>
+              <p class="sub-h" style="margin-top:18px">{ko ? `진행 중인 논문 · ${wipPubs.length}` : `PAPERS IN PROGRESS · ${wipPubs.length}`}</p>
+              <ul class="publist compact wip">
+                {wipPubs.map((p) => <PubItem pub={p} lang={lang} />)}
+              </ul>
+            </>
+          )}
           <p class="sub-h" style="margin-top:18px">{ko ? '특허' : 'PATENTS'}</p>
           <ul class="tl">
             {pats.map((p) => <li><b>{tr(p.title, lang)}</b><span>{tr(p.office, lang)}</span></li>)}
