@@ -111,7 +111,8 @@
         "org": {
           "en": "NFN",
           "ko": "NFN"
-        }
+        },
+        "url": "https://nfn.co.kr/"
       },
       {
         "title": {
@@ -131,7 +132,8 @@
         "org": {
           "en": "College of Engineering, Seoul National University",
           "ko": "서울대학교 공과대학"
-        }
+        },
+        "url": "https://epm.snu.ac.kr/"
       },
       {
         "title": {
@@ -173,7 +175,8 @@
         "org": {
           "en": "Magic Ecole",
           "ko": "매직에꼴"
-        }
+        },
+        "url": "https://magicecole.com/"
       },
       {
         "title": {
@@ -183,7 +186,8 @@
         "org": {
           "en": "LUCASMETA",
           "ko": "루카스메타"
-        }
+        },
+        "url": "https://lucasmeta.com/"
       }
     ],
     "former": [
