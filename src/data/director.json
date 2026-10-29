@@ -146,6 +146,17 @@
       },
       {
         "title": {
+          "en": "Director (Board Member)",
+          "ko": "이사"
+        },
+        "org": {
+          "en": "International Association for Artificial Intelligence Ethics (IAAE)",
+          "ko": "(사)국제인공지능윤리협회(IAAE)"
+        },
+        "url": "https://iaae.ai/"
+      },
+      {
+        "title": {
           "en": "Certified Professional Coach",
           "ko": "인증 전문코치"
         },
