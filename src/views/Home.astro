@@ -20,7 +20,7 @@ const { lang } = Astro.props;
 const ko = lang === 'ko';
 const papers = publications.filter((p) => p.type !== 'working').sort(byDate);
 const latestPapers = papers.slice(0, 4);
-const latestNews = [...news].sort(byDate).slice(0, 3);
+const latestNews = [...news].sort(byDate).slice(0, ko ? 8 : 7);
 ---
 <Base lang={lang} path="/">
   <section class="hero">
