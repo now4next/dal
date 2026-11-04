@@ -1,6 +1,8 @@
 # 강림선생 운영 API
 
-상태(2026-11-04): 구현·로컬 테스트 완료. Cloudflare Worker `dal-gangrim-api`, D1 `dal-gangrim`, 비공개 R2 `dal-gangrim-private` 생성 및 바인딩·코드 배포 완료. API 주소는 https://dal-gangrim-api.nowfornext.workers.dev 이다. 실제 서버에서 health 200, 무인증 결정권자 조회 401, 미허용 origin 제출 403을 확인했다. AI 키·모델·결정권자 인증키는 아직 미설정이며 health configured:false다. 사이트 main에는 아직 배포하지 않았다. 테스트 AI 응답은 가짜이며 실제 모델 품질 검증을 대체하지 않는다.
+상태(2026-11-04): Cloudflare Worker `dal-gangrim-api`, D1 `dal-gangrim`, 비공개 R2 `dal-gangrim-private` 생성 및 바인딩·코드 배포 완료. API 주소는 https://dal-gangrim-api.nowfornext.workers.dev 이다. 실제 서버에서 health 200, 무인증 결정권자 조회 401, 미허용 origin 제출 403을 확인했다. AI 키·모델(`gpt-4.1`)·서비스 전용 결정권자 인증키를 Cloudflare Secrets에 설정했고 health configured:true를 확인했다. 결정권자 인증키의 로컬 복구본은 Windows 사용자 DPAPI로 암호화했으며 Git에 저장하지 않는다. 사이트 main에는 아직 배포하지 않았다.
+
+실제 AI 연동 시험(2026-11-04 19:26 KST): 개인정보 없는 가상 보고서와 TXT 첨부 접수 → 실제 모델 검토 → 근거·예산·담당자·검증 계획 부재에 대한 needs_revision 반환 → 검토·이력 저장 → 최종 결정 요청 409 차단을 확인했다. 최종 사람 승인은 실행하지 않았다. PDF/DOCX 처리, 사전검토 통과 후 본인 승인, 공개 운영 데이터 정책 및 웹사이트 연결은 추가 검증이 필요하다. 로컬 테스트의 가짜 모델 응답은 이 실제 시험과 구분한다.
 
 ## 구조
 
