@@ -1,4 +1,5 @@
 import { POLICY_VERSION, SYSTEM_PROMPT, REVIEW_SCHEMA, validateReport, validateReview, canEscalate, canDecide } from '../src/lib/gangrim-policy.mjs';
+import { briefingRoute } from './briefing.mjs';
 
 const enc = new TextEncoder();
 const sha = async x => [...new Uint8Array(await crypto.subtle.digest('SHA-256',enc.encode(x)))].map(n=>n.toString(16).padStart(2,'0')).join('');
@@ -62,6 +63,7 @@ async function route(req,env){
   const path=new URL(req.url).pathname;const method=req.method;
   if(path==='/api/health')return json({configured:!!(env.DB&&env.FILES&&env.OPENAI_API_KEY&&env.OPENAI_MODEL&&env.OWNER_TOKEN),policy:POLICY_VERSION});
   if(!env.DB||!env.FILES)fail('접수 서버가 아직 연결되지 않았습니다.',503);
+  if(path==='/api/briefings'||path.startsWith('/api/briefings/'))return briefingRoute(req,env,{body,json,fail,sha,secret,now,quota,attachments,owner});
   if(path==='/api/reports'&&method==='POST'){
     const input=await body(req);const report=validateReport(input.report);
     const key=await sha(req.headers.get('CF-Connecting-IP')||'local');await quota(env,`submit:${now().slice(0,10)}:${key}`,10);

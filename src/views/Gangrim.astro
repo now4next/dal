@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import Briefing from './Briefing.astro';
 import director from '../data/director.json';
 import { ROLES } from '../lib/gangrim-policy.mjs';
 import type { Lang } from '../lib/i18n';
@@ -13,12 +14,13 @@ const api = import.meta.env.PUBLIC_GANGRIM_API_URL || '';
       <div class="gr-intro"><p class="eyebrow">DAL / DECISION REVIEW</p><h1>결정하기 전에,<br/><span>강림선생에게.</span></h1><p class="gr-lead">생각은 명확하게. 근거는 정확하게.<br/>문서와 설명을 검토하고 보완한 뒤,<br/>사람 강병준에게 최종 결정을 요청하세요.</p><div class="gr-chips"><span>정확성</span><span>성과</span><span>검증</span><span>마감 전 실행</span></div></div>
       <aside class="gr-person"><img src={director.photo.src} alt="강병준 AI 아바타 강림선생" width="180" height="180"/><div><span class="gr-live">AI 사전검토자</span><h2>강림선생</h2><p>강병준의 업무 원칙을 반영한 AI 아바타</p></div><blockquote>“근거를 확인하고, 판단의 이유를 설명하겠습니다. 최종 결정은 사람이 합니다.”</blockquote><small>실제 강병준 본인의 응답이 아닙니다.</small></aside>
     </section>
-    <div class="wrap"><ol class="gr-flow" aria-label="검토 과정"><li><b>01</b> 보고서 제출</li><li><b>02</b> AI 검토·보완</li><li><b>03</b> 사전검토 통과</li><li><b>04</b> 강병준 최종 결정</li></ol></div>
+    <div class="wrap"><ol class="gr-flow" aria-label="검토 과정"><li><b>01</b> 자유 브리핑</li><li><b>02</b> 핵심 질문 하나</li><li><b>03</b> 약점·개선 방향</li><li><b>04</b> 강병준 최종 결정</li></ol></div>
     <section class="wrap gr-workspace">
-      <div class="gr-tabs" role="tablist" aria-label="업무 선택"><button role="tab" aria-selected="true" data-panel="submit-panel">보고서 제출</button><button role="tab" aria-selected="false" data-panel="lookup-panel">내 검토 확인</button><button role="tab" aria-selected="false" data-panel="owner-panel">최종 결정함</button></div>
+      <div class="gr-tabs" role="tablist" aria-label="업무 선택"><button role="tab" aria-selected="true" data-panel="briefing-panel">회장님께 브리핑</button><button role="tab" aria-selected="false" data-panel="submit-panel">상세 양식</button><button role="tab" aria-selected="false" data-panel="lookup-panel">내 보고서 확인</button><button role="tab" aria-selected="false" data-panel="owner-panel">최종 결정함</button></div>
       <div id="connection" class="gr-connection" role="status">접수 서비스 연결 상태를 확인하고 있습니다.</div>
       <div id="notice" class="gr-notice" role="status" aria-live="polite" hidden></div>
-      <div id="submit-panel" role="tabpanel" class="gr-panel">
+      <Briefing />
+      <div id="submit-panel" role="tabpanel" class="gr-panel" hidden>
         <div class="gr-panel-head"><div><p class="eyebrow">REPORT TO GANGRIM</p><h2>어떤 결정이 필요한가요?</h2><p>누구나 제출할 수 있습니다. 보고서는 다른 방문자에게 공개되지 않습니다.</p></div><button type="button" class="gr-outline" id="fill-example">작성 예시 채우기</button></div>
         <form id="report-form"><div class="gr-form-grid">
           <label class="gr-wide">보고 제목<input name="title" required maxlength="180" placeholder="예: 신규 진단 서비스 시범 운영 검토"/></label>
