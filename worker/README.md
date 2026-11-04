@@ -1,6 +1,6 @@
 # 강림선생 운영 API
 
-상태: 구현·로컬 테스트 완료, 운영 미연결. AI API 키·모델 및 서버를 연결하기 전에는 실제 검토가 실행되지 않는다. 테스트 AI 응답은 가짜이며 실제 모델 품질 검증을 대체하지 않는다.
+상태(2026-11-04): 구현·로컬 테스트 완료. Cloudflare Worker `dal-gangrim-api`, D1 `dal-gangrim`, 비공개 R2 `dal-gangrim-private` 생성 및 바인딩·코드 배포 완료. API 주소는 https://dal-gangrim-api.nowfornext.workers.dev 이다. 실제 서버에서 health 200, 무인증 결정권자 조회 401, 미허용 origin 제출 403을 확인했다. AI 키·모델·결정권자 인증키는 아직 미설정이며 health configured:false다. 사이트 main에는 아직 배포하지 않았다. 테스트 AI 응답은 가짜이며 실제 모델 품질 검증을 대체하지 않는다.
 
 ## 구조
 
