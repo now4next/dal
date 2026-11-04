@@ -27,7 +27,7 @@ jobs:
       - run: npm test
       - run: npm run build
         env:
-          PUBLIC_GANGRIM_API_URL: ${{ vars.GANGRIM_API_URL }}
+          PUBLIC_GANGRIM_API_URL: ${{ vars.GANGRIM_API_URL || 'https://dal-gangrim-api.nowfornext.workers.dev' }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

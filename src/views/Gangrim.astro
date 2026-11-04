@@ -34,7 +34,7 @@ const api = import.meta.env.PUBLIC_GANGRIM_API_URL || '';
           <label>최종 마감<input name="deadline" type="datetime-local" required/></label>
           <label>첨부 문서 <span class="gr-muted">선택 · 최대 3개</span><input id="documents" type="file" multiple accept=".pdf,.docx,.txt,.md"/><small>PDF·DOCX·TXT·MD / 파일당 5MB, 합계 10MB. 이미지 PDF는 해석이 불완전할 수 있습니다.</small></label>
         </div>
-        <p class="gr-privacy">접수 내용과 문서는 검토 서버에 저장되며, AI 검토를 요청하면 OpenAI API로 전달됩니다. 타인의 개인정보와 제출 권한이 없는 자료는 제외해주세요. 조회키를 가진 사람과 최종 결정권자는 해당 보고서를 열람할 수 있습니다.</p>
+        <p class="gr-privacy"><strong>현재 시험 운영 중입니다. 가상·비식별 자료로 테스트하고 개인정보·기밀은 제출하지 마세요.</strong> 접수 내용과 문서는 검토 서버에 저장되며, AI 검토를 요청하면 OpenAI API로 전달됩니다. 시험 자료는 자동 삭제되지 않으며, 삭제 요청은 사이트 문의 메뉴로 보내주세요. 타인의 개인정보와 제출 권한이 없는 자료는 제외해주세요. 조회키를 가진 사람과 최종 결정권자는 해당 보고서를 열람할 수 있습니다.</p>
         <label class="gr-check"><input name="consent" type="checkbox" required/> 문서 제출 권한이 있으며, 위 처리 안내를 확인했습니다.</label>
         <div class="gr-submit-row"><span id="form-mode">AI의 사전검토 통과는 최종 승인이 아닙니다.</span><button class="btn pri" type="submit" id="submit-report">보고서 접수 →</button></div></form>
       </div>
