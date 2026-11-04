@@ -37,7 +37,7 @@ if (root) {
       action(buttons,'상태 새로고침',async()=>load(row.id));
       if(['submitted','needs_revision','hold','ready'].includes(row.status)){
         action(buttons,row.review?'수정 내용 없이 재검토':'강림선생에게 AI 검토 요청',async()=>{await request(`/api/reports/${row.id}/review`,'POST',{revision:row.revision});await load(row.id);});
-        action(buttons,'보고서 보완하기',async()=>{for(const [k,v] of Object.entries(row.body)){const input=form.elements.namedItem(k) as HTMLInputElement;if(input&&k!=='consent')input.value=String(v);}get<HTMLInputElement>('documents').value='';editing=true;get('form-mode').textContent=`v${row.revision} 보완 중 · 첨부는 다시 선택해주세요. 저장하면 이전 통과 상태가 무효화됩니다.`;get('submit-report').textContent='수정본 접수';panel('submit-panel');form.scrollIntoView({behavior:'smooth'});});
+        action(buttons,'보고서 보완하기',async()=>{for(const [k,v] of Object.entries(row.body)){const input=form.elements.namedItem(k) as HTMLInputElement;if(input&&k!=='consent'){if(k==='deadline'){const d=new Date(String(v));input.value=new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,16);}else input.value=String(v);}}get<HTMLInputElement>('documents').value='';editing=true;get('form-mode').textContent=`v${row.revision} 보완 중 · 첨부는 다시 선택해주세요. 저장하면 이전 통과 상태가 무효화됩니다.`;get('submit-report').textContent='수정본 접수';panel('submit-panel');form.scrollIntoView({behavior:'smooth'});});
       }
       if(row.status==='ready')action(buttons,'강병준에게 최종 결정 요청',async()=>{await request(`/api/reports/${row.id}/escalate`,'POST',{revision:row.revision});await load(row.id);});
     }else{
