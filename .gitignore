@@ -6,3 +6,10 @@ plan/
 node_modules/
 dist/
 .astro/
+.env
+.env.*
+!.env.example
+.dev.vars
+.wrangler/
+worker/.dev.vars
+worker/.wrangler/

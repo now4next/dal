@@ -1,0 +1,10 @@
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "dal-gangrim-api",
+  "main": "index.mjs",
+  "compatibility_date": "2026-10-01",
+  "workers_dev": true,
+  "vars": { "ALLOWED_ORIGINS": "https://dal.fyi", "DAILY_AI_LIMIT": "50" },
+  "d1_databases": [{ "binding": "DB", "database_name": "dal-gangrim", "database_id": "REPLACE_WITH_CREATED_D1_ID", "migrations_dir": "migrations" }],
+  "r2_buckets": [{ "binding": "FILES", "bucket_name": "dal-gangrim-private" }]
+}
