@@ -5,12 +5,9 @@ import {canDecide} from '../lib/gangrim-policy.mjs';
 const root=document.querySelector<HTMLElement>('.gangrim');
 if(root){
   const $=<T extends HTMLElement=HTMLElement>(id:string)=>document.getElementById(id) as T;
-  function workspace(open:boolean){$('agent-catalog').hidden=open;$('agent-workspace').hidden=!open;}
   function panel(id:string){for(const el of root!.querySelectorAll<HTMLElement>('[role=tabpanel]'))el.hidden=el.id!==id;for(const button of root!.querySelectorAll<HTMLElement>('[role=tab]'))button.setAttribute('aria-selected',String(button.dataset.panel===id));document.dispatchEvent(new CustomEvent('gangrim-panel-opened',{detail:id}));}
   for(const button of root.querySelectorAll<HTMLElement>('[role=tab]'))button.onclick=()=>panel(button.dataset.panel!);
   document.addEventListener('gangrim-panel',((e:CustomEvent)=>panel(e.detail))as EventListener);
-  function routeAgent(focus=false){const hash=location.hash;const open=['#decision','#briefing-panel','#projects-panel','#owner-panel'].includes(hash);workspace(open);if(open){panel(hash.endsWith('-panel')?hash.slice(1):'briefing-panel');if(focus)$('agent-workspace-title').focus();}else if(focus)$('decision-agent-card').focus();}
-  window.addEventListener('hashchange',()=>routeAgent(true));routeAgent();
   api('/api/health').then(h=>{$('connection').textContent=h.configured?t('AI 연결됨'):t('서비스 준비 중');}).catch(()=>{$('connection').textContent=t('연결 확인 필요');});
   let owner='';
   async function queue(){const result=await api('/api/owner/projects',{owner});const list=$('owner-queue');list.replaceChildren();if(!result.items.length)node('p',t('접수된 보고 프로젝트가 없습니다.'),list);for(const row of result.items){const card=node('article','',list);card.className='project-card';node('h3',row.title,card);node('p',t(`${row.author} · ${row.score===null?t('준비도 평가 전'):row.score+t('점')}`),card);const b=node('button',statusOf(row)+t(' · 열기'),card)as HTMLButtonElement;b.className='project-state-button';b.type='button';b.onclick=()=>show(row.id);}}
