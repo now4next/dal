@@ -10,7 +10,7 @@ const api=import.meta.env.PUBLIC_GANGRIM_API_URL||'';
 import {translate} from '../lib/decision-copy.mjs';
 const l=(text:string)=>translate(text,lang);
 ---
-<Base lang={lang} path="/gangrim/" title={l("의사결정 에이전트 · 강림선생")} description={l("데이터 분석으로 의사결정의 정확도·신뢰성·예측력을 높입니다. 대표 AI 아바타 강림선생과 보고를 검토하고 준비도 95점 이상일 때 대표에게 전달합니다.")} section="gangrim">
+<Base lang={lang} path="/aiagent/" title={l("의사결정 에이전트 · 강림선생")} description={l("데이터 분석으로 의사결정의 정확도·신뢰성·예측력을 높입니다. 대표 AI 아바타 강림선생과 보고를 검토하고 준비도 95점 이상일 때 대표에게 전달합니다.")} section="gangrim">
   <div class="gangrim wrap" data-api={api}>
     <header class="report-app-header"><img src={director.photo.src} alt={l("강림선생")} width="44" height="44"/><div><h1>{l("의사결정 에이전트")}</h1><p>{l("강림선생 · 대표 보고 전, AI 아바타와 검토하세요.")}</p></div><span id="connection" class="connection-pill" role="status">{l("연결 중")}</span></header>
     <p class="decision-purpose">{l("데이터 분석의 목적은 더 나은 의사결정입니다.")}<br/>{l("의사결정의 정확도·신뢰성·예측력을 높여 미래 성과의 달성 가능성을 높이고, 위험을 줄이며 새로운 사업 기회를 찾습니다.")}</p>

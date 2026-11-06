@@ -1,0 +1,23 @@
+---
+interface Props {lang:'en'|'ko'}
+const {lang}=Astro.props;
+const target=lang==='ko'?'/ko/aiagent/':'/aiagent/';
+---
+<!doctype html>
+<html lang={lang}>
+ <head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta http-equiv="refresh" content={'0;url='+target}/>
+  <link rel="canonical" href={'https://dal.fyi'+target}/>
+  <meta name="robots" content="noindex"/>
+  <title>{lang==='ko'?'의사결정 에이전트로 이동':'Redirecting to Decision Agent'}</title>
+ </head>
+ <body>
+  <a id="agent-destination" href={target}>{lang==='ko'?'의사결정 에이전트로 이동':'Continue to Decision Agent'}</a>
+  <script is:inline>
+   const destination=document.getElementById('agent-destination').getAttribute('href');
+   location.replace(destination+location.search+location.hash);
+  </script>
+ </body>
+</html>

@@ -48,7 +48,7 @@ if(root){
   function logBottom(){const cards=$('briefing-log').querySelectorAll('article');cards[cards.length-1]?.scrollIntoView({behavior:'smooth',block:'start'});}
   $('briefing-new').onclick=()=>{if(working)return;session=null;report=null;token='';composer.reset();render();notice('');};
   $('briefing-example').onclick=()=>{message.value=t('[가상 보고] AI 경영진단 서비스를 출시하려고 합니다. 자동 진단 기능은 만들었지만 실제 고객의 구매 의향과 의사결정 변화는 아직 확인하지 못했습니다. 다음 달 추가 개발 투자를 요청합니다. 무엇을 더 준비해야 할까요?');$<HTMLInputElement>('briefing-title').value=t('AI 진단 서비스 출시 검토');message.focus();};
-  $('briefing-export').onclick=()=>{if(session)saveText(t('강림선생-프로젝트-접수정보.txt'),t(`프로젝트번호: ${session.id}\n조회키: ${token}\nhttps://dal.fyi/${english?'':'ko/'}gangrim/\n조회키 보유자는 이 프로젝트를 열람할 수 있습니다. 안전하게 보관해주세요.`));};
+  $('briefing-export').onclick=()=>{if(session)saveText(t('강림선생-프로젝트-접수정보.txt'),t(`프로젝트번호: ${session.id}\n조회키: ${token}\nhttps://dal.fyi/${english?'':'ko/'}aiagent/\n조회키 보유자는 이 프로젝트를 열람할 수 있습니다. 안전하게 보관해주세요.`));};
   $('open-projects-link').onclick=e=>{e.preventDefault();panel('projects-panel');};
   $('handoff-close').onclick=()=>handoff.close();$('project-dialog-close').onclick=()=>projectDialog.close();
   function handoffPreview(){if(!canSend())return;draft($('handoff-preview'),report?.body||session.state.feedback.report);$('handoff-status').textContent='';$('handoff-meta').hidden=!!report;$<HTMLInputElement>('handoff-author').required=!report;$<HTMLInputElement>('handoff-deadline').required=!report;$<HTMLInputElement>('handoff-author').value=['보고자 미입력','Reporter not specified'].includes(session.state.author)?'':session.state.author;$<HTMLInputElement>('handoff-agree').checked=false;handoff.showModal();}
