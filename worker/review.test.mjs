@@ -6,6 +6,7 @@ import worker from './index.mjs';
 import { ROLES, validateReview, POLICY_VERSION } from '../src/lib/gangrim-policy.mjs';
 import { validateQuestion, validateFeedback } from './briefing.mjs';
 import {normalizeReadiness,readinessOf} from '../src/lib/readiness.mjs';
+import {translate} from '../src/lib/decision-copy.mjs';
 
 const report=()=>({title:'검증용 가상 보고',author:'테스트',role:ROLES[0],question:'시범 운영 여부',context:'목표: 시간 30% 절감',evidence:'내부 측정 보고서 1쪽',alternatives:'현행 유지 또는 시범',risks:'정확성 저하, 사람 검수',plan:'담당자 A, 4주',verification:'전후 비교 및 오류 점검',deadline:new Date(Date.now()+86400000).toISOString(),consent:true});
 const points=(n=19)=>Object.fromEntries(['decision','evidence','value','feasibility','execution'].map(id=>[id,{score:n,basis:'테스트 제출자료 1쪽',actions:n<19?['추적 가능한 검증 자료 추가']:[]}]));
@@ -100,3 +101,28 @@ test('private attachments require case or representative authentication',async()
 });
 test('malformed or duplicated score criteria are rejected and totals are recomputed',()=>{const good=normalizeReadiness(points());assert.equal(good.total,95);assert.equal(readinessOf({readiness:{...good,total:1}}).total,95);assert.throws(()=>normalizeReadiness({...points(),evidence:{score:21,basis:'자료',actions:[]}}));assert.throws(()=>normalizeReadiness({items:[...good.items.slice(0,4),good.items[0]]}));});
 test('decision status cannot commit if its decision reason audit fails',async()=>{const f=fixture(),a=await submit(f),path='/api/reports/'+a.id;const restore=mockReview();try{await f.call(path+'/review','POST',{revision:1},a.headers);await f.call(path+'/escalate','POST',{revision:1},a.headers);f.db.exec("CREATE TRIGGER fail_decision_audit BEFORE INSERT ON events WHEN NEW.kind='owner_decision' BEGIN SELECT RAISE(ABORT,'simulated failure'); END;");const failed=await f.call(path+'/decision','POST',{revision:1,decision:'approved',reason:'테스트 이유'},{Authorization:'Bearer '+f.env.OWNER_TOKEN});assert.notEqual(failed.status,200);const row=await f.call(path,'GET',undefined,a.headers);assert.equal(row.data.status,'awaiting_owner');assert.ok(!row.data.events.some(e=>e.kind==='owner_decision'));}finally{restore();}});
+
+test('English projects retain their language through questions, feedback, handoff and revision',async()=>{
+ const f=fixture(),created=await f.call('/api/briefings','POST',{language:'en',message:'Fictional pilot report',role:ROLES[0],consent:true});
+ assert.equal(created.data.state.language,'en');assert.equal(created.data.state.author,'Reporter not specified');
+ const path='/api/briefings/'+created.data.id,headers={'X-Case-Token':created.data.token},original=globalThis.fetch;const prompts=[];
+ globalThis.fetch=async(_url,options)=>{const req=JSON.parse(options.body);prompts.push(req.instructions);const result=req.text.format.name==='chair_question'?{...focus(),question:'What evidence validates the pilot?'}:critique();return new Response(JSON.stringify({status:'completed',output:[{content:[{type:'output_text',text:JSON.stringify(result)}]}]}));};
+ try{
+  assert.equal((await f.call(path+'/turn','POST',{version:1,message:''},headers)).status,200);
+  assert.equal((await f.call(path+'/turn','POST',{version:2,message:'Fictional supporting evidence'},headers)).status,200);
+  for(const prompt of prompts){assert.match(prompt,/every user-facing value in English/);assert.doesNotMatch(prompt,/모든 응답은 한국어로/);}
+  assert.equal((await f.call(path+'/report','POST',{version:3,confirm:true,author:'Test reporter',deadline:report().deadline},headers)).status,200);
+  const rp='/api/reports/'+created.data.id;assert.equal((await f.call(rp,'GET',undefined,headers)).data.body.language,'en');
+  await f.call(rp+'/escalate','POST',{revision:1},headers);await f.call(rp+'/decision','POST',{revision:1,decision:'needs_revision',reason:'Add the measured baseline.'},{Authorization:'Bearer '+f.env.OWNER_TOKEN});
+  const reopened=await f.call(path+'/reopen','POST',{version:4},headers);assert.match(reopened.data.state.messages.at(-1).text,/CEO revision request: Add the measured baseline/);
+ }finally{globalThis.fetch=original;}
+});
+
+test('English readiness labels preserve scores, targets and receipt access details',()=>{
+ assert.equal(translate('의사결정 명확성  14/20 → 목표 19/20','en'),'Decision clarity 14/20 → Target 19/20');
+ assert.equal(translate('95점까지 35점','en'),'35 points to reach 95');
+ assert.equal(translate('대표님 생각 중','en'),'CEO reviewing');
+ assert.equal(translate('결과 도착','ko'),'결과 도착');
+ assert.match(translate('프로젝트번호: 123\n조회키: abc\nhttps://dal.fyi/gangrim/','en'),/Project ID: 123\nProject key: abc/);
+ assert.equal(translate('An original user statement','en'),'An original user statement');
+});

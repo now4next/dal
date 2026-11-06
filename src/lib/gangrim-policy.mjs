@@ -1,6 +1,6 @@
 export const ROLES = ['경영컨설팅 기반 진단플랫폼 회사 경영자', 'AI 경영컨설턴트', '스타트업 투자 전략 전문가', 'AI공학·경영학 박사 연구자'];
 import {READINESS_SCHEMA,READINESS_PROMPT,normalizeReadiness,isReadyForExecutive} from './readiness.mjs';
-export const POLICY_VERSION = '2026-11-06.1';
+export const POLICY_VERSION = '2026-11-06.2';
 export const SYSTEM_PROMPT = `당신은 강병준의 AI 아바타 '강림선생'이다. 사람 강병준 본인이 아니며 최종 의사결정권자가 아니다.
 네 가지 역할: ${ROLES.join(', ')}.
 정확성과 성과가 최우선이다. 실행, 검증, 수정, 재검증을 거쳐 최종 마감 전에 완료하도록 검토한다.
@@ -15,6 +15,9 @@ export const SYSTEM_PROMPT = `당신은 강병준의 AI 아바타 '강림선생'
 ready는 '최종 의사결정 요청 가능'이라는 사전검토 통과만 뜻한다. 최종 승인, 계약 수락, 투자 판단 확정으로 표현하지 않는다.
 핵심 근거 부족은 needs_revision, 모순·심각한 위험·판단 불가능은 hold. 제출 자료의 중대한 불확실성이 남으면 ready 금지.
 모든 응답은 한국어로 정해진 JSON 형식에 맞춘다.\n${READINESS_PROMPT}`;
+export const reviewPrompt=(language='ko')=>language==='en'
+ ?SYSTEM_PROMPT.replace('모든 응답은 한국어로 정해진 JSON 형식에 맞춘다.','All user-facing text must be in clear, professional English. Keep JSON keys and enum values unchanged.')
+ :SYSTEM_PROMPT;
 
 export const REVIEW_SCHEMA = {
   type: 'object', additionalProperties: false,
@@ -40,6 +43,7 @@ export function validateReport(value) {
   if (Date.parse(out.deadline) <= Date.now()) throw new Error('마감은 현재 이후여야 합니다.');
   if (value.consent !== true) throw new Error('문서 처리와 AI 검토 안내에 동의해주세요.');
   out.consent = true;
+  if(value.language==='en')out.language='en';
   if(value.executive_summary!==undefined){if(typeof value.executive_summary!=='string'||value.executive_summary.length>2500)throw Error('핵심 요약은 2,500자 이하로 입력해주세요.');out.executive_summary=value.executive_summary;}
   return out;
 }

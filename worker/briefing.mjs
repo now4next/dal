@@ -1,4 +1,4 @@
-import { SYSTEM_PROMPT, REVIEW_SCHEMA, ROLES, validateReview, validateReport } from '../src/lib/gangrim-policy.mjs';
+import { reviewPrompt, REVIEW_SCHEMA, ROLES, validateReview, validateReport } from '../src/lib/gangrim-policy.mjs';
 import {isReadyForExecutive,READINESS_SCHEMA,normalizeReadiness} from '../src/lib/readiness.mjs';
 
 const strings = keys => ({type:'object',additionalProperties:false,properties:Object.fromEntries(keys.map(k=>[k,{type:'string'}])),required:keys});
@@ -36,7 +36,7 @@ async function ask(env,state,files,phase,fail){
   const instruction=phase==='question'
     ? '브리핑을 듣고 의사결정 사안(decision), 가장 중요한 쟁점(issue), 촌철살인의 질문 하나(question)를 작성한다. 지금은 약점 진단이나 과제 목록을 길게 말하지 않는다. readiness에는 브리핑과 첨부에서 확인한 항목별 준비도를 평가한다. 질문은 물음표 하나로 끝나는 한 문장이다. 사전검토 통과나 최종 승인을 하지 않는다.'
     : '직전 질문과 답변을 보고 준비도 5개 항목으로 평가한다. 부족한 핵심 하나만 겨냥한 다음 질문(next_question) 하나를 존댓말로 작성해 대화를 이어간다. 이미 답한 내용을 반복하지 않는다. weakness는 핵심 부족사항 한 문장, basis는 자료 위치, improvement는 개선 방향 한 문장, tasks는 다시 준비해 올 자료·행동 1~3개다. 각 항목의 현재 점수와 19점까지 올리기 위한 구체적 행동은 review.readiness에 적는다. 95점 이상이고 중요 미확인·위험이 없을 때만 ready로 판정하고 next_question은 빈 문자열로 둔다. report.executive_summary는 대표에게 전달할 의사결정 요청·권고·기대효과·핵심 위험의 간결한 요약(최대 5문장)이다. 나머지 report에는 세부 설명과 근거 위치를 정리한다. 사용자가 확정하지 않은 계획은 반드시 제안 또는 미확정이라고 표시한다. 새로 첨부된 자료와 앞선 문답을 모두 반영한다. 최종 승인이나 투자 실행 결정은 하지 않는다.';
-  const response=await fetch('https://api.openai.com/v1/responses',{method:'POST',signal:AbortSignal.timeout(90000),headers:{Authorization:`Bearer ${env.OPENAI_API_KEY}`,'Content-Type':'application/json'},body:JSON.stringify({model:env.OPENAI_MODEL,store:false,instructions:SYSTEM_PROMPT+chairPrompt+'\n'+instruction,input:[{role:'user',content:[{type:'input_text',text:JSON.stringify({role:state.role,messages:state.messages.map(({role,text,files})=>({role,text,files}))})},...await fileContent(env,files,fail)]}],max_output_tokens:phase==='question'?3200:7000,text:{format:{type:'json_schema',name:'chair_'+phase,strict:true,schema:phase==='question'?QUESTION_SCHEMA:FEEDBACK_SCHEMA}}})});
+  const response=await fetch('https://api.openai.com/v1/responses',{method:'POST',signal:AbortSignal.timeout(90000),headers:{Authorization:`Bearer ${env.OPENAI_API_KEY}`,'Content-Type':'application/json'},body:JSON.stringify({model:env.OPENAI_MODEL,store:false,instructions:reviewPrompt(state.language)+chairPrompt+'\n'+instruction+(state.language==='en'?'\nLANGUAGE: Write every user-facing value in English, including the question, readiness basis/actions, feedback, tasks and report. Preserve JSON keys/enums. Label unconfirmed plans as proposed or unconfirmed.':''),input:[{role:'user',content:[{type:'input_text',text:JSON.stringify({role:state.role,messages:state.messages.map(({role,text,files})=>({role,text,files}))})},...await fileContent(env,files,fail)]}],max_output_tokens:phase==='question'?3200:7000,text:{format:{type:'json_schema',name:'chair_'+phase,strict:true,schema:phase==='question'?QUESTION_SCHEMA:FEEDBACK_SCHEMA}}})});
   if(!response.ok)fail('AI 응답을 받지 못했습니다. 저장된 대화에서 다시 시도해주세요.',502);
   const result=await response.json();if(result.status!=='completed')fail('AI 응답이 완료되지 않았습니다. 다시 시도해주세요.',502);
   try{const value=JSON.parse((result.output||[]).flatMap(x=>x.content||[]).filter(x=>x.type==='output_text').map(x=>x.text).join(''));return phase==='question'?validateQuestion(value):validateFeedback(value);}catch{fail('AI 결과 검증에 실패했습니다. 승인 처리하지 않았습니다. 다시 시도해주세요.',502);}
@@ -52,7 +52,7 @@ export async function briefingRoute(req,env,h){
     if(input.author!==undefined&&(typeof input.author!=='string'||input.author.length>100))fail('보고자를 100자 이내로 입력해주세요.');
     await quota(env,`submit:${now().slice(0,10)}:${await sha(req.headers.get('CF-Connecting-IP')||'local')}`,10);
     const id=crypto.randomUUID(),token=secret(),time=now();const files=await attachments(env,id,1,input.files||[]);
-    const state={stage:'briefing',title:typeof input.title==='string'?input.title.trim().slice(0,170):'',author:input.author?.trim()||'보고자 미입력',role:input.role,messages:[{role:'user',kind:'briefing',text:input.message.trim(),files:files.map(f=>f.name)}],focus:null,feedback:null,report_id:null};
+    const state={stage:'briefing',language:input.language==='en'?'en':'ko',title:typeof input.title==='string'?input.title.trim().slice(0,170):'',author:input.author?.trim()||(input.language==='en'?'Reporter not specified':'보고자 미입력'),role:input.role,messages:[{role:'user',kind:'briefing',text:input.message.trim(),files:files.map(f=>f.name)}],focus:null,feedback:null,report_id:null};
     await env.DB.prepare('INSERT INTO briefings(id,token_hash,state,file_meta,created_at,updated_at) VALUES(?,?,?,?,?,?)').bind(id,await sha(token),JSON.stringify(state),JSON.stringify(files),time,time).run();
     return json({id,token,version:1,status:'active',state,files:files.map(({key,...f})=>f)},201);
   }
@@ -83,7 +83,7 @@ export async function briefingRoute(req,env,h){
     state.report_id=null;state.stage='question';state.feedback=null;
     const decision=await env.DB.prepare("SELECT detail FROM events WHERE report_id=? AND kind='owner_decision' ORDER BY id DESC LIMIT 1").bind(id).first();
     const reason=decision?JSON.parse(decision.detail).reason:'';
-    state.messages.push({role:'assistant',kind:'question',text:reason?'대표의 보완 요청: '+reason+'\n어떤 근거와 자료로 보완하셨습니까?':'보완한 핵심 내용과 확인 자료를 보고해 주시겠습니까?'});
+    state.messages.push({role:'assistant',kind:'question',text:state.language==='en'?(reason?'CEO revision request: '+reason+'\nWhat evidence supports your revisions?':'What have you revised, and what evidence supports it?'):(reason?'대표의 보완 요청: '+reason+'\n어떤 근거와 자료로 보완하셨습니까?':'보완한 핵심 내용과 확인 자료를 보고해 주시겠습니까?')});
     try{await env.DB.batch([
       env.DB.prepare('INSERT INTO events(report_id,revision,kind,detail,created_at) VALUES(?,?,?,?,?)').bind(id,report.revision+1,'briefing_reopened','{}',now()),
       env.DB.prepare("UPDATE briefings SET state=?,version=version+1,status='active',updated_at=? WHERE id=?").bind(JSON.stringify(state),now(),id)
@@ -93,7 +93,7 @@ export async function briefingRoute(req,env,h){
   if(action==='report'){
     if(state.stage!=='feedback'||!state.feedback||input.confirm!==true)fail('문답과 정리된 보고서를 먼저 확인해주세요.',409);
     const title=state.title||state.feedback.report.question.slice(0,170);
-    const report=validateReport({...state.feedback.report,title,author:input.author?.trim()||state.author,role:state.role,deadline:input.deadline,consent:true});
+    const report=validateReport({...state.feedback.report,title,language:state.language,author:input.author?.trim()||state.author,role:state.role,deadline:input.deadline,consent:true});
     const review=validateReview(state.feedback.review),time=now();state.report_id=id;state.stage='report';
     const lock=await env.DB.prepare("UPDATE briefings SET status='processing',updated_at=? WHERE id=? AND version=? AND status='active'").bind(time,id,row.version).run();if(!lock.meta.changes)fail('다른 요청이 진행 중입니다.',409);
     try{

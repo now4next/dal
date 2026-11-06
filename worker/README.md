@@ -73,3 +73,7 @@ npm run build
 임시 SQLite·저장소와 명시적인 가짜 모델 응답으로 접근 분리, 무권한 승인 거부, 버전 강제, 검토 중 수정, AI 실패, 입력 제한을 검증한다. 실제 API·클라우드 연결 검증과 다르다.
 
 공식 API 참고: https://developers.openai.com/api/docs/guides/structured-outputs 및 https://developers.openai.com/api/docs/guides/file-inputs
+# English reporting
+
+The `/gangrim/` page renders English interface copy, readiness criteria, project states and decision controls. New briefings persist `language: en`; questions, feedback, evidence actions and executive reports are requested in English. Korean remains the default for existing projects. Original user reports, attachment names and human decisions are retained verbatim. Access-detail files import in either language. Language persistence, revision prompts and score formatting are covered by the worker tests.
+

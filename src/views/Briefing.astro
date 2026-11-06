@@ -1,35 +1,40 @@
 ---
 import {ROLES} from '../lib/gangrim-policy.mjs';
+
+import {translate} from '../lib/decision-copy.mjs';
+interface Props {lang:'en'|'ko'}
+const {lang}=Astro.props;
+const l=(text:string)=>translate(text,lang);
 ---
 <section id="briefing-panel" role="tabpanel">
-  <div class="report-heading"><div><span class="eyebrow">보고 대화</span><h2 id="active-project-title">어떤 내용을 보고하시겠습니까?</h2></div><button type="button" id="briefing-new" class="btn sec" data-chat-action>새 보고</button></div>
+  <div class="report-heading"><div><span class="eyebrow">{l("보고 대화")}</span><h2 id="active-project-title">{l("어떤 내용을 보고하시겠습니까?")}</h2></div><button type="button" id="briefing-new" class="btn sec" data-chat-action>{l("새 보고")}</button></div>
   <div class="report-layout">
-    <section class="report-conversation" aria-label="보고 대화">
+    <section class="report-conversation" aria-label={l("보고 대화")}>
       <div id="briefing-log" role="log" aria-live="polite" aria-relevant="additions text"></div>
       <p id="briefing-status" role="status" class="quiet-status"></p>
       <form id="briefing-form" class="report-composer">
-        <div id="briefing-initial"><input id="briefing-title" aria-label="보고 프로젝트 제목" maxlength="170" placeholder="보고 제목 (선택)"/><details class="report-info"><summary>보고자 · 검토 관점</summary><label>보고자<input id="briefing-author" maxlength="100" placeholder="이름 또는 업무용 별칭"/></label><label>검토 관점<select id="briefing-role">{ROLES.map(role=><option>{role}</option>)}</select></label></details></div>
-        <label class="sr-label" for="briefing-message">보고 내용 또는 질문에 대한 답변</label><textarea id="briefing-message" rows="5" maxlength="16000" required placeholder="핵심 내용과 검토가 필요한 결정을 말씀해 주세요."></textarea>
-        <div class="composer-tools"><label class="attach-label">자료 첨부<input id="briefing-files" type="file" accept=".pdf,.docx,.txt,.md" multiple/></label><button id="briefing-send" class="btn pri" type="submit" data-chat-action>보고하기</button></div>
-        <small id="briefing-file-help">PDF·DOCX·TXT·MD · 총 3개 / 파일당 5MB / 합계 10MB</small>
-        <div id="briefing-consent-row"><label class="check-line"><input id="briefing-consent" type="checkbox" required/> 시험 자료로 보고하며 AI 처리 안내에 동의합니다.</label><details class="report-info"><summary>자료 처리 안내</summary><p>시험 운영 중입니다. 개인정보·기밀을 제외한 제출 권한 있는 자료만 사용해주세요. 대화와 자료는 서버에 저장되고 AI 검토 시 OpenAI API로 전달됩니다. 자동 삭제되지 않으며 삭제 요청은 연락 메뉴로 보내주세요. 조회키 보유자와 대표만 열람할 수 있습니다.</p></details></div>
+        <div id="briefing-initial"><input id="briefing-title" aria-label={l("보고 프로젝트 제목")} maxlength="170" placeholder={l("보고 제목 (선택)")}/><details class="report-info"><summary>{l("보고자 · 검토 관점")}</summary><label>{l("보고자")}<input id="briefing-author" maxlength="100" placeholder={l("이름 또는 업무용 별칭")}/></label><label>{l("검토 관점")}<select id="briefing-role">{ROLES.map(role=><option value={role}>{l(role)}</option>)}</select></label></details></div>
+        <label class="sr-label" for="briefing-message">{l("보고 내용 또는 질문에 대한 답변")}</label><textarea id="briefing-message" rows="5" maxlength="16000" required placeholder={l("핵심 내용과 검토가 필요한 결정을 말씀해 주세요.")}></textarea>
+        <div class="composer-tools"><label class="attach-label">{l("자료 첨부")}<input id="briefing-files" type="file" accept=".pdf,.docx,.txt,.md" multiple/></label><button id="briefing-send" class="btn pri" type="submit" data-chat-action>{l("보고하기")}</button></div>
+        <small id="briefing-file-help">{l("PDF·DOCX·TXT·MD · 총 3개 / 파일당 5MB / 합계 10MB")}</small>
+        <div id="briefing-consent-row"><label class="check-line"><input id="briefing-consent" type="checkbox" required/>{l(" 시험 자료로 보고하며 AI 처리 안내에 동의합니다.")}</label><details class="report-info"><summary>{l("자료 처리 안내")}</summary><p>{l("시험 운영 중입니다. 개인정보·기밀을 제외한 제출 권한 있는 자료만 사용해주세요. 대화와 자료는 서버에 저장되고 AI 검토 시 OpenAI API로 전달됩니다. 자동 삭제되지 않으며 삭제 요청은 연락 메뉴로 보내주세요. 조회키 보유자와 대표만 열람할 수 있습니다.")}</p></details></div>
       </form>
-      <div class="chat-footer"><button id="briefing-example" type="button" class="text-button" data-chat-action>예시로 시작</button><button id="briefing-export" type="button" class="text-button" hidden>접수 정보 보관</button></div>
+      <div class="chat-footer"><button id="briefing-example" type="button" class="text-button" data-chat-action>{l("예시로 시작")}</button><button id="briefing-export" type="button" class="text-button" hidden>{l("접수 정보 보관")}</button></div>
     </section>
-    <aside class="readiness-card" aria-label="보고 준비도">
-      <span class="eyebrow">보고 준비도</span><p class="score-number"><strong id="readiness-total">—</strong><span>/ 100</span></p><p id="readiness-guide">95점 이상부터 대표 전달</p>
-      <button id="briefing-handoff" type="button" class="btn pri" data-chat-action disabled>대표에게 보고</button>
-      <details id="readiness-details"><summary>항목별 점수 · 준비할 내용</summary><div id="readiness-breakdown"><p>첫 문답 후 평가합니다.</p></div></details>
-      <details id="briefing-draft-wrap" hidden><summary>정리된 보고 초안</summary><div id="briefing-draft"></div></details>
-      <a href="#projects-panel" id="open-projects-link" class="text-button">프로젝트 상태 확인 →</a>
+    <aside class="readiness-card" aria-label={l("보고 준비도")}>
+      <span class="eyebrow">{l("보고 준비도")}</span><p class="score-number"><strong id="readiness-total">—</strong><span>/ 100</span></p><p id="readiness-guide">{l("95점 이상부터 대표 전달")}</p>
+      <button id="briefing-handoff" type="button" class="btn pri" data-chat-action disabled>{l("대표에게 보고")}</button>
+      <details id="readiness-details"><summary>{l("항목별 점수 · 준비할 내용")}</summary><div id="readiness-breakdown"><p>{l("첫 문답 후 평가합니다.")}</p></div></details>
+      <details id="briefing-draft-wrap" hidden><summary>{l("정리된 보고 초안")}</summary><div id="briefing-draft"></div></details>
+      <a href="#projects-panel" id="open-projects-link" class="text-button">{l("프로젝트 상태 확인 →")}</a>
     </aside>
   </div>
 </section>
 <section id="projects-panel" role="tabpanel" hidden>
-  <div class="report-heading"><div><span class="eyebrow">보고 프로젝트</span><h2>진행 상태와 대표 답변</h2></div><button class="btn sec" id="projects-refresh" type="button">새로고침</button></div>
+  <div class="report-heading"><div><span class="eyebrow">{l("보고 프로젝트")}</span><h2>{l("진행 상태와 대표 답변")}</h2></div><button class="btn sec" id="projects-refresh" type="button">{l("새로고침")}</button></div>
   <div id="projects-list" class="projects-list" aria-live="polite"></div><p id="projects-status" class="quiet-status" role="status"></p>
-  <details class="project-storage"><summary>프로젝트 불러오기 · 보관</summary><form id="project-import-form"><label>프로젝트 번호<input id="project-import-id" required autocomplete="off"/></label><label>조회키<input id="project-import-token" type="password" required autocomplete="off"/></label><button class="btn sec" type="submit">불러오기</button></form><label class="attach-label">접수 정보 파일로 불러오기<input id="project-import-file" type="file" accept=".txt"/></label><label class="check-line"><input id="project-device-save" type="checkbox"/> 이 기기에 프로젝트 보관</label><small>기본은 이 탭에서만 보관합니다. 기기 보관 시 조회키도 저장되므로 공용 기기에서는 선택하지 마세요. 다른 기기는 접수 정보로 불러옵니다.</small></details>
+  <details class="project-storage"><summary>{l("프로젝트 불러오기 · 보관")}</summary><form id="project-import-form"><label>{l("프로젝트 번호")}<input id="project-import-id" required autocomplete="off"/></label><label>{l("조회키")}<input id="project-import-token" type="password" required autocomplete="off"/></label><button class="btn sec" type="submit">{l("불러오기")}</button></form><label class="attach-label">{l("접수 정보 파일로 불러오기")}<input id="project-import-file" type="file" accept=".txt"/></label><label class="check-line"><input id="project-device-save" type="checkbox"/>{l(" 이 기기에 프로젝트 보관")}</label><small>{l("기본은 이 탭에서만 보관합니다. 기기 보관 시 조회키도 저장되므로 공용 기기에서는 선택하지 마세요. 다른 기기는 접수 정보로 불러옵니다.")}</small></details>
 </section>
-<dialog id="project-dialog" class="report-dialog"><button type="button" class="dialog-close" aria-label="프로젝트 닫기" id="project-dialog-close">닫기 ×</button><div id="project-dialog-body"></div><div id="project-dialog-actions" class="dialog-actions"></div><p id="project-dialog-status" class="quiet-status" role="status"></p></dialog>
-<dialog id="handoff-dialog" class="report-dialog"><button type="button" class="dialog-close" aria-label="전달 보고서 닫기" id="handoff-close">닫기 ×</button><h2>대표에게 전달할 보고</h2><div id="handoff-preview"></div><form id="handoff-form"><div id="handoff-meta"><label>보고자<input id="handoff-author" required maxlength="100"/></label><label>최종 결정 마감<input id="handoff-deadline" type="datetime-local" required/></label></div><label class="check-line"><input id="handoff-agree" type="checkbox" required/> 핵심 요약·세부 설명·첨부를 확인했습니다.</label><button class="btn pri" type="submit" data-chat-action>확인하고 대표에게 전달</button><p id="handoff-status" class="quiet-status" role="status"></p></form></dialog>
+<dialog id="project-dialog" class="report-dialog"><button type="button" class="dialog-close" aria-label={l("프로젝트 닫기")} id="project-dialog-close">{l("닫기 ×")}</button><div id="project-dialog-body"></div><div id="project-dialog-actions" class="dialog-actions"></div><p id="project-dialog-status" class="quiet-status" role="status"></p></dialog>
+<dialog id="handoff-dialog" class="report-dialog"><button type="button" class="dialog-close" aria-label={l("전달 보고서 닫기")} id="handoff-close">{l("닫기 ×")}</button><h2>{l("대표에게 전달할 보고")}</h2><div id="handoff-preview"></div><form id="handoff-form"><div id="handoff-meta"><label>{l("보고자")}<input id="handoff-author" required maxlength="100"/></label><label>{l("최종 결정 마감")}<input id="handoff-deadline" type="datetime-local" required/></label></div><label class="check-line"><input id="handoff-agree" type="checkbox" required/>{l(" 핵심 요약·세부 설명·첨부를 확인했습니다.")}</label><button class="btn pri" type="submit" data-chat-action>{l("확인하고 대표에게 전달")}</button><p id="handoff-status" class="quiet-status" role="status"></p></form></dialog>
 <script>import '../scripts/briefing';</script>

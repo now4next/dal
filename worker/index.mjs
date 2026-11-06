@@ -1,4 +1,4 @@
-import { POLICY_VERSION, SYSTEM_PROMPT, REVIEW_SCHEMA, validateReport, validateReview, canEscalate, canDecide } from '../src/lib/gangrim-policy.mjs';
+import { POLICY_VERSION, reviewPrompt, REVIEW_SCHEMA, validateReport, validateReview, canEscalate, canDecide } from '../src/lib/gangrim-policy.mjs';
 import { briefingRoute } from './briefing.mjs';
 import {readinessOf} from '../src/lib/readiness.mjs';
 
@@ -55,7 +55,7 @@ async function review(env,row){
       const mime=/\.pdf$/i.test(f.name)?'application/pdf':'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
       content.push({type:'input_file',filename:f.name,file_data:`data:${mime};base64,${btoa(bin)}`});}
   }
-  const response=await fetch('https://api.openai.com/v1/responses',{method:'POST',signal:AbortSignal.timeout(90000),headers:{Authorization:`Bearer ${env.OPENAI_API_KEY}`,'Content-Type':'application/json'},body:JSON.stringify({model:env.OPENAI_MODEL,store:false,instructions:SYSTEM_PROMPT,input:[{role:'user',content}],max_output_tokens:4500,text:{format:{type:'json_schema',name:'gangrim_review',strict:true,schema:REVIEW_SCHEMA}}})});
+  const response=await fetch('https://api.openai.com/v1/responses',{method:'POST',signal:AbortSignal.timeout(90000),headers:{Authorization:`Bearer ${env.OPENAI_API_KEY}`,'Content-Type':'application/json'},body:JSON.stringify({model:env.OPENAI_MODEL,store:false,instructions:reviewPrompt(JSON.parse(row.body).language),input:[{role:'user',content}],max_output_tokens:4500,text:{format:{type:'json_schema',name:'gangrim_review',strict:true,schema:REVIEW_SCHEMA}}})});
   if(!response.ok)fail('AI 검토 서비스 오류로 통과 처리를 하지 않았습니다. 잠시 후 다시 시도해주세요.',502);
   const result=await response.json();if(result.status!=='completed')fail('AI 검토가 완료되지 않았습니다.',502);
   const text=(result.output||[]).flatMap(x=>x.content||[]).filter(x=>x.type==='output_text').map(x=>x.text).join('');
