@@ -21,10 +21,10 @@ export const byDate = <T extends { date?: string }>(a: T, b: T) =>
 export const href = (lang: Lang, path: string) => (lang === 'ko' ? `/ko${path}` : path);
 
 export const NAV = [
-  { key: 'gangrim', path: '/gangrim/', label: { en: 'Gangrim AI', ko: '강림선생' } },
   { key: 'research', path: '/research/', label: { en: 'Research', ko: '연구' } },
   { key: 'publications', path: '/publications/', label: { en: 'Publications', ko: '논문·특허' } },
   { key: 'people', path: '/people/', label: { en: 'People', ko: '사람' } },
+  { key: 'gangrim', path: '/gangrim/', label: { en: 'Decision Agent', ko: '의사결정 에이전트' } },
   { key: 'news', path: '/news/', label: { en: 'News', ko: '소식' } },
   { key: 'contact', path: '/contact/', label: { en: 'Contact', ko: '연락' } },
 ] as const;
