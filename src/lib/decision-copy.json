@@ -181,5 +181,18 @@
   "대화 분량 한도에 도달했습니다. 새 브리핑으로 정리해주세요.": "The conversation length limit has been reached. Start a new briefing.",
   "대화를 찾을 수 없습니다.": "Conversation not found.",
   "접수 건을 찾을 수 없습니다.": "Report not found.",
-  "AI 연결이 준비되지 않았습니다. 브리핑은 저장되어 있습니다.": "The AI service is unavailable. Your briefing is saved."
+  "AI 연결이 준비되지 않았습니다. 브리핑은 저장되어 있습니다.": "The AI service is unavailable. Your briefing is saved.",
+  "AI 에이전트": "AI Agents",
+  "AI 에이전트 · DAL": "AI Agents · DAL",
+  "DAL 연구소와 강병준 대표의 전문 역량을 AI 서비스로 연결합니다.": "Specialist AI services built on the expertise of DAL and Byung Jun Kang.",
+  "DAL 연구소와 강병준 대표의 전문 역량을 기반으로 의사결정, 연구 논문 심사, 투자 분석, 경영컨설팅을 지원하는 전문 AI 에이전트 서비스로 확장합니다.": "Specialist AI agent services grounded in the expertise of DAL and Byung Jun Kang, expanding from decision support into research review, investment analysis and management consulting.",
+  "전문 에이전트 확장 계획": "Specialist agent roadmap",
+  "의사결정 지원에서 출발해 연구·투자·경영 전반의 전문 에이전트 서비스로 확대합니다.": "Starting with decision support, we plan to expand into specialist services for research, investment and management.",
+  "확장 예정": "Planned",
+  "연구 논문 심사 에이전트": "Research Review Agent",
+  "연구 설계·논리·근거의 검토": "Review research design, reasoning and evidence.",
+  "투자 분석 에이전트": "Investment Analysis Agent",
+  "사업성·가치·위험의 분석": "Analyze business viability, value and risk.",
+  "경영컨설팅 에이전트": "Management Consulting Agent",
+  "경영 진단·전략·실행의 지원": "Support business assessment, strategy and execution."
 }
