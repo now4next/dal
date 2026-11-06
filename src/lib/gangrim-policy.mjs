@@ -1,5 +1,6 @@
 export const ROLES = ['경영컨설팅 기반 진단플랫폼 회사 경영자', 'AI 경영컨설턴트', '스타트업 투자 전략 전문가', 'AI공학·경영학 박사 연구자'];
-export const POLICY_VERSION = '2026-11-04.1';
+import {READINESS_SCHEMA,READINESS_PROMPT,normalizeReadiness,isReadyForExecutive} from './readiness.mjs';
+export const POLICY_VERSION = '2026-11-06.1';
 export const SYSTEM_PROMPT = `당신은 강병준의 AI 아바타 '강림선생'이다. 사람 강병준 본인이 아니며 최종 의사결정권자가 아니다.
 네 가지 역할: ${ROLES.join(', ')}.
 정확성과 성과가 최우선이다. 실행, 검증, 수정, 재검증을 거쳐 최종 마감 전에 완료하도록 검토한다.
@@ -13,7 +14,7 @@ export const SYSTEM_PROMPT = `당신은 강병준의 AI 아바타 '강림선생'
 검토 관점: 의사결정 질문, 목표·성과 기준, 근거의 정확성, 대안 비교, 위험·대응, 실행 책임·일정, 검증 방법.
 ready는 '최종 의사결정 요청 가능'이라는 사전검토 통과만 뜻한다. 최종 승인, 계약 수락, 투자 판단 확정으로 표현하지 않는다.
 핵심 근거 부족은 needs_revision, 모순·심각한 위험·판단 불가능은 hold. 제출 자료의 중대한 불확실성이 남으면 ready 금지.
-모든 응답은 한국어로 정해진 JSON 형식에 맞춘다.`;
+모든 응답은 한국어로 정해진 JSON 형식에 맞춘다.\n${READINESS_PROMPT}`;
 
 export const REVIEW_SCHEMA = {
   type: 'object', additionalProperties: false,
@@ -23,8 +24,8 @@ export const REVIEW_SCHEMA = {
     findings: {type:'array', items:{type:'object', additionalProperties:false, properties:{statement:{type:'string'}, evidence:{type:'string'}}, required:['statement','evidence']}},
     unknowns: {type:'array',items:{type:'string'}}, blockers: {type:'array',items:{type:'string'}},
     feedback: {type:'array',items:{type:'string'}}, questions: {type:'array',items:{type:'string'}},
-    recommendation: {type:'string'},
-  }, required:['verdict','summary','findings','unknowns','blockers','feedback','questions','recommendation'],
+    recommendation: {type:'string'}, readiness: READINESS_SCHEMA,
+  }, required:['verdict','summary','findings','unknowns','blockers','feedback','questions','recommendation','readiness'],
 };
 
 export function validateReport(value) {
@@ -39,6 +40,7 @@ export function validateReport(value) {
   if (Date.parse(out.deadline) <= Date.now()) throw new Error('마감은 현재 이후여야 합니다.');
   if (value.consent !== true) throw new Error('문서 처리와 AI 검토 안내에 동의해주세요.');
   out.consent = true;
+  if(value.executive_summary!==undefined){if(typeof value.executive_summary!=='string'||value.executive_summary.length>2500)throw Error('핵심 요약은 2,500자 이하로 입력해주세요.');out.executive_summary=value.executive_summary;}
   return out;
 }
 
@@ -47,14 +49,15 @@ export function validateReview(value) {
   for (const key of ['summary','recommendation']) if (typeof value[key] !== 'string' || !value[key].trim()) throw new Error('AI 검토 내용이 비어 있습니다.');
   for (const key of ['unknowns','blockers','feedback','questions']) if (!Array.isArray(value[key]) || value[key].some(x => typeof x !== 'string')) throw new Error('AI 검토 항목이 올바르지 않습니다.');
   if (!Array.isArray(value.findings) || value.findings.some(x => !x || typeof x.statement !== 'string' || !x.statement.trim() || typeof x.evidence !== 'string' || !x.evidence.trim())) throw new Error('주장과 근거 위치를 확인할 수 없습니다.');
-  if (value.verdict === 'ready' && (value.unknowns.length || value.blockers.length || !value.findings.length)) return {...value, verdict:'needs_revision', blockers:[...value.blockers, '미확인 사항 또는 근거 부족으로 사전검토 통과를 보류합니다.']};
-  return value;
+  const readiness=normalizeReadiness(value.readiness);
+  if (value.verdict === 'ready' && (value.unknowns.length || value.blockers.length || !value.findings.length || !readiness || readiness.total<95)) return {...value,readiness,verdict:'needs_revision',blockers:[...value.blockers,'준비도 95점 이상과 핵심 근거 확인이 필요합니다.']};
+  return {...value,readiness};
 }
 
 export function canEscalate(row) {
-  return row.status === 'ready' && row.review_revision === row.revision && !!row.review;
+  return row.status === 'ready' && row.review_revision === row.revision && isReadyForExecutive(row.review);
 }
 
 export function canDecide(row) {
-  return row.status === 'awaiting_owner' && row.review_revision === row.revision && !!row.review;
+  return ['awaiting_owner','reviewing_owner'].includes(row.status) && row.review_revision === row.revision && isReadyForExecutive(row.review);
 }

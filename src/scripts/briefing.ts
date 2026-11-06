@@ -1,61 +1,84 @@
-const host = document.querySelector<HTMLElement>('.gangrim');
-if(host){
+import {api,node,receipts,remember,deviceSaved,setDeviceSaved,loadProject,statusOf,decisionOf,saveText,type Receipt} from './project-client';
+import {scoreView,reportView} from './report-view';
+import {readinessOf,isReadyForExecutive} from '../lib/readiness.mjs';
+const root=document.querySelector<HTMLElement>('.gangrim');
+if(root){
   const $=<T extends HTMLElement=HTMLElement>(id:string)=>document.getElementById(id) as T;
-  const api=host.dataset.api?.replace(/\/$/,'')||'';
-  const form=$<HTMLFormElement>('briefing-form');
-  let session:any=null, token='',working=false;
-  const message=$<HTMLTextAreaElement>('briefing-message');
-  const submit=$<HTMLButtonElement>('briefing-send');
-  const draftKeys:Record<string,string>={question:'의사결정 사안',context:'배경과 목표',evidence:'근거와 확인 결과',alternatives:'대안과 비교',risks:'위험과 대응',plan:'실행 계획',verification:'검증 계획'};
-  function say(text:string){$('briefing-status').textContent=text;}
-  function el(tag:string,text:string,parent:HTMLElement){const node=document.createElement(tag);node.textContent=text;parent.append(node);return node;}
-  function openReport(){if(session?.state.report_id)document.dispatchEvent(new CustomEvent('gangrim-open-report',{detail:{id:session.state.report_id,token}}));}
-  async function call(path:string,data?:any){if(!api)throw Error('AI 접수 서버가 연결되지 않았습니다. 운영 페이지에서 이용해주세요.');const res=await fetch(api+path,{method:data===undefined?'GET':'POST',headers:{'Content-Type':'application/json',...(token?{'X-Case-Token':token}:{})},body:data===undefined?undefined:JSON.stringify(data),signal:AbortSignal.timeout(110000)});const result=await res.json();if(!res.ok)throw Error(result.error||'요청을 처리하지 못했습니다.');return result;}
-  async function busy(fn:()=>Promise<void>){if(working)return;working=true;for(const b of host!.querySelectorAll<HTMLButtonElement>('[data-chat-action]'))b.disabled=true;say('강림선생이 보고 내용을 검토하고 있습니다. 잠시 기다려주세요.');try{await fn();say('저장되었습니다. 대화번호와 조회키를 보관하시면 나중에 이어갈 수 있습니다.');}catch(e){say((e as Error).message);}finally{working=false;for(const b of host!.querySelectorAll<HTMLButtonElement>('[data-chat-action]'))b.disabled=false;}}
+  let session:any=null,report:any=null,token='',working=false,refreshing=false;
+  let inspected:Receipt|null=null;
+  const cache=new Map<string,{session:any;report:any}>();
+  const composer=$<HTMLFormElement>('briefing-form'),message=$<HTMLTextAreaElement>('briefing-message');
+  const handoff=$<HTMLDialogElement>('handoff-dialog'),projectDialog=$<HTMLDialogElement>('project-dialog');
+  const names:Record<string,string>={question:'결정할 사안',context:'배경·목표',evidence:'근거·자료',alternatives:'성과·대안',risks:'위험·대응',plan:'실행 계획',verification:'검증 계획'};
+  const panel=(id:string)=>document.dispatchEvent(new CustomEvent('gangrim-panel',{detail:id}));
+  const receipt=():Receipt=>({id:session.id,token,title:session.state.title||session.state.focus?.decision||session.state.messages[0].text.slice(0,65),kind:'briefing'});
+  const review=()=>session?.state.pending?null:report?.review||session?.state.feedback?.review||(session?.state.focus?.readiness?{readiness:session.state.focus.readiness}:null);
+  const canSend=()=>isReadyForExecutive(review())&&(!report||report.status==='ready');
+  function sync(){for(const b of root!.querySelectorAll<HTMLButtonElement>('[data-chat-action]'))b.disabled=working;$<HTMLButtonElement>('briefing-handoff').disabled=working||!canSend();}
+  function notice(text:string){$('briefing-status').textContent=text;}
+  async function busy(fn:()=>Promise<void>){if(working)return;working=true;sync();notice('검토 중…');try{await fn();}catch(e){notice((e as Error).message);$('handoff-status').textContent=(e as Error).message;}finally{working=false;sync();}}
+  function draft(box:HTMLElement,data:any){box.replaceChildren();if(!data)return;node('h3','핵심 요약',box);node('p',data.executive_summary||data.question,box);const details=document.createElement('details');box.append(details);node('summary','세부 설명',details);for(const [key,label]of Object.entries(names)){node('h4',label,details);node('p',data[key],details);}if(session?.files.length){node('h3','첨부 자료',box);for(const f of session.files)node('p',f.name,box);}}
   function render(){
-    const log=$('briefing-log');log.replaceChildren();
-    el('p','준비하신 내용을 보고해주세요. 무엇을 결정해드려야 하는지도 함께 말씀해주세요.',el('article','',log)).className='chair-welcome';
-    const state=session?.state;
-    for(const m of state?.messages||[]){const card=el('article','',log);card.className='chair-message '+(m.role==='user'?'chair-user':'chair-assistant');el('span',m.role==='user'?(m.kind==='answer'?'질문에 대한 답변':'브리핑'):'강림선생 · AI 사전검토',card).className='chair-speaker';
-      if(m.feedback){const f=m.feedback;for(const [label,text] of [['핵심 약점',f.weakness],['판단 근거',f.basis],['개선 방향',f.improvement]]){el('h3',label,card);el('p',text,card);}el('h3','다시 보고할 과제',card);const list=el('ol','',card);for(const task of f.tasks)el('li',task,list);el('span',f.review.verdict==='ready'?'사전검토 통과 · 보고서 확인 필요':f.review.verdict==='hold'?'판단 보류':'보완 후 다시 보고해주세요',card).className='chair-verdict';}
-      else{el(m.kind==='question'?'h3':'p',m.text,card);if(m.files?.length)el('small','첨부: '+m.files.join(', '),card);}
+    const state=session?.state,log=$('briefing-log');log.replaceChildren();
+    if(!state){node('p','준비하신 내용과 자료를 보내주세요.',node('article','',log)).className='chat-question';}
+    for(const m of state?.messages||[]){const card=node('article','',log);card.className='chat-message '+(m.role==='user'?'chat-user':'chat-ai');node('span',m.role==='user'?'보고자':'강림선생 · AI',card).className='chat-speaker';
+      if(m.feedback){const f=m.feedback;node('p',f.weakness,card).className='chat-weakness';if(f.next_question)node('p',f.next_question,card).className='chat-question';else node('p',isReadyForExecutive(f.review)?'보고 준비가 되었습니다. 정리된 내용과 자료를 확인한 후 대표에게 보고해 주세요.':'보완할 내용과 자료를 준비해 주세요.',card).className='chat-question';
+        const score=readinessOf(f.review);node('p',score?`보고 준비도 ${score.total}점 · 대표 전달 기준 95점`:'이전 검토 · 새 답변 후 준비도를 평가합니다.',card).className='chat-score';
+        const details=document.createElement('details');card.append(details);node('summary','이번 보고에서 더 준비할 내용',details);node('p',f.improvement,details);const ul=node('ul','',details);for(const task of f.tasks)node('li',task,ul);node('p','판단 근거: '+f.basis,details);
+      }else{node('p',m.text,card).className=m.role==='assistant'?'chat-question':'';if(m.files?.length)node('small',m.files.join(' · '),card);}
     }
-    $('briefing-empty-summary').hidden=!!state;
-    $('briefing-summary-content').hidden=!state;
-    $('briefing-receipt').hidden=!session;
-    $('briefing-initial').hidden=!!session;
-    $('briefing-consent-row').hidden=!!session;
-    $<HTMLInputElement>('briefing-consent').required=!session;
-    $('briefing-confirm').hidden=state?.stage!=='feedback';
-    $('briefing-open-report').hidden=!state?.report_id;
-    $('briefing-composer').hidden=!!state?.report_id;
-    if(session){$<HTMLInputElement>('briefing-id').value=session.id;$<HTMLInputElement>('briefing-token').value=token;
-      $('briefing-stage').textContent=state.stage==='question'?'02 · 핵심 질문에 답변':state.stage==='feedback'?'03 · 약점 확인과 보완 보고':state.stage==='report'?'04 · 보고서 확인 완료':'01 · 브리핑 저장됨';
-      $('briefing-decision').textContent=state.focus?.decision||'브리핑을 읽고 결정할 사안을 정리합니다.';
-      $('briefing-issue').textContent=state.focus?.issue||'핵심 쟁점을 검토하고 있습니다.';
-      const tasks=$('briefing-tasks');tasks.replaceChildren();for(const task of state.feedback?.tasks||[])el('li',task,tasks);if(!state.feedback)el('li','핵심 질문에 답변하시면 보완 과제를 정리합니다.',tasks);
-      const draft=$('briefing-draft');draft.replaceChildren();if(state.feedback){for(const [key,label] of Object.entries(draftKeys)){el('h4',label,draft);el('p',state.feedback.report[key],draft);}el('h4','아직 확인되지 않은 사항',draft);for(const item of [...state.feedback.review.unknowns,...state.feedback.review.blockers])el('p',item,draft);}
-      $('briefing-author-confirm-wrap').hidden=state.stage!=='feedback';
-      $<HTMLInputElement>('briefing-final-author').value=state.author==='보고자 미입력'?'':state.author;
-    }
-    const stage=state?.stage;
-    $('briefing-message-label').textContent=stage==='question'?'핵심 질문에 답변해주세요':stage==='feedback'?'보완한 내용을 다시 보고해주세요':'준비하신 내용을 자유롭게 브리핑해주세요';
-    message.disabled=stage==='briefing';message.required=stage!=='briefing';
-    message.placeholder=stage==='question'?'질문에 대한 판단과 근거를 말씀해주세요. 아직 모르는 부분은 그대로 알려주세요.':stage==='feedback'?'개선 방향을 반영한 내용과 추가로 확인한 근거를 보고해주세요.':'무엇을 하려는지, 어떤 결정을 원하는지 설명해주세요. 문서도 함께 첨부할 수 있습니다.';
-    submit.textContent=stage==='briefing'?'핵심 질문 받기':stage==='question'?'답변하고 핵심 진단 받기':stage==='feedback'?'보완 보고하고 다시 질문 받기':'브리핑하고 핵심 질문 받기';
+    $('active-project-title').textContent=state?(state.title||state.focus?.decision||'보고 대화'):'어떤 내용을 보고하시겠습니까?';
+    $('briefing-initial').hidden=!!session;$('briefing-consent-row').hidden=!!session;$<HTMLInputElement>('briefing-consent').required=!session;
+    composer.hidden=!!state?.report_id;$('briefing-example').hidden=!!session;$('briefing-export').hidden=!session;
+    message.disabled=state?.stage==='briefing'||!!state?.pending;message.required=!message.disabled;message.placeholder=state?'질문에 답변하시거나 보완한 자료를 보내주세요.':'핵심 내용과 검토가 필요한 결정을 말씀해 주세요.';
+    $<HTMLButtonElement>('briefing-send').textContent=state?.pending?'다시 검토':state?.stage==='briefing'?'질문 받기':state?'답변 보내기':'보고하기';
+    const score=readinessOf(review());$('readiness-total').textContent=score?String(score.total):'—';
+    $('readiness-guide').textContent=state?.pending?'새 답변 재평가 필요':canSend()?'95점 이상 · 대표 전달 가능':report?statusOf(report):score?(score.total>=95?'95점 이상 · 핵심 근거 확인 중':`95점까지 ${95-score.total}점`):'95점 이상부터 대표 전달';
+    if(score)scoreView($('readiness-breakdown'),review());else $('readiness-breakdown').textContent='첫 문답 후 5개 항목을 평가합니다.';
+    const body=report?.body||state?.feedback?.report;$('briefing-draft-wrap').hidden=!body;draft($('briefing-draft'),body);
+    if(session)remember(receipt());sync();
   }
-  async function files(){const chosen=Array.from($<HTMLInputElement>('briefing-files').files||[]);if(chosen.length+(session?.files.length||0)>3||chosen.some(f=>f.size>5000000)||chosen.reduce((n,f)=>n+f.size,0)+(session?.files.reduce((n:number,f:any)=>n+f.size,0)||0)>10000000)throw Error('대화당 첨부는 총 3개, 파일당 5MB, 합계 10MB까지입니다.');return Promise.all(chosen.map(async f=>({name:f.name,data:await new Promise<string>((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(String(reader.result).split(',')[1]);reader.onerror=()=>reject(Error('첨부를 읽을 수 없습니다.'));reader.readAsDataURL(f);})})));}
-  form.addEventListener('submit',e=>{e.preventDefault();busy(async()=>{
-    let attached=await files();const text=message.value.trim();
-    if(!session){token='';session=await call('/api/briefings',{message:text,files:attached,author:$<HTMLInputElement>('briefing-author').value,role:$<HTMLSelectElement>('briefing-role').value,consent:$<HTMLInputElement>('briefing-consent').checked});token=session.token;attached=[];message.value='';$<HTMLInputElement>('briefing-files').value='';render();}
-    session=await call(`/api/briefings/${session.id}/turn`,{version:session.version,message:session.state.stage==='briefing'?'':text,files:attached});message.value='';$<HTMLInputElement>('briefing-files').value='';render();
-    const cards=$('briefing-log').querySelectorAll('article');cards[cards.length-1]?.scrollIntoView({behavior:'smooth',block:'start'});
+  async function selected(next:Receipt){const loaded=await loadProject(next);if(!loaded.session){await showProject(next,loaded);return;}session=loaded.session;report=loaded.report;token=next.token;message.value='';$<HTMLInputElement>('briefing-files').value='';render();panel('briefing-panel');notice(report?statusOf(report):'저장된 보고를 불러왔습니다.');}
+  async function attachments(){const chosen=Array.from($<HTMLInputElement>('briefing-files').files||[]);if(chosen.length+(session?.files.length||0)>3||chosen.some(f=>f.size>5000000)||chosen.reduce((n,f)=>n+f.size,0)+(session?.files.reduce((n:number,f:any)=>n+f.size,0)||0)>10000000)throw Error('첨부는 총 3개, 파일당 5MB, 합계 10MB까지입니다.');return Promise.all(chosen.map(async file=>({name:file.name,data:await new Promise<string>((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(String(reader.result).split(',')[1]);reader.onerror=()=>reject(Error('첨부를 읽을 수 없습니다.'));reader.readAsDataURL(file);})})));}
+  composer.addEventListener('submit',e=>{e.preventDefault();busy(async()=>{const text=message.value.trim();let files=await attachments();
+    if(!session){session=await api('/api/briefings',{data:{title:$<HTMLInputElement>('briefing-title').value,author:$<HTMLInputElement>('briefing-author').value,role:$<HTMLSelectElement>('briefing-role').value,message:text,files,consent:$<HTMLInputElement>('briefing-consent').checked}});token=session.token;files=[];message.value='';$<HTMLInputElement>('briefing-files').value='';render();}
+    try{session=await api(`/api/briefings/${session.id}/turn`,{token,data:{version:session.version,message:session.state.stage==='briefing'||session.state.pending?'':text,files}});}catch(error){try{session=await api(`/api/briefings/${session.id}`,{token});if(session.state.pending){message.value='';$<HTMLInputElement>('briefing-files').value='';}render();}catch{}throw error;}report=null;message.value='';$<HTMLInputElement>('briefing-files').value='';render();notice('저장됨');logBottom();
   });});
-  $('briefing-resume').addEventListener('submit',e=>{e.preventDefault();busy(async()=>{const id=$<HTMLInputElement>('briefing-resume-id').value.trim();token=$<HTMLInputElement>('briefing-resume-token').value.trim();session=await call('/api/briefings/'+encodeURIComponent(id));message.value='';render();});});
-  $('briefing-new').addEventListener('click',()=>{if(working)return;session=null;token='';form.reset();message.value='';render();say('새 브리핑을 시작합니다. 이전 대화는 대화번호와 조회키로 이어갈 수 있습니다.');});
-  $('briefing-example').addEventListener('click',()=>{if(session){say('새 브리핑에서 예시를 사용할 수 있습니다.');return;}message.value='[가상 연동 시험] 중소기업을 위한 AI 경영진단 서비스를 출시하려고 합니다. 진단 항목 50개와 자동 보고서 기능을 만들었습니다. 고객 인터뷰, 지불 의향, 진단 결과로 고객이 바꿀 의사결정은 아직 확인하지 못했습니다. 다음 달 개발에 추가 투자해도 되는지 검토해주세요.';say('가상 예시입니다. 브리핑 버튼을 누르면 실제 AI 핵심 질문을 받습니다.');});
-  $('briefing-export').addEventListener('click',()=>{if(!session)return;const blob=new Blob([`강림선생 대화 보관 정보\n대화번호: ${session.id}\n조회키: ${token}\nhttps://dal.fyi/ko/gangrim/\n조회키를 가진 사람은 대화를 열람할 수 있습니다. 안전하게 보관해주세요.`],{type:'text/plain;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='강림선생-대화보관.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
-  $('briefing-confirm-form').addEventListener('submit',e=>{e.preventDefault();busy(async()=>{if(!session)return;const result=await call(`/api/briefings/${session.id}/report`,{version:session.version,confirm:$<HTMLInputElement>('briefing-draft-agree').checked,author:$<HTMLInputElement>('briefing-final-author').value,deadline:new Date($<HTMLInputElement>('briefing-deadline').value).toISOString()});session=await call(`/api/briefings/${session.id}`);render();say('보고서가 확정되었습니다. AI 사전검토 통과 건만 최종 결정 요청을 할 수 있습니다.');openReport();});});
-  $('briefing-open-report').addEventListener('click',openReport);
+  function logBottom(){const cards=$('briefing-log').querySelectorAll('article');cards[cards.length-1]?.scrollIntoView({behavior:'smooth',block:'start'});}
+  $('briefing-new').onclick=()=>{if(working)return;session=null;report=null;token='';composer.reset();render();notice('');};
+  $('briefing-example').onclick=()=>{message.value='[가상 보고] AI 경영진단 서비스를 출시하려고 합니다. 자동 진단 기능은 만들었지만 실제 고객의 구매 의향과 의사결정 변화는 아직 확인하지 못했습니다. 다음 달 추가 개발 투자를 요청합니다. 무엇을 더 준비해야 할까요?';$<HTMLInputElement>('briefing-title').value='AI 진단 서비스 출시 검토';message.focus();};
+  $('briefing-export').onclick=()=>{if(session)saveText('강림선생-프로젝트-접수정보.txt',`프로젝트번호: ${session.id}\n조회키: ${token}\nhttps://dal.fyi/ko/gangrim/\n조회키 보유자는 이 프로젝트를 열람할 수 있습니다. 안전하게 보관해주세요.`);};
+  $('open-projects-link').onclick=e=>{e.preventDefault();panel('projects-panel');};
+  $('handoff-close').onclick=()=>handoff.close();$('project-dialog-close').onclick=()=>projectDialog.close();
+  function handoffPreview(){if(!canSend())return;draft($('handoff-preview'),report?.body||session.state.feedback.report);$('handoff-status').textContent='';$('handoff-meta').hidden=!!report;$<HTMLInputElement>('handoff-author').required=!report;$<HTMLInputElement>('handoff-deadline').required=!report;$<HTMLInputElement>('handoff-author').value=session.state.author==='보고자 미입력'?'':session.state.author;$<HTMLInputElement>('handoff-agree').checked=false;handoff.showModal();}
+  $('briefing-handoff').onclick=handoffPreview;
+  $('handoff-form').addEventListener('submit',e=>{e.preventDefault();busy(async()=>{
+    if(!canSend()||!$<HTMLInputElement>('handoff-agree').checked)throw Error('준비도 95점 이상과 보고 내용 확인이 필요합니다.');
+    if(!report){await api(`/api/briefings/${session.id}/report`,{token,data:{version:session.version,confirm:true,author:$<HTMLInputElement>('handoff-author').value,deadline:new Date($<HTMLInputElement>('handoff-deadline').value).toISOString()}});const loaded=await loadProject(receipt());session=loaded.session;report=loaded.report;}
+    await api(`/api/reports/${report.id}/escalate`,{token,data:{revision:report.revision}});const loaded=await loadProject(receipt());session=loaded.session;report=loaded.report;render();handoff.close();panel('projects-panel');await refreshProjects();notice('대표에게 전달됐습니다.');
+  });});
+  async function refreshProjects(){if(refreshing)return;refreshing=true;const list=$('projects-list');const saved=receipts();if(!saved.length){list.replaceChildren();node('p','아직 보고 프로젝트가 없습니다. 보고 대화에서 시작하거나 접수 정보로 불러오세요.',list);$('projects-status').textContent='';refreshing=false;return;}
+    const loaded=await Promise.all(saved.map(async r=>{try{return {receipt:r,loaded:await loadProject(r)};}catch(e){return {receipt:r,error:(e as Error).message};}}));list.replaceChildren();
+    for(const item of loaded){const r=item.receipt;const card=node('article','',list);card.className='project-card';node('h3',r.title,card);if(item.loaded){cache.set(r.id,item.loaded);const score=item.loaded.session?.state.pending?null:readinessOf(item.loaded.report?.review||item.loaded.session?.state.feedback?.review||(item.loaded.session?.state.focus?.readiness?{readiness:item.loaded.session.state.focus.readiness}:null));node('p',score?`준비도 ${score.total}점 / 100`:'준비도 평가 전',card);const b=node('button',statusOf(item.loaded.report,item.loaded.session)+' · 확인',card)as HTMLButtonElement;b.type='button';b.className='project-state-button';b.dataset.result=String(!!decisionOf(item.loaded.report));b.onclick=()=>showProject(r,item.loaded);}
+      else{node('p',item.error||'조회할 수 없습니다.',card);}}
+    $('projects-status').textContent='현재 상태로 갱신됨';refreshing=false;
+  }
+  async function showProject(r:Receipt,loaded?:{session:any;report:any}){try{inspected=r;const current=loaded||await loadProject(r);const box=$('project-dialog-body'),actions=$('project-dialog-actions');box.replaceChildren();actions.replaceChildren();$('project-dialog-status').textContent='';
+    if(current.report)reportView(box,current.report,{token:r.token},text=>{$('project-dialog-status').textContent=text;});
+    else{node('h2',r.title,box);node('p',statusOf(null,current.session),box);if(current.session.state.pending)node('p','새 답변 재평가 필요',box);else scoreView(node('div','',box),current.session.state.feedback?.review||(current.session.state.focus?.readiness?{readiness:current.session.state.focus.readiness}:null));}
+    const add=(label:string,fn:()=>Promise<void>)=>{const b=node('button',label,actions)as HTMLButtonElement;b.type='button';b.className='btn sec';b.onclick=async()=>{b.disabled=true;try{await fn();}catch(e){$('project-dialog-status').textContent=(e as Error).message;}finally{b.disabled=false;}};};
+    if(current.session&&!current.session.state.report_id)add('대화 이어가기',async()=>{await selected(r);projectDialog.close();});
+    if(current.session&&current.report&&['ready','needs_revision','hold','submitted'].includes(current.report.status))add('대화로 보완하기',async()=>{session=await api(`/api/briefings/${r.id}/reopen`,{token:r.token,data:{version:current.session.version}});token=r.token;report=null;message.value='';render();panel('briefing-panel');projectDialog.close();notice('보완한 내용과 자료를 보내주세요.');});
+    if(current.session&&current.report?.status==='ready'&&isReadyForExecutive(current.report.review))add('대표에게 보고',async()=>{await selected(r);projectDialog.close();handoffPreview();});
+    add('상태 새로고침',async()=>showProject(r));if(!projectDialog.open)projectDialog.showModal();
+  }catch(e){$('projects-status').textContent=(e as Error).message;}}
+  $('projects-refresh').onclick=()=>refreshProjects();
+  document.addEventListener('gangrim-panel-opened',((e:CustomEvent)=>{if(e.detail==='projects-panel')refreshProjects();})as EventListener);
+  document.addEventListener('gangrim-projects-changed',()=>{if(!$('projects-panel').hidden)refreshProjects();});
+  setInterval(()=>{if(!document.hidden&&!$('projects-panel').hidden)refreshProjects();},30000);
+  async function importReceipt(id:string,key:string){if(!/^[a-f0-9-]{36}$/.test(id)||!/^[a-f0-9]{64}$/.test(key))throw Error('프로젝트 번호와 조회키 형식을 확인해주세요.');let r:Receipt={id,token:key,title:'불러온 보고 프로젝트',kind:'briefing'};let loaded;try{loaded=await loadProject(r);r.title=loaded.session.state.title||loaded.session.state.focus?.decision||loaded.session.state.messages[0].text.slice(0,65);}catch(e){if((e as any).status!==404)throw e;r.kind='report';loaded=await loadProject(r);r.title=loaded.report.body.title;}remember(r);await refreshProjects();await showProject(r,loaded);}
+  $('project-import-form').addEventListener('submit',async e=>{e.preventDefault();try{await importReceipt($<HTMLInputElement>('project-import-id').value.trim(),$<HTMLInputElement>('project-import-token').value.trim());}catch(e){$('projects-status').textContent=(e as Error).message;}});
+  $('project-import-file').addEventListener('change',async()=>{try{const f=$<HTMLInputElement>('project-import-file').files?.[0];if(!f)return;if(f.size>10000)throw Error('접수 정보 파일을 확인해주세요.');const text=await f.text();const id=text.match(/(?:프로젝트번호|대화번호|접수번호):\s*([a-f0-9-]{36})/)?.[1],key=text.match(/조회키:\s*([a-f0-9]{64})/)?.[1];if(!id||!key)throw Error('프로젝트 번호와 조회키를 찾지 못했습니다.');await importReceipt(id,key);}catch(e){$('projects-status').textContent=(e as Error).message;}finally{$<HTMLInputElement>('project-import-file').value='';}});
+  $<HTMLInputElement>('project-device-save').checked=deviceSaved();$('project-device-save').addEventListener('change',()=>{try{setDeviceSaved($<HTMLInputElement>('project-device-save').checked);$('projects-status').textContent=$<HTMLInputElement>('project-device-save').checked?'이 기기에 접수 정보를 보관합니다.':'이후에는 이 탭에서만 보관합니다.';}catch(e){$('projects-status').textContent=(e as Error).message;}});
   render();
 }

@@ -1,5 +1,6 @@
 import { POLICY_VERSION, SYSTEM_PROMPT, REVIEW_SCHEMA, validateReport, validateReview, canEscalate, canDecide } from '../src/lib/gangrim-policy.mjs';
 import { briefingRoute } from './briefing.mjs';
+import {readinessOf} from '../src/lib/readiness.mjs';
 
 const enc = new TextEncoder();
 const sha = async x => [...new Uint8Array(await crypto.subtle.digest('SHA-256',enc.encode(x)))].map(n=>n.toString(16).padStart(2,'0')).join('');
@@ -18,6 +19,7 @@ async function quota(env,key,limit){
   if(!result) fail('오늘 처리 한도에 도달했습니다. 나중에 다시 시도해주세요.',429);
 }
 async function event(env,id,revision,kind,detail){await env.DB.prepare('INSERT INTO events(report_id,revision,kind,detail,created_at) VALUES(?,?,?,?,?)').bind(id,revision,kind,JSON.stringify(detail),now()).run();}
+async function transition(env,statement,id,revision,kind,detail){const result=await env.DB.batch([statement,env.DB.prepare('INSERT INTO events(report_id,revision,kind,detail,created_at) SELECT ?,?,?,?,? WHERE changes()>0').bind(id,revision,kind,JSON.stringify(detail),now())]);return !!result[0]?.meta?.changes;}
 function owner(req,env){const token=req.headers.get('Authorization')?.replace(/^Bearer /,'');return !!env.OWNER_TOKEN && token===env.OWNER_TOKEN;}
 async function access(req,env,id){
   const row=await env.DB.prepare('SELECT * FROM reports WHERE id=?').bind(id).first();
@@ -71,6 +73,17 @@ async function route(req,env){
     await env.DB.prepare('INSERT INTO reports(id,token_hash,body,file_meta,created_at,updated_at) VALUES(?,?,?,?,?,?)').bind(id,await sha(token),JSON.stringify(report),JSON.stringify(files),time,time).run();
     await event(env,id,1,'submitted',{policy:POLICY_VERSION,body:report,files});return json({id,token,revision:1,status:'submitted'},201);
   }
+  if(path==='/api/owner/projects'&&method==='GET'){
+    if(!owner(req,env))fail('대표 인증이 필요합니다.',401);
+    const rows=await env.DB.prepare("SELECT * FROM reports WHERE EXISTS (SELECT 1 FROM events WHERE events.report_id=reports.id AND events.revision=reports.revision AND events.kind='escalated') ORDER BY updated_at DESC LIMIT 100").all();
+    return json({items:rows.results.map(r=>({id:r.id,title:JSON.parse(r.body).title,author:JSON.parse(r.body).author,status:r.status,revision:r.revision,score:readinessOf(r.review)?.total??null,updated_at:r.updated_at}))});
+  }
+  const fileMatch=path.match(/^\/api\/reports\/([a-f0-9-]{36})\/attachments\/([0-2])$/);
+  if(fileMatch&&method==='GET'){
+    const row=await access(req,env,fileMatch[1]);const file=JSON.parse(row.file_meta)[Number(fileMatch[2])];if(!file)fail('첨부를 찾을 수 없습니다.',404);
+    const object=await env.FILES.get(file.key);if(!object)fail('첨부를 찾을 수 없습니다.',404);
+    return new Response(await object.arrayBuffer(),{headers:{'Content-Type':'application/octet-stream','Content-Disposition':"attachment; filename*=UTF-8''"+encodeURIComponent(file.name),'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});
+  }
   if(path==='/api/owner/queue'&&method==='GET'){
     if(!owner(req,env))fail('최종 결정권자 인증이 필요합니다.',401);
     const rows=await env.DB.prepare("SELECT * FROM reports WHERE status='awaiting_owner' AND review_revision=revision ORDER BY updated_at DESC LIMIT 100").all();return json({items:rows.results.map(present)});
@@ -81,15 +94,15 @@ async function route(req,env){
   const input=await body(req,15000000);
   if(input.revision!==row.revision)fail('보고서 버전이 변경됐습니다. 새로 조회해주세요.',409);
   if(method==='PUT'&&!action){
-    if(['awaiting_owner','approved','rejected'].includes(row.status))fail('최종 결정 단계에서는 문서를 수정할 수 없습니다.',409);
+    if(['awaiting_owner','reviewing_owner','preparing','approved','rejected'].includes(row.status))fail('최종 결정 단계에서는 문서를 수정할 수 없습니다.',409);
     const report=validateReport(input.report);const next=row.revision+1;
     const files=await attachments(env,id,next,input.files||[]);
-    const updated=await env.DB.prepare("UPDATE reports SET body=?,file_meta=?,revision=?,status='submitted',review=NULL,review_revision=NULL,updated_at=? WHERE id=? AND revision=? AND status NOT IN ('awaiting_owner','approved','rejected')").bind(JSON.stringify(report),JSON.stringify(files),next,now(),id,row.revision).run();
+    const updated=await env.DB.prepare("UPDATE reports SET body=?,file_meta=?,revision=?,status='submitted',review=NULL,review_revision=NULL,updated_at=? WHERE id=? AND revision=? AND status NOT IN ('awaiting_owner','reviewing_owner','preparing','approved','rejected')").bind(JSON.stringify(report),JSON.stringify(files),next,now(),id,row.revision).run();
     if(!updated.meta.changes)fail('다른 변경이 진행됐습니다. 새로 조회해주세요.',409);await event(env,id,next,'revised',{previous:row.revision,body:report,files});return json({status:'submitted',revision:next});
   }
   if(method==='POST'&&action==='review'){
     if(!env.OPENAI_API_KEY||!env.OPENAI_MODEL)fail('AI 연결 설정이 필요합니다. 검토 완료로 처리하지 않았습니다.',503);
-    if(['awaiting_owner','approved','rejected','reviewing'].includes(row.status))fail('현재 상태에서는 재검토할 수 없습니다.',409);
+    if(['awaiting_owner','reviewing_owner','preparing','approved','rejected','reviewing'].includes(row.status))fail('현재 상태에서는 재검토할 수 없습니다.',409);
     await quota(env,`review:${now().slice(0,10)}:${id}`,3);await quota(env,`ai:${now().slice(0,10)}`,Math.min(500,Math.max(1,Number(env.DAILY_AI_LIMIT)||50)));
     const locked=await env.DB.prepare("UPDATE reports SET status='reviewing',updated_at=? WHERE id=? AND revision=? AND status=?").bind(now(),id,row.revision,row.status).run();
     if(!locked.meta.changes)fail('검토가 이미 진행 중입니다.',409);
@@ -101,16 +114,21 @@ async function route(req,env){
     }catch(error){await env.DB.prepare("UPDATE reports SET status='submitted' WHERE id=? AND revision=? AND status='reviewing'").bind(id,row.revision).run();throw error;}
   }
   if(method==='POST'&&action==='escalate'){
-    if(!canEscalate(row))fail('현재 버전의 강림선생 사전검토 통과가 필요합니다.',409);
+    if(!canEscalate(row))fail('현재 버전의 준비도 95점 이상과 핵심 근거 확인이 필요합니다.',409);
     if(Date.parse(JSON.parse(row.body).deadline)<=Date.now())fail('마감이 경과했습니다. 일정을 수정하고 재검토해주세요.',409);
-    const result=await env.DB.prepare("UPDATE reports SET status='awaiting_owner',updated_at=? WHERE id=? AND revision=? AND status='ready' AND review_revision=revision").bind(now(),id,row.revision).run();
-    if(!result.meta.changes)fail('보고서 상태가 변경됐습니다.',409);await event(env,id,row.revision,'escalated',{});return json({status:'awaiting_owner'});
+    const changed=await transition(env,env.DB.prepare("UPDATE reports SET status='awaiting_owner',updated_at=? WHERE id=? AND revision=? AND status='ready' AND review_revision=revision").bind(now(),id,row.revision),id,row.revision,'escalated',{});
+    if(!changed)fail('보고서 상태가 변경됐습니다.',409);return json({status:'awaiting_owner'});
   }
   if(method==='POST'&&action==='decision'){
     if(!owner(req,env))fail('사람 강병준의 최종 결정 권한이 필요합니다.',403);
+    if(input.decision==='thinking'){
+      if(!canDecide(row)||row.status!=='awaiting_owner')fail('대표 검토를 시작할 수 없는 상태입니다.',409);
+      const changed=await transition(env,env.DB.prepare("UPDATE reports SET status='reviewing_owner',updated_at=? WHERE id=? AND revision=? AND status='awaiting_owner'").bind(now(),id,row.revision),id,row.revision,'owner_started',{});if(!changed)fail('상태가 변경되었습니다.',409);
+      return json({status:'reviewing_owner'});
+    }
     if(!canDecide(row)||!['approved','rejected','needs_revision'].includes(input.decision)||typeof input.reason!=='string'||!input.reason.trim()||input.reason.length>5000)fail('현재 검토 버전과 최종 결정·사유를 확인해주세요.',409);
-    const result=await env.DB.prepare("UPDATE reports SET status=?,updated_at=? WHERE id=? AND revision=? AND status='awaiting_owner' AND review_revision=revision").bind(input.decision,now(),id,row.revision).run();
-    if(!result.meta.changes)fail('보고서 상태가 변경됐습니다.',409);await event(env,id,row.revision,'owner_decision',{decision:input.decision,reason:input.reason.trim()});return json({status:input.decision});
+    const changed=await transition(env,env.DB.prepare("UPDATE reports SET status=?,updated_at=? WHERE id=? AND revision=? AND status IN ('awaiting_owner','reviewing_owner') AND review_revision=revision").bind(input.decision,now(),id,row.revision),id,row.revision,'owner_decision',{decision:input.decision,reason:input.reason.trim()});
+    if(!changed)fail('보고서 상태가 변경됐습니다.',409);return json({status:input.decision});
   }
   fail('허용되지 않은 요청입니다.',405);
 }
