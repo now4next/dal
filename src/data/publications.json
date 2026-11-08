@@ -82,6 +82,22 @@
   {
     "type": "working",
     "date": "",
+    "title": {
+      "en": "An Explainable and Uncertainty-Aware AI Framework for Predicting Balanced Scorecard Performance and Supporting Strategic Decisions",
+      "ko": "설명가능성과 불확실성을 고려한 AI 기반 BSC 경영성과 예측 및 전략적 의사결정 지원 프레임워크"
+    },
+    "venue": {
+      "en": "Working paper · in preparation",
+      "ko": "워킹 페이퍼 · 원고 준비 중"
+    },
+    "summary": {
+      "en": "Tests how accurately AI predicts future performance from BSC leading indicators, how consistently SHAP identifies the KPIs that drive the forecast, and whether conformal prediction gives intervals that hit target coverage while staying narrow enough to use. Goes beyond BSC + XGBoost + SHAP by quantifying forecast uncertainty and checking whether uncertainty-aware decision rules cut target-shortfall losses and resource-allocation costs compared with point forecasts.",
+      "ko": "BSC 선행지표를 활용한 AI가 미래 경영성과를 얼마나 정확하게 예측하는지, SHAP이 성과에 기여하는 핵심 KPI를 얼마나 일관되게 설명하는지, Conformal Prediction이 목표 커버리지를 지키면서 실용적인 폭의 예측구간을 제공하는지 검증합니다. 단순한 BSC + XGBoost + SHAP 적용을 넘어 예측 불확실성을 정량화하고, 불확실성을 고려한 의사결정 규칙이 점 예측 기반 의사결정보다 목표 미달 손실과 자원 배분 비용을 줄이는지까지 확인합니다."
+    }
+  },
+  {
+    "type": "working",
+    "date": "",
     "title": "Personalized AI Agents under Changing User Preferences and Permission Boundaries",
     "venue": {
       "en": "Working paper · in preparation",
