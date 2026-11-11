@@ -12,9 +12,9 @@ function bubble(who:string,text:string,chair=false){const b=node('div','','bubbl
 function render(){
  const d=examples[selected],good=stage===2;
  document.querySelectorAll<HTMLButtonElement>('.cases button').forEach((b,i)=>b.setAttribute('aria-pressed',String(i===selected)));
- const conversation=el('conversation');conversation.replaceChildren(bubble(t('보고자 · 가상 브리핑','Reporter · fictional briefing'),d.brief),bubble(t('강림선생 · 핵심 질문','Decision agent · key question'),d.question,true));
+ const conversation=el('conversation');conversation.replaceChildren(bubble(t('보고자 · 가상 브리핑','Reporter · fictional briefing'),d.brief),bubble(t('대표(회장,C레벨) · 핵심 질문','CEO, Chair or C-suite · key question'),d.question,true));
  if(stage===1)conversation.append(bubble(t('검토 피드백','Review feedback'),d.weak,true));
- if(good)conversation.append(bubble(t('보고자 · 보완 자료','Reporter · supporting evidence'),d.evidence),bubble(t('강림선생 · 보완 검토','Decision agent · revised review'),t('판단에 필요한 근거와 실행 조건이 보완되었습니다. 아래 항목별 개선과 최종 보고서 예시를 확인하세요.','Evidence and execution conditions are now explicit. Review the criteria and sample report below.'),true));
+ if(good)conversation.append(bubble(t('보고자 · 보완 자료','Reporter · supporting evidence'),d.evidence),bubble(t('대표(회장,C레벨) · 보완 검토','CEO, Chair or C-suite · revised review'),t('판단에 필요한 근거와 실행 조건이 보완되었습니다. 아래 항목별 개선과 최종 보고서 예시를 확인하세요.','Evidence and execution conditions are now explicit. Review the criteria and sample report below.'),true));
  const choices=el('choices');choices.replaceChildren();
  if(!good){if(stage===0)choices.append(button(d.weakChoice,()=>{stage=1;render();}));choices.append(button(d.strongChoice,()=>{stage=2;render();}));}
  else choices.append(button(t('완성된 보고서 보기 ↓','View the completed report ↓'),()=>{el('deliverable').scrollIntoView({behavior:'smooth'});}));
