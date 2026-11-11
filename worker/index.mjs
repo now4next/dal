@@ -15,6 +15,7 @@ async function body(req,max=15000000) {
   try{return JSON.parse(new TextDecoder().decode(all));}catch{fail('올바른 JSON 요청이 필요합니다.');}
 }
 async function quota(env,key,limit){
+  if(!Number.isFinite(limit)||limit<=0)fail("AI usage is disabled.",503);
   const result=await env.DB.prepare('INSERT INTO quotas(key,count) VALUES(?,1) ON CONFLICT(key) DO UPDATE SET count=count+1 WHERE count < ? RETURNING count').bind(key,limit).first();
   if(!result) fail('오늘 처리 한도에 도달했습니다. 나중에 다시 시도해주세요.',429);
 }
@@ -45,6 +46,7 @@ async function attachments(env,id,revision,files){
   return result;
 }
 async function review(env,row){
+  if(env.LIVE_AI_ENABLED!=="true")fail("Live AI is disabled. Please use the simulation.",503);
   if(!env.OPENAI_API_KEY||!env.OPENAI_MODEL)fail('AI 검토 연결이 아직 설정되지 않았습니다. 접수 내용은 보관됐으며 검토 승인은 생성되지 않습니다.',503);
   const content=[{type:'input_text',text:'검토할 보고서 데이터:\n'+row.body}];
   for(const f of JSON.parse(row.file_meta)){
@@ -63,7 +65,8 @@ async function review(env,row){
 }
 async function route(req,env){
   const path=new URL(req.url).pathname;const method=req.method;
-  if(path==='/api/health')return json({configured:!!(env.DB&&env.FILES&&env.OPENAI_API_KEY&&env.OPENAI_MODEL&&env.OWNER_TOKEN),policy:POLICY_VERSION});
+  if(path==='/api/health')return json({configured:!!(env.DB&&env.FILES&&env.OPENAI_API_KEY&&env.OPENAI_MODEL&&env.OWNER_TOKEN),policy:POLICY_VERSION,mode:env.LIVE_AI_ENABLED==='true'?'live':'simulation',live_ai_enabled:env.LIVE_AI_ENABLED==='true'});
+  if(!['GET','HEAD'].includes(method)&&env.LIVE_AI_ENABLED!=='true')return json({error:'Live submissions and AI calls are disabled. Please use the simulation.',code:'SIMULATION_ONLY'},503);
   if(!env.DB||!env.FILES)fail('접수 서버가 아직 연결되지 않았습니다.',503);
   if(path==='/api/briefings'||path.startsWith('/api/briefings/'))return briefingRoute(req,env,{body,json,fail,sha,secret,now,quota,attachments,owner});
   if(path==='/api/reports'&&method==='POST'){
@@ -103,7 +106,7 @@ async function route(req,env){
   if(method==='POST'&&action==='review'){
     if(!env.OPENAI_API_KEY||!env.OPENAI_MODEL)fail('AI 연결 설정이 필요합니다. 검토 완료로 처리하지 않았습니다.',503);
     if(['awaiting_owner','reviewing_owner','preparing','approved','rejected','reviewing'].includes(row.status))fail('현재 상태에서는 재검토할 수 없습니다.',409);
-    await quota(env,`review:${now().slice(0,10)}:${id}`,3);await quota(env,`ai:${now().slice(0,10)}`,Math.min(500,Math.max(1,Number(env.DAILY_AI_LIMIT)||50)));
+    await quota(env,`review:${now().slice(0,10)}:${id}`,3);await quota(env,`ai:${now().slice(0,10)}`,Math.min(500,Math.max(0,Number(env.DAILY_AI_LIMIT??50))));
     const locked=await env.DB.prepare("UPDATE reports SET status='reviewing',updated_at=? WHERE id=? AND revision=? AND status=?").bind(now(),id,row.revision,row.status).run();
     if(!locked.meta.changes)fail('검토가 이미 진행 중입니다.',409);
     try{const result=await review(env,row);

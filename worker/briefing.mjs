@@ -32,6 +32,7 @@ async function fileContent(env,files,fail){
   return content;
 }
 async function ask(env,state,files,phase,fail){
+  if(env.LIVE_AI_ENABLED!=='true')fail('Live AI is disabled. Please use the simulation.',503);
   if(!env.OPENAI_API_KEY||!env.OPENAI_MODEL)fail('AI 연결이 준비되지 않았습니다. 브리핑은 저장되어 있습니다.',503);
   const instruction=phase==='question'
     ? '브리핑을 듣고 의사결정 사안(decision), 가장 중요한 쟁점(issue), 촌철살인의 질문 하나(question)를 작성한다. 지금은 약점 진단이나 과제 목록을 길게 말하지 않는다. readiness에는 브리핑과 첨부에서 확인한 항목별 준비도를 평가한다. 질문은 물음표 하나로 끝나는 한 문장이다. 사전검토 통과나 최종 승인을 하지 않는다.'
@@ -115,7 +116,7 @@ export async function briefingRoute(req,env,h){
   if(!state.pending&&state.messages.length>=40)fail('대화가 길어졌습니다. 핵심 내용을 정리해 새 프로젝트로 보고해주세요.',409);
   if(state.messages.reduce((n,m)=>n+m.text.length,0)+message.length>64000)fail('대화 분량 한도에 도달했습니다. 새 브리핑으로 정리해주세요.',413);
   const oldFiles=JSON.parse(row.file_meta);if(oldFiles.length+(input.files?.length||0)>3)fail('한 대화의 첨부는 총 3개까지 가능합니다.');
-  await quota(env,`chat:${now().slice(0,10)}:${id}`,20);await quota(env,`ai:${now().slice(0,10)}`,Math.min(500,Math.max(1,Number(env.DAILY_AI_LIMIT)||50)));
+  await quota(env,`chat:${now().slice(0,10)}:${id}`,20);await quota(env,`ai:${now().slice(0,10)}`,Math.min(500,Math.max(0,Number(env.DAILY_AI_LIMIT??50))));
   const lock=await env.DB.prepare("UPDATE briefings SET status='processing',updated_at=? WHERE id=? AND version=? AND status='active'").bind(now(),id,row.version).run();if(!lock.meta.changes)fail('다른 요청이 진행 중입니다.',409);
   try{
     const added=await attachments(env,id,row.version+1,input.files||[]);const files=[...oldFiles,...added];if(files.reduce((n,f)=>n+f.size,0)>10000000)fail('대화의 첨부 합계는 10MB 이하입니다.',413);

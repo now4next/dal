@@ -14,7 +14,7 @@ const ready=()=>({readiness:points(),verdict:'ready',summary:'테스트 전용 �
 function fixture(){
   const db=new DatabaseSync(':memory:');db.exec(readFileSync(new URL('migrations/0001.sql',import.meta.url),'utf8'));db.exec(readFileSync(new URL('migrations/0002_briefings.sql',import.meta.url),'utf8'));
   const objects=new Map();
-  const env={ALLOWED_ORIGINS:'https://dal.fyi',OWNER_TOKEN:'test-owner-credential-only',OPENAI_API_KEY:'test-not-a-real-key',OPENAI_MODEL:'test-model',DB:{async batch(queries){db.exec('BEGIN');try{const results=[];for(const query of queries)results.push(await query.run());db.exec('COMMIT');return results;}catch(error){db.exec('ROLLBACK');throw error;}},prepare(sql){let args=[];const query={bind(...a){args=a;return query;},async first(){return db.prepare(sql).get(...args)||null;},async all(){return {results:db.prepare(sql).all(...args)};},async run(){return {meta:{changes:Number(db.prepare(sql).run(...args).changes)}};}};return query;}},FILES:{async put(key,value){objects.set(key,value);},async get(key){const b=objects.get(key);return b?{async arrayBuffer(){return b.buffer.slice(b.byteOffset,b.byteOffset+b.byteLength);}}:null;}}};
+  const env={LIVE_AI_ENABLED:'true',ALLOWED_ORIGINS:'https://dal.fyi',OWNER_TOKEN:'test-owner-credential-only',OPENAI_API_KEY:'test-not-a-real-key',OPENAI_MODEL:'test-model',DB:{async batch(queries){db.exec('BEGIN');try{const results=[];for(const query of queries)results.push(await query.run());db.exec('COMMIT');return results;}catch(error){db.exec('ROLLBACK');throw error;}},prepare(sql){let args=[];const query={bind(...a){args=a;return query;},async first(){return db.prepare(sql).get(...args)||null;},async all(){return {results:db.prepare(sql).all(...args)};},async run(){return {meta:{changes:Number(db.prepare(sql).run(...args).changes)}};}};return query;}},FILES:{async put(key,value){objects.set(key,value);},async get(key){const b=objects.get(key);return b?{async arrayBuffer(){return b.buffer.slice(b.byteOffset,b.byteOffset+b.byteLength);}}:null;}}};
   const call=async(path,method='GET',data,headers={})=>{const res=await worker.fetch(new Request('https://api.test'+path,{method,headers:{Origin:'https://dal.fyi',...headers},body:data===undefined?undefined:JSON.stringify(data)}),env);return {status:res.status,data:await res.json()};};
   return {env,db,call};
 }
@@ -126,3 +126,14 @@ test('English readiness labels preserve scores, targets and receipt access detai
  assert.match(translate('프로젝트번호: 123\n조회키: abc\nhttps://dal.fyi/gangrim/','en'),/Project ID: 123\nProject key: abc/);
  assert.equal(translate('An original user statement','en'),'An original user statement');
 });
+
+
+test('simulation mode rejects all writes before storage or model access, even owner',async()=>{
+ const original=globalThis.fetch;let calls=0;globalThis.fetch=async()=>{calls++;throw Error('Network forbidden');};
+ try {for(const enabled of [undefined,'false','0','TRUE']){const env={LIVE_AI_ENABLED:enabled,OWNER_TOKEN:'test'};
+ for(const path of ['/api/briefings','/api/briefings/00000000-0000-0000-0000-000000000000/turn','/api/reports','/api/reports/00000000-0000-0000-0000-000000000000/review','/api/reports/00000000-0000-0000-0000-000000000000/escalate']){
+ const res=await worker.fetch(new Request('https://api.test'+path,{method:'POST',headers:{Authorization:'Bearer test'},body:'{}'}),env);assert.equal(res.status,503);assert.equal((await res.json()).code,'SIMULATION_ONLY');}
+ const health=await worker.fetch(new Request('https://api.test/api/health'),env);assert.equal((await health.json()).live_ai_enabled,false);
+ }assert.equal(calls,0);}finally{globalThis.fetch=original;}
+});
+test('zero daily AI quota prevents model calls',async()=>{const f=fixture();f.env.DAILY_AI_LIMIT='0';const a=await submit(f);let calls=0;const original=globalThis.fetch;globalThis.fetch=async()=>{calls++;throw Error('forbidden');};try{assert.equal((await f.call('/api/reports/'+a.id+'/review','POST',{revision:1},a.headers)).status,503);assert.equal(calls,0);}finally{globalThis.fetch=original;}});
