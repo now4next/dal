@@ -1,3 +1,5 @@
+
+> Hosting update (2026-11-14): dal.fyi now uses the existing NFN Sites server for public DAL pages and /ko/marketing/admin, sharing the existing authenticated CRM. GitHub Pages alone is no longer the production deployment. After building this Astro source, import dist using scripts/import-dal.mjs in C:/Users/User/Documents/Anything/sites/nfn-diagnosis-20261106 and publish that Site. See DAL-INTEGRATION.md there for deployment and rollback instructions.
 # DAL · Data Analytics Lab
 
 NFN 기업부설연구소 **Data Analytics Lab(DAL)** 웹사이트입니다. https://dal.fyi
