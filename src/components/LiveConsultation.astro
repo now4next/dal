@@ -2,11 +2,41 @@
 interface Props { lang: 'ko'|'en' }
 const ko=Astro.props.lang==='ko';
 ---
-<a class="live-consultation" href="https://nfn-diagnosis-consultation.aronpure.chatgpt.site/live" target="_blank" rel="noopener noreferrer" aria-label={ko?'강림 PD 라이브 상담 · 새 창':'Live consultation with Kangrim PD · new tab'}>
- <span class="pd-avatar" aria-hidden="true">PD</span><span><strong>{ko?'강림 PD 라이브 상담':'Chat with Kangrim PD'} <span aria-hidden="true">↗</span></strong><small>{ko?'09–21시 · 부재중 메시지 접수':'09:00–21:00 KST · Leave a message'}</small></span>
-</a>
+<button type="button" class="live-consultation" data-chat-open aria-controls="dal-chat-panel" aria-expanded="false" aria-label={ko?'강림 PD 라이브 상담 열기':'Open live consultation with Kangrim PD'}>
+ <span class="pd-avatar" aria-hidden="true">PD</span><span><strong>{ko?'강림 PD 라이브 상담':'Chat with Kangrim PD'} <span aria-hidden="true">▢</span></strong><small>{ko?'09–21시 · 부재중 메시지 접수':'09:00–21:00 KST · Leave a message'}</small></span>
+</button>
+<dialog id="dal-chat-panel" class="chat-panel" aria-label={ko?'강림 PD 라이브 상담':'Kangrim PD live consultation'}>
+ <header class="chat-panel-head"><div><strong>{ko?'강림 PD와 대화':'Chat with Kangrim PD'}</strong><small>{ko?'NFN · 오전 9시~오후 9시 (한국 시간)':'NFN · 09:00–21:00 KST'}</small></div><button type="button" data-chat-close aria-label={ko?'상담창 접기':'Minimize consultation'} title={ko?'접어도 대화는 유지됩니다':'Your conversation is kept'}>−</button></header>
+ <div class="chat-frame-wrap"><p class="chat-loading" role="status">{ko?'상담창을 연결하고 있습니다…':'Connecting to your consultation…'}</p><iframe id="dal-chat-frame" title={ko?'강림 PD 상담 대화':'Consultation conversation'} referrerpolicy="strict-origin" allow="clipboard-write" hidden></iframe></div>
+ <div class="chat-help" hidden><p>{ko?'연결이 지연되고 있습니다. 다시 연결해보세요.':'The connection is taking longer than expected. Please retry.'}</p><button type="button" data-chat-retry>{ko?'다시 연결':'Retry connection'}</button><a href="mailto:now@nfn.co.kr">now@nfn.co.kr</a></div>
+</dialog>
+<script>
+ const panel=document.querySelector<HTMLDialogElement>('#dal-chat-panel')!;
+ const frame=document.querySelector<HTMLIFrameElement>('#dal-chat-frame')!;
+ const launcher=document.querySelector<HTMLButtonElement>('.live-consultation')!;
+ const loading=document.querySelector<HTMLElement>('.chat-loading')!;
+ const help=document.querySelector<HTMLElement>('.chat-help')!;
+ const service='https://nfn-diagnosis-consultation.aronpure.chatgpt.site';
+ const sessionKey='dal-nfn-live-session';let ready=false,started=false,previousFocus:HTMLElement|null=null,timer:ReturnType<typeof setTimeout>;
+ const valid=(t:unknown):t is string=>typeof t==='string'&&/^[a-f0-9-]{72}$/.test(t);
+ function saved(){try{const t=sessionStorage.getItem(sessionKey);return valid(t)?t:'';}catch{return '';}}
+ function visibility(){frame.contentWindow?.postMessage({type:'NFN_CHAT_VISIBILITY',visible:panel.open&&document.visibilityState==='visible'},service);}
+ function connect(){clearTimeout(timer);ready=false;started=true;loading.hidden=false;help.hidden=true;frame.hidden=false;const token=saved();frame.src=service+'/live/embed'+(token?'#'+token:'');timer=setTimeout(()=>{if(!ready){help.hidden=false;loading.hidden=true;}},18000);}
+ function viewport(){const v=window.visualViewport;panel.style.setProperty('--chat-vh',(v?.height||innerHeight)+'px');panel.style.setProperty('--chat-top',(v?.offsetTop||0)+'px');}
+ function open(){if(panel.open)return;previousFocus=document.activeElement as HTMLElement;viewport();if(matchMedia('(max-width:600px)').matches){panel.showModal();document.documentElement.classList.add('dal-chat-mobile-open');}else panel.show();launcher.hidden=true;document.querySelectorAll('[data-chat-open]').forEach(x=>x.setAttribute('aria-expanded','true'));if(!started)connect();visibility();panel.querySelector<HTMLButtonElement>('[data-chat-close]')?.focus();}
+ function close(){panel.close();}
+ panel.addEventListener('close',()=>{launcher.hidden=false;document.documentElement.classList.remove('dal-chat-mobile-open');document.querySelectorAll('[data-chat-open]').forEach(x=>x.setAttribute('aria-expanded','false'));visibility();previousFocus?.focus();});
+ document.addEventListener('click',e=>{if((e.target as Element).closest('[data-chat-open]')){e.preventDefault();open();}});
+ panel.querySelector('[data-chat-close]')?.addEventListener('click',close);
+ panel.querySelector('[data-chat-retry]')?.addEventListener('click',connect);
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&panel.open){e.preventDefault();close();}});
+ window.addEventListener('message',e=>{if(e.origin!==service||e.source!==frame.contentWindow)return;const d=e.data;if(d?.type==='NFN_CHAT_READY'){ready=true;loading.hidden=true;help.hidden=true;clearTimeout(timer);visibility();}else if(d?.type==='NFN_CHAT_SESSION'&&valid(d.token)){try{sessionStorage.setItem(sessionKey,d.token);}catch{}}else if(d?.type==='NFN_CHAT_CLOSE'&&panel.open)close();});
+ window.visualViewport?.addEventListener('resize',viewport);window.visualViewport?.addEventListener('scroll',viewport);window.addEventListener('resize',viewport);document.addEventListener('visibilitychange',visibility);
+</script>
 <style>
- .live-consultation{position:fixed;right:24px;bottom:max(24px,env(safe-area-inset-bottom));z-index:90;display:flex;align-items:center;gap:11px;background:#32166a;color:#fff;border:1px solid #b8a4fd;border-radius:18px;padding:13px 17px;box-shadow:0 8px 28px #0008;text-decoration:none;max-width:calc(100vw - 32px)}
- .live-consultation strong{font-size:15px;display:block}.live-consultation small{display:block;font-size:12px;color:#e1d8f7;margin-top:3px}.pd-avatar{display:grid;place-items:center;width:37px;height:37px;border-radius:50%;background:#e6dcff;color:#32166a;font-size:13px;font-weight:800;flex-shrink:0}.live-consultation:hover{background:#46218b}.live-consultation:focus-visible{outline:3px solid #5eead4;outline-offset:4px}
- @media(max-width:600px){.live-consultation{right:16px;bottom:max(16px,env(safe-area-inset-bottom));padding:10px 13px}.live-consultation strong{font-size:14px}.live-consultation small{font-size:11px}}
+ .live-consultation{position:fixed;right:24px;bottom:max(24px,env(safe-area-inset-bottom));z-index:90;display:flex;align-items:center;gap:11px;background:#32166a;color:#fff;border:1px solid #b8a4fd;border-radius:18px;padding:13px 17px;box-shadow:0 8px 28px #0008;text-decoration:none;max-width:calc(100vw - 32px);font:inherit;cursor:pointer;text-align:left}.live-consultation[hidden]{display:none}
+ .live-consultation strong{font-size:15px;display:block}.live-consultation small{display:block;font-size:12px;color:#e1d8f7;margin-top:3px}.pd-avatar{display:grid;place-items:center;width:37px;height:37px;border-radius:50%;background:#e6dcff;color:#32166a;font-size:13px;font-weight:800;flex-shrink:0}.live-consultation:hover{background:#46218b}.live-consultation:focus-visible,.chat-panel button:focus-visible{outline:3px solid #5eead4;outline-offset:3px}
+ .chat-panel{position:fixed;inset:auto 24px 24px auto;margin:0;padding:0;width:420px;max-width:calc(100vw - 32px);height:min(720px,calc(var(--chat-vh,100dvh) - 48px));max-height:none;border:1px solid #aa8bda;border-radius:22px;background:#f7f5fa;box-shadow:0 20px 80px #0009;color:#292032;z-index:100;overflow:hidden;color-scheme:light}.chat-panel[open]{display:flex;flex-direction:column}.chat-panel::backdrop{background:#09031b80}
+ .chat-panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 16px;background:#32166a;color:#fff;flex-shrink:0}.chat-panel-head strong{display:block;font-size:16px}.chat-panel-head small{display:block;color:#e1d8f7;font-size:11px;margin-top:4px}.chat-panel-head button{width:44px;height:44px;border:1px solid #b8a4fd66;background:#ffffff12;color:white;font-size:26px;border-radius:12px;cursor:pointer}.chat-frame-wrap{position:relative;flex:1;min-height:0}.chat-frame-wrap iframe{display:block;width:100%;height:100%;border:0}.chat-frame-wrap iframe[hidden]{display:none}.chat-loading{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;color:#625575;background:#f7f5fa;font-size:14px;margin:0}.chat-loading[hidden],.chat-help[hidden]{display:none}.chat-help{padding:12px 16px;font-size:12px;background:white;flex-shrink:0}.chat-help p{margin:0 0 8px}.chat-help button{min-height:44px;padding:8px 14px;border-radius:8px;background:#634188;color:white;border:0;cursor:pointer;margin-right:16px}.chat-help a{color:#563181}
+ @media(max-width:600px){.live-consultation{right:16px;bottom:max(16px,env(safe-area-inset-bottom));padding:10px 13px}.live-consultation strong{font-size:14px}.live-consultation small{font-size:11px}.chat-panel{inset:calc(var(--chat-top,0px) + 6px) 6px auto 6px;width:calc(100vw - 12px);max-width:none;height:calc(var(--chat-vh,100dvh) - 12px);border-radius:18px}.chat-panel-head{padding:8px 12px;padding-top:max(8px,env(safe-area-inset-top))}:global(html.dal-chat-mobile-open){overflow:hidden}}
 </style>

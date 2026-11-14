@@ -76,5 +76,7 @@ npm run dev
 
 - `/marketing/customer/` and `/ko/marketing/customer/`: public service and consultation guidance.
 - `/marketing/admin/`: noindex entry redirect to the existing NFN authenticated CRM; no customer data is published through GitHub Pages.
-- Shared footer links only; main navigation remains research-focused. Every Base layout page includes a fixed consultation link to the NFN live-chat intake, with 09:00–21:00 KST hours.
+- Shared footer links only; main navigation remains research-focused. Every Base layout page includes a fixed consultation button opening an inline messenger panel, with 09:00–21:00 KST hours. Desktop uses a non-modal bottom-right dialog; mobile uses a full-height modal sized to the visual viewport.
 - Customer chats, consent, reply emails and admin notifications are handled by the existing NFN service, not the static DAL repository.
+
+The embedded public conversation is isolated in an NFN iframe. Session and visibility messages require the exact NFN/DAL origin and frame source. Minimizing preserves the frame and draft, suspends conversation polling/read receipts, and navigation within DAL restores the conversation via tab-scoped session storage. No cross-origin CRM/admin API access is granted.
