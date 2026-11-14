@@ -87,7 +87,7 @@ const year = new Date().getFullYear();
         <h4>{lang === 'ko' ? '관련 서비스' : 'Related'}</h4>
         <ul>
           <li><a href={href(lang, '/marketing/customer/')}>{lang === 'ko' ? '고객 상담·서비스' : 'Customer services'}</a></li>
-          <li><a href="/marketing/admin/" rel="nofollow">{lang === 'ko' ? '관리자 로그인' : 'Administrator sign-in'}</a></li>
+          <li><a href={lang === 'ko' ? '/ko/marketing/admin/' : '/marketing/admin/'} rel="nofollow">{lang === 'ko' ? '관리자 로그인' : 'Administrator sign-in'}</a></li>
           {site.links.map((l) => <li><a href={l.url} target="_blank" rel="noopener">{l.label} ↗</a></li>)}
         </ul>
       </div>
