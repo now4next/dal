@@ -21,7 +21,7 @@ const ko=Astro.props.lang==='ko';
  const valid=(t:unknown):t is string=>typeof t==='string'&&/^[a-f0-9-]{72}$/.test(t);
  function saved(){try{const t=sessionStorage.getItem(sessionKey);return valid(t)?t:'';}catch{return '';}}
  function visibility(){frame.contentWindow?.postMessage({type:'NFN_CHAT_VISIBILITY',visible:panel.open&&document.visibilityState==='visible'},service);}
- function connect(){clearTimeout(timer);ready=false;started=true;loading.hidden=false;help.hidden=true;frame.hidden=false;const token=saved();frame.src=service+'/live/embed'+(token?'#'+token:'');timer=setTimeout(()=>{if(!ready){help.hidden=false;loading.hidden=true;}},18000);}
+ function connect(){clearTimeout(timer);ready=false;started=true;loading.hidden=false;help.hidden=true;frame.hidden=false;const token=saved();frame.src=service+'/live/embed?lang='+(document.documentElement.lang.startsWith('ko')?'ko':'en')+(token?'#'+token:'');timer=setTimeout(()=>{if(!ready){help.hidden=false;loading.hidden=true;}},18000);}
  function viewport(){const v=window.visualViewport;panel.style.setProperty('--chat-vh',(v?.height||innerHeight)+'px');panel.style.setProperty('--chat-top',(v?.offsetTop||0)+'px');}
  function open(){if(panel.open)return;previousFocus=document.activeElement as HTMLElement;viewport();if(matchMedia('(max-width:600px)').matches){panel.showModal();document.documentElement.classList.add('dal-chat-mobile-open');}else panel.show();launcher.hidden=true;document.querySelectorAll('[data-chat-open]').forEach(x=>x.setAttribute('aria-expanded','true'));if(!started)connect();visibility();panel.querySelector<HTMLButtonElement>('[data-chat-close]')?.focus();}
  function close(){panel.close();}
