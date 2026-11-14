@@ -2,6 +2,7 @@
 import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
 import '../styles/global.css';
 import Icon from '../components/Icon.astro';
+import LiveConsultation from '../components/LiveConsultation.astro';
 import { NAV, href, tr, type Lang } from '../lib/i18n';
 import site from '../data/site.json';
 
@@ -85,6 +86,8 @@ const year = new Date().getFullYear();
       <div>
         <h4>{lang === 'ko' ? '관련 서비스' : 'Related'}</h4>
         <ul>
+          <li><a href={href(lang, '/marketing/customer/')}>{lang === 'ko' ? '고객 상담·서비스' : 'Customer services'}</a></li>
+          <li><a href="/marketing/admin/" rel="nofollow">{lang === 'ko' ? '관리자 로그인' : 'Administrator sign-in'}</a></li>
           {site.links.map((l) => <li><a href={l.url} target="_blank" rel="noopener">{l.label} ↗</a></li>)}
         </ul>
       </div>
@@ -94,6 +97,8 @@ const year = new Date().getFullYear();
       </div>
     </div>
   </footer>
+
+  <LiveConsultation lang={lang}/>
 
   <script>
     const btn = document.getElementById('menuBtn');

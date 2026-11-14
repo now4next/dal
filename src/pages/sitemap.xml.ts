@@ -1,7 +1,7 @@
 import news from '../data/news.json';
 
 const ORIGIN = 'https://dal.fyi';
-const paths = ['/', '/research/', '/publications/', '/people/', '/aiagent/', '/news/', '/contact/', ...news.map((n) => `/news/${n.slug}/`)];
+const paths = ['/', '/research/', '/publications/', '/people/', '/aiagent/', '/news/', '/contact/', '/marketing/customer/', ...news.map((n) => `/news/${n.slug}/`)];
 
 export function GET() {
   const urls = paths.flatMap((p) => [p, `/ko${p}`]).map((p) => {

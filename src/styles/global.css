@@ -470,3 +470,6 @@ footer.site .tagline { margin-top: 4px; font-size: var(--t-label); font-weight: 
 @media (max-width: 640px) { .publist.compact li { grid-template-columns: 1fr; } }
 .publist.wip li { grid-template-columns: 1fr; padding: 12px 0; }
 .publist.wip .yr, .publist.wip .ty { display: none; }
+
+/* Reserve footer space for the always-visible consultation entry. */
+footer.site{padding-bottom:120px}

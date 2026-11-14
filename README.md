@@ -71,3 +71,10 @@ npm run dev
 `main`에 푸시하면 `.github/workflows/deploy.yml`이 빌드해서 GitHub Pages에 올립니다.
 저장소 **Settings → Pages → Build and deployment**의 Source가 **GitHub Actions**여야 합니다.
 사용자 도메인 `dal.fyi`는 `public/CNAME`과 Pages 설정에 지정되어 있습니다.
+
+## Customer service entry points
+
+- `/marketing/customer/` and `/ko/marketing/customer/`: public service and consultation guidance.
+- `/marketing/admin/`: noindex entry redirect to the existing NFN authenticated CRM; no customer data is published through GitHub Pages.
+- Shared footer links only; main navigation remains research-focused. Every Base layout page includes a fixed consultation link to the NFN live-chat intake, with 09:00–21:00 KST hours.
+- Customer chats, consent, reply emails and admin notifications are handled by the existing NFN service, not the static DAL repository.
